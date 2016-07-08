@@ -123,6 +123,9 @@
 												style="width: 300px">
 												<h:outputText value="#{defauts.travauxDefaut}" />
 											</p:column>
+											<p:column headerText="Levée du réserve">
+												<h:outputText value="#{defauts.leveeReserve}" />
+											</p:column>
 											<f:facet name="footer">
 												<p:outputPanel
 													rendered="#{'512'>=receptionCtr.projet.descEtat}">
@@ -139,6 +142,13 @@
 															oncomplete="PF('travauxDialog').show();"
 															process="singleDT" />
 													</sec:authorize>
+													<sec:authorize access="hasRole('PRCP')">
+														<p:commandButton icon="ui-icon-trash"
+															validateClient="true" value="Reserve"
+															update=":form:Detail2"
+															oncomplete="PF('reserveDialog').show();"
+															process="singleDT" />
+													</sec:authorize>
 												</p:outputPanel>
 											</f:facet>
 										</p:dataTable>
@@ -153,13 +163,34 @@
 												<h:outputText value="Description travaux :" />
 												<p:inputTextarea rows="5" cols="30" queryDelay="750"
 													placeholder="Description travaux" minQueryLength="4"
-													value="#{receptionCtr.selectedDefaut.travauxDefaut}" />
+													value="#{receptionCtr.selectedTravaux}" />
 											</p:panelGrid>
 										</p:outputPanel>
 										<div align="center">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider"
-												action="#{receptionCtr.updateDefaut()}" ajax="false" />
+												action="#{receptionCtr.updateDefautTravaux()}" ajax="false" />
+										</div>
+									</p:dialog>
+
+									<p:dialog header="Réserve" widgetVar="reserveDialog"
+										modal="true" showEffect="fade" hideEffect="fade"
+										resizable="false">
+										<p:outputPanel id="Detail2" style="text-align:center;">
+											<p:panelGrid columns="2"
+												rendered="#{not empty receptionCtr.selectedDefaut}">
+												<h:outputText value="Levée du réserve :" />
+												<p:selectOneRadio style="width: 300px"
+													value="#{receptionCtr.selectedReserve}">
+													<f:selectItem itemLabel="Oui" itemValue="Oui" />
+													<f:selectItem itemLabel="Non" itemValue="Non" />
+												</p:selectOneRadio>
+											</p:panelGrid>
+										</p:outputPanel>
+										<div align="center">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{receptionCtr.updateDefautReserve()}" ajax="false" />
 										</div>
 									</p:dialog>
 
@@ -512,8 +543,8 @@
 												<p:column headerText="Validation Défaut">
 													<h:outputText value="#{defauts.validationDefaut}" />
 												</p:column>
-												<p:column headerText="Reserves">
-													<h:outputText value="#{defauts.validationReserve}" />
+												<p:column headerText="Levée du réserve">
+													<h:outputText value="#{defauts.leveeReserve}" />
 												</p:column>
 												<f:facet name="footer">
 													<p:outputPanel>
@@ -527,7 +558,7 @@
 															</sec:authorize>
 															<sec:authorize access="hasRole('PRRST')">
 																<p:commandButton icon="ui-icon-trash"
-																	validateClient="true" value="Reserves"
+																	validateClient="true" value="Validation Défaut"
 																	update=":form1:Detail222"
 																	oncomplete="PF('validationDefautDialog').show();"
 																	process="singleDT" />
@@ -540,6 +571,13 @@
 																	validateClient="true" value="Travaux"
 																	update=":form1:Detail111"
 																	oncomplete="PF('travauxDialog').show();"
+																	process="singleDT" />
+															</sec:authorize>
+															<sec:authorize access="hasRole('PRRST')">
+																<p:commandButton icon="ui-icon-trash"
+																	validateClient="true" value="Levée Reserve"
+																	update=":form1:Detail5"
+																	oncomplete="PF('reserveDialog').show();"
 																	process="singleDT" />
 															</sec:authorize>
 														</p:outputPanel>
@@ -557,7 +595,7 @@
 													<h:outputText value="Description travaux :" />
 													<p:inputTextarea rows="5" cols="30" queryDelay="750"
 														placeholder="Description travaux" minQueryLength="4"
-														value="#{receptionCtr.selectedDefaut.travauxDefaut}" />
+														value="#{receptionCtr.selectedTravaux}" />
 												</p:panelGrid>
 											</p:outputPanel>
 											<div align="center">
@@ -567,8 +605,7 @@
 											</div>
 										</p:dialog>
 
-										<p:dialog
-											header="Validation Défaut #{receptionCtr.selectedDefaut.validationDefaut}"
+										<p:dialog header="Validation Défaut"
 											widgetVar="validationDefautDialog" modal="true"
 											showEffect="fade" hideEffect="fade" resizable="false">
 											<p:outputPanel id="Detail222" style="text-align:center;">
@@ -576,8 +613,7 @@
 													rendered="#{not empty receptionCtr.selectedDefaut}">
 													<p:panelGrid columns="2"
 														rendered="#{receptionCtr.selectedDefaut.validationDefaut == null}">
-														<h:outputText
-															value="Valider ce défaut : #{receptionCtr.selectedDefaut.validationDefaut}" />
+														<h:outputText value="Valider ce défaut :" />
 														<p:commandButton styleClass="btn btn-info btn-rounded"
 															value="ok" title="Valider"
 															action="#{receptionCtr.updateDefautClientValidation()}"
@@ -592,6 +628,26 @@
 											</p:outputPanel>
 										</p:dialog>
 
+										<p:dialog header="Réserve" widgetVar="reserveDialog"
+											modal="true" showEffect="fade" hideEffect="fade"
+											resizable="false">
+											<p:outputPanel id="Detail5" style="text-align:center;">
+												<p:panelGrid columns="2"
+													rendered="#{not empty receptionCtr.selectedDefaut}">
+													<h:outputText value="Levée du réserve :" />
+													<p:selectOneRadio value="#{receptionCtr.selectedReserve}">
+														<f:selectItem itemLabel="Oui" itemValue="Oui" />
+														<f:selectItem itemLabel="Non" itemValue="Non" />
+													</p:selectOneRadio>
+												</p:panelGrid>
+											</p:outputPanel>
+											<div align="center">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{receptionCtr.updateDefautLeveeReserve()}"
+													ajax="false" />
+											</div>
+										</p:dialog>
 
 										<p:dialog header="Défauts" widgetVar="defautsDialog"
 											modal="true" showEffect="fade" hideEffect="fade"
@@ -639,7 +695,8 @@
 											<td><h:form>
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="Valider" title="Valider"
-														action="#{receptionCtr.validerLeveeReserves()}" />
+														action="#{receptionCtr.validerLeveeReserves()}"
+														ajax="false" />
 												</h:form></td>
 										</table>
 									</sec:authorize>
@@ -655,16 +712,18 @@
 													</h3>
 												</ul>
 											</td>
-											<td><p:commandButton
-													styleClass="btn btn-info btn-rounded" value="ok"
-													title="Valider"
-													action="#{receptionCtr.createReceptionDefinitive()}" /></td>
+											<td><h:form>
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="ok" title="Valider"
+														action="#{receptionCtr.createReceptionDefinitive()}"
+														ajax="false" />
+												</h:form></td>
 										</table>
 									</sec:authorize>
 								</p:outputPanel>
 								<p:outputPanel rendered="#{receptionCtr.projet.descEtat>='523'}">
 									<table style="margin-bottom: 0.4cm;">
-										<td width="465px">
+										<td width="380px">
 											<ul>
 												<h3>
 													<li><b>Réception définitive :</b></li>
@@ -686,43 +745,59 @@
 										<li><b>Syndicat :</b></li>
 									</h3>
 								</ul>
-								<p:outputPanel rendered="#{receptionCtr.projet.descEtat=='523'}">
-									<sec:authorize access="hasRole('PRCP')">
-										<h:form>
-											<table align="center"
-												style="margin-top: 0.1cm; text-shadow: black;">
-												<td><p:inputText required="true"
+								<p:outputPanel rendered="#{receptionCtr.projet.descEtat>='523'}">
+
+									<h:form id="form2">
+										<p:growl id="msgs" showDetail="true" />
+										<div align="center">
+											<p:dataTable var="clients" value="#{receptionCtr.clients}">
+												<p:column headerText="Id Client">
+													<h:outputText value="#{clients.idCli}" />
+												</p:column>
+												<p:column headerText="Nom Client">
+													<h:outputText value="#{clients.nom}" />
+												</p:column>
+												<p:column headerText="Prénom Client">
+													<h:outputText value="#{clients.prenom}" />
+												</p:column>
+												<p:column headerText="Fonction">
+													<h:outputText value="#{clients.fonctionSyndicat}" />
+												</p:column>
+												<f:facet name="footer">
+													<p:outputPanel
+														rendered="#{receptionCtr.projet.descEtat=='523'}">
+														<sec:authorize access="hasRole('PRCP')">
+															<p:commandButton icon="ui-icon-trash"
+																validateClient="true" value="Ajouter"
+																update=":form2:syndicat"
+																oncomplete="PF('syndicatDialog').show();" />
+														</sec:authorize>
+													</p:outputPanel>
+												</f:facet>
+											</p:dataTable>
+										</div>
+										
+										<p:dialog header="Syndicat" widgetVar="syndicatDialog"
+											modal="true" showEffect="fade" hideEffect="fade"
+											resizable="false">
+											<p:outputPanel id="syndicat" style="text-align:center;">
+												<p:panelGrid columns="2">
+													<h:outputText value="Id Client :" />
+													<p:inputText required="true"
 														placeholder="Id Client"
-														value="#{receptionCtr.client.idCli}" /></td>
-												<td><p:inputText required="true" placeholder="Fonction"
-														value="#{receptionCtr.client.fonctionSyndicat}" /></td>
-											</table>
+														value="#{receptionCtr.client.idCli}" />
+													<h:outputText value="Fonction :" />
+													<p:inputText required="true" placeholder="Fonction"
+														value="#{receptionCtr.client.fonctionSyndicat}" />
+												</p:panelGrid>
+											</p:outputPanel>
 											<div align="center">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{receptionCtr.createSyndicat()}" />
+													action="#{receptionCtr.createSyndicat()}" ajax="false" />
 											</div>
-										</h:form>
-									</sec:authorize>
-								</p:outputPanel>
-								<p:outputPanel rendered="#{receptionCtr.projet.descEtat>='523'}">
-									<div align="center">
-										<p:dataTable var="clients" value="#{receptionCtr.clients}"
-											style="margin-top: 0.5cm; width: 1000px;">
-											<p:column headerText="Id Client">
-												<h:outputText value="#{clients.idCli}" />
-											</p:column>
-											<p:column headerText="Nom Client">
-												<h:outputText value="#{clients.nom}" />
-											</p:column>
-											<p:column headerText="Prénom Client">
-												<h:outputText value="#{clients.prenom}" />
-											</p:column>
-											<p:column headerText="Fonction">
-												<h:outputText value="#{clients.fonctionSyndicat}" />
-											</p:column>
-										</p:dataTable>
-									</div>
+										</p:dialog>
+									</h:form>
 								</p:outputPanel>
 							</div>
 

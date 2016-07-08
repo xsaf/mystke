@@ -53,6 +53,9 @@ public class Projet {
 	private Set<AxeAmelioration> axeAmeliorations;
 	@OneToMany(mappedBy = "projet")
 	private Set<Avis> avis;
+	@OneToMany(mappedBy = "projet")
+	private Set<Client> clients;
+	
 	
 	
 	public Projet() {
@@ -224,6 +227,14 @@ public class Projet {
 
 	public void setAvis(Set<Avis> avis) {
 		this.avis = avis;
+	}
+
+	public Set<Client> getClients() {
+		return clients;
+	}
+
+	public void setClients(Set<Client> clients) {
+		this.clients = clients;
 	}
 	
 	

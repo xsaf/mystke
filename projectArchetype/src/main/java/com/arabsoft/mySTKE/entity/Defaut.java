@@ -16,6 +16,7 @@ public class Defaut {
 	private String travauxDefaut;
 	private String validationReserve;
 	private String validationDefaut;
+	private String leveeReserve;
 	@ManyToOne
 	private Immeuble immeuble;
 	@ManyToOne
@@ -82,6 +83,12 @@ public class Defaut {
 	}
 	public String getValidationReserve() {
 		return validationReserve;
+	}
+	public String getLeveeReserve() {
+		return leveeReserve;
+	}
+	public void setLeveeReserve(String leveeReserve) {
+		this.leveeReserve = leveeReserve;
 	}
 	
 	

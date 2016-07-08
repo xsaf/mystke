@@ -20,12 +20,14 @@ public class ClientBusinessImpl implements ClientBusiness {
 
 	@Override
 	public void updateClient(Client client) {
-		genericDao.update(client);
+		Client cl = (Client) genericDao.findById(Client.class, client.getIdCli());
+		cl.setFonctionSyndicat(client.getFonctionSyndicat());
+		genericDao.update(cl);
 	}
 
 	@Override
 	public List<Client> findClientsByIdProjet(int idProj) {
-		List<Client> l = genericDao.findAll(Client.class);
+		List<Client> l = genericDao.findByPropriety(Client.class.getName(), "PROJET_IDPROJ",""+idProj);
 		List<Client> l1 = new ArrayList<Client>();
 		for(int i=0; i<l.size(); i++){
 			if(!l.get(i).getFonctionSyndicat().equals(null))

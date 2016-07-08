@@ -36,7 +36,9 @@ public class ReceptionCtr {
 	private List<Defaut> defauts;
 	private List<Client> clients;
 	private Defaut selectedDefaut = new Defaut();
-
+	private String selectedReserve;
+	private String selectedTravaux;
+	
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
 
@@ -95,7 +97,13 @@ public class ReceptionCtr {
 		defautBusiness.createDefaut(defaut);
 	}
 
-	public void updateDefaut(){
+	public void updateDefautTravaux(){
+		selectedDefaut.setTravauxDefaut(selectedTravaux);
+		defautBusiness.updateDefaut(selectedDefaut);
+	}
+	
+	public void updateDefautReserve(){
+		selectedDefaut.setLeveeReserve(selectedReserve);
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
 	
@@ -174,6 +182,12 @@ public class ReceptionCtr {
 	}
 	
 	public void updateDefautClient(){
+		selectedDefaut.setTravauxDefaut(selectedTravaux);
+		defautBusiness.updateDefaut(selectedDefaut);
+	}	
+	
+	public void updateDefautLeveeReserve(){
+		selectedDefaut.setLeveeReserve(selectedReserve);
 		defautBusiness.updateDefaut(selectedDefaut);
 	}	
 	
@@ -349,6 +363,26 @@ public class ReceptionCtr {
 	public void setSelectedDefaut(Defaut selectedDefaut) {
 		this.selectedDefaut = selectedDefaut;
 	}
+
+	public String getSelectedReserve() {
+		return selectedReserve;
+	}
+
+	public void setSelectedReserve(String selectedReserve) {
+		this.selectedReserve = selectedReserve;
+	}
+
+	public String getSelectedTravaux() {
+		return selectedTravaux;
+	}
+
+	public void setSelectedTravaux(String selectedTravaux) {
+		this.selectedTravaux = selectedTravaux;
+	}
+
+	
+	
+	
 	
 	
 	
