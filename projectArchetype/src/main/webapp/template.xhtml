@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<!-- END META SECTION -->
+
+	<!-- CSS INCLUDE -->
+	<link rel="stylesheet" type="text/css" id="theme"
+		href="css/theme-default.css" />
+	<link href="google-drive/lightbox.css" rel="stylesheet" />
+	<link href="google-drive/google-drive.css" rel="stylesheet"
+		type="text/css" />
+	<!-- EOF CSS INCLUDE -->
+
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="http://maps.googleapis.com/maps/api/js"></script>
+		
+</h:head>
+
+<h:body>
+
+			<div class="page-container">
+
+				<div id="menu">
+					<ui:insert name="menuPrincipal">
+						<ui:include src="/facelets/menuPrincipal.xhtml" />
+					</ui:insert>
+				</div>
+
+				<div class="page-content">
+
+					<div id="header">
+						<ui:insert name="header">
+							<ui:include src="/facelets/header.xhtml" />
+						</ui:insert>
+					</div>
+
+					<div id="body">
+						<ui:insert name="body">
+							<ui:include src="/facelets/body.xhtml" />
+						</ui:insert>
+					</div>
+
+				</div>
+			</div>
+
+			<div id="footer">
+				<ui:insert name="footer">
+					<ui:include src="/facelets/footer.xhtml" />
+				</ui:insert>
+			</div>
+			
+
+</h:body>
+</html>

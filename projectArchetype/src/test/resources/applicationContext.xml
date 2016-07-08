@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DATASOURCE DEFINITON -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+	<!-- HIBERNATE CONFIGURATION -->
+	<bean id="sessionFactory835AS400"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSource835As400" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.company.myApplication.entity.as400.Debiteur</value>
+				<value>com.company.myApplication.entity.as400.PersonnePhysique</value>
+				<value>com.company.myApplication.entity.as400.PersonneMorale</value>
+				<value>com.company.myApplication.entity.as400.Risque</value>
+				<value>com.company.myApplication.entity.as400.RisqueId</value>
+				<value>com.company.myApplication.entity.as400.OperationCtx</value>
+				<value>com.company.myApplication.entity.as400.OperationId</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptable</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptableId</value>
+				<value>com.company.myApplication.entity.as400.RembousementCtx</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursement</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursementId</value>
+				<value>com.company.myApplication.entity.as400.CompteurJourneeCtx</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.connection.isolation">0</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="sessionFactory883AS400"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSource883As400" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.company.myApplication.entity.as400.Debiteur</value>
+				<value>com.company.myApplication.entity.as400.PersonnePhysique</value>
+				<value>com.company.myApplication.entity.as400.PersonneMorale</value>
+				<value>com.company.myApplication.entity.as400.Risque</value>
+				<value>com.company.myApplication.entity.as400.RisqueId</value>
+				<value>com.company.myApplication.entity.as400.OperationCtx</value>
+				<value>com.company.myApplication.entity.as400.OperationId</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptable</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptableId</value>
+				<value>com.company.myApplication.entity.as400.RembousementCtx</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursement</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursementId</value>
+				<value>com.company.myApplication.entity.as400.CompteurJourneeCtx</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.connection.isolation">0</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="sessionFactory885AS400"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSource885As400" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.company.myApplication.entity.as400.Debiteur</value>
+				<value>com.company.myApplication.entity.as400.PersonnePhysique</value>
+				<value>com.company.myApplication.entity.as400.PersonneMorale</value>
+				<value>com.company.myApplication.entity.as400.Risque</value>
+				<value>com.company.myApplication.entity.as400.RisqueId</value>
+				<value>com.company.myApplication.entity.as400.OperationCtx</value>
+				<value>com.company.myApplication.entity.as400.OperationId</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptable</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptableId</value>
+				<value>com.company.myApplication.entity.as400.RembousementCtx</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursement</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursementId</value>
+				<value>com.company.myApplication.entity.as400.CompteurJourneeCtx</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.connection.isolation">0</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="sessionFactory886AS400"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSource886As400" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.company.myApplication.entity.as400.Debiteur</value>
+				<value>com.company.myApplication.entity.as400.PersonnePhysique</value>
+				<value>com.company.myApplication.entity.as400.PersonneMorale</value>
+				<value>com.company.myApplication.entity.as400.Risque</value>
+				<value>com.company.myApplication.entity.as400.RisqueId</value>
+				<value>com.company.myApplication.entity.as400.OperationCtx</value>
+				<value>com.company.myApplication.entity.as400.OperationId</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptable</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptableId</value>
+				<value>com.company.myApplication.entity.as400.RembousementCtx</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursement</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursementId</value>
+				<value>com.company.myApplication.entity.as400.CompteurJourneeCtx</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.connection.isolation">0</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sessionFactory888AS400"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSource888As400" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.company.myApplication.entity.as400.Debiteur</value>
+				<value>com.company.myApplication.entity.as400.PersonnePhysique</value>
+				<value>com.company.myApplication.entity.as400.PersonneMorale</value>
+				<value>com.company.myApplication.entity.as400.Risque</value>
+				<value>com.company.myApplication.entity.as400.RisqueId</value>
+				<value>com.company.myApplication.entity.as400.OperationCtx</value>
+				<value>com.company.myApplication.entity.as400.OperationId</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptable</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptableId</value>
+				<value>com.company.myApplication.entity.as400.RembousementCtx</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursement</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursementId</value>
+				<value>com.company.myApplication.entity.as400.CompteurJourneeCtx</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.connection.isolation">0</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<bean id="sessionFactory889AS400"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSource889As400" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.company.myApplication.entity.as400.Debiteur</value>
+				<value>com.company.myApplication.entity.as400.PersonnePhysique</value>
+				<value>com.company.myApplication.entity.as400.PersonneMorale</value>
+				<value>com.company.myApplication.entity.as400.Risque</value>
+				<value>com.company.myApplication.entity.as400.RisqueId</value>
+				<value>com.company.myApplication.entity.as400.OperationCtx</value>
+				<value>com.company.myApplication.entity.as400.OperationId</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptable</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptableId</value>
+				<value>com.company.myApplication.entity.as400.RembousementCtx</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursement</value>
+				<value>com.company.myApplication.entity.as400.HistoriqueRemboursementId</value>
+				<value>com.company.myApplication.entity.as400.CompteurJourneeCtx</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DB2400Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.connection.isolation">0</prop>
+				<prop key="hibernate.connection.autocommit">true</prop>
+				<prop key="hibernate.current_session_context_class">thread</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.company.myApplication.entity.as400.Debiteur</value>
+				<value>com.company.myApplication.entity.as400.PersonnePhysique</value>
+				<value>com.company.myApplication.entity.as400.PersonneMorale</value>
+				<value>com.company.myApplication.entity.as400.Risque</value>
+				<value>com.company.myApplication.entity.as400.RisqueId</value>
+				<value>com.company.myApplication.entity.as400.OperationCtx</value>
+				<value>com.company.myApplication.entity.as400.OperationId</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptable</value>
+				<value>com.company.myApplication.entity.as400.MouvementComptableId</value>
+				<value>com.company.myApplication.entity.RmseChq</value>
+				<value>com.company.myApplication.entity.refcli.Operation</value>
+				<value>com.company.myApplication.entity.refcli.Activite</value>
+				<value>com.company.myApplication.entity.refcli.ActiviteId</value>
+				<value>com.company.myApplication.entity.refcli.Agence</value>
+				<value>com.company.myApplication.entity.refcli.AgenceId</value>
+				<value>com.company.myApplication.entity.refcli.AgentEconomique</value>
+				<value>com.company.myApplication.entity.refcli.AgentEconomiqueId</value>
+				<value>com.company.myApplication.entity.refcli.Banque</value>
+				<value>com.company.myApplication.entity.refcli.BienPatDom</value>
+				<value>com.company.myApplication.entity.refcli.CategoriePersonne</value>
+				<value>com.company.myApplication.entity.refcli.CatSocProf</value>
+				<value>com.company.myApplication.entity.refcli.ClasActivite</value>
+				<value>com.company.myApplication.entity.refcli.ClasAgEconomique</value>
+				<value>com.company.myApplication.entity.refcli.ClasSegment</value>
+				<value>com.company.myApplication.entity.refcli.Client</value>
+				<value>com.company.myApplication.entity.refcli.CodePostal</value>
+				<value>com.company.myApplication.entity.refcli.ContratCpt</value>
+				<value>com.company.myApplication.entity.refcli.ContratCptId</value>
+				<value>com.company.myApplication.entity.refcli.CoTitulaire</value>
+				<value>com.company.myApplication.entity.refcli.CoTitulaireId</value>
+				<value>com.company.myApplication.entity.refcli.Devise</value>
+				<value>com.company.myApplication.entity.refcli.Diplome</value>
+				<value>com.company.myApplication.entity.refcli.DiplomesPersonne</value>
+				<value>com.company.myApplication.entity.refcli.DiplomesPersonneId</value>
+				<value>com.company.myApplication.entity.refcli.Domaine</value>
+				<value>com.company.myApplication.entity.refcli.Emetteur</value>
+				<value>com.company.myApplication.entity.refcli.Employeur</value>
+				<value>com.company.myApplication.entity.refcli.FamilleProduit</value>
+				<value>com.company.myApplication.entity.refcli.FormeJuridique</value>
+				<value>com.company.myApplication.entity.refcli.Gouvernorat</value>
+				<value>com.company.myApplication.entity.refcli.Groupe</value>
+				<value>com.company.myApplication.entity.refcli.GroupeOperation</value>
+				<value>com.company.myApplication.entity.refcli.GroupeOperationId</value>
+				<value>com.company.myApplication.entity.refcli.GroupeProduit</value>
+				<value>com.company.myApplication.entity.refcli.GroupeProduitId</value>
+				<value>com.company.myApplication.entity.refcli.GroupeProfession</value>
+				<value>com.company.myApplication.entity.refcli.JourneeStructure</value>
+				<value>com.company.myApplication.entity.refcli.JourneeStructureDomaine</value>
+				<value>com.company.myApplication.entity.refcli.JourneeStructureDomaineId</value>
+				<value>com.company.myApplication.entity.refcli.JourneeStructureId</value>
+				<value>com.company.myApplication.entity.refcli.NiveauInstruction</value>
+				<value>com.company.myApplication.entity.refcli.Nomenclature</value>
+				<value>com.company.myApplication.entity.refcli.NPAgricole</value>
+				<value>com.company.myApplication.entity.refcli.Pays</value>
+				<value>com.company.myApplication.entity.refcli.PersClient</value>
+				<value>com.company.myApplication.entity.refcli.PersClientId</value>
+				<value>com.company.myApplication.entity.refcli.Personne</value>
+				<value>com.company.myApplication.entity.refcli.Personnel</value>
+				<value>com.company.myApplication.entity.refcli.PieceAnnexe</value>
+				<value>com.company.myApplication.entity.refcli.PieceAnnexeId</value>
+				<value>com.company.myApplication.entity.refcli.Produit</value>
+				<value>com.company.myApplication.entity.refcli.Profession</value>
+				<value>com.company.myApplication.entity.refcli.ProfessionId</value>
+				<value>com.company.myApplication.entity.refcli.Qualite</value>
+				<value>com.company.myApplication.entity.refcli.RegimeMatrimonial</value>
+				<value>com.company.myApplication.entity.refcli.SclasActivite</value>
+				<value>com.company.myApplication.entity.refcli.SclasActiviteId</value>
+				<value>com.company.myApplication.entity.refcli.SclasSegment</value>
+				<value>com.company.myApplication.entity.refcli.SclasSegmentId</value>
+				<value>com.company.myApplication.entity.refcli.Segment</value>
+				<value>com.company.myApplication.entity.refcli.SegmentId</value>
+				<value>com.company.myApplication.entity.refcli.SousFamilleProduit</value>
+				<value>com.company.myApplication.entity.refcli.SousFamilleProduitId</value>
+				<value>com.company.myApplication.entity.refcli.SousGroupeOperation</value>
+				<value>com.company.myApplication.entity.refcli.SousGroupeOperationId</value>
+				<value>com.company.myApplication.entity.refcli.Structure</value>
+				<value>com.company.myApplication.entity.refcli.StructureDomaine</value>
+				<!-- <value>com.company.myApplication.entity.refcli.Tache</value> -->
+				<!-- <value>com.company.myApplication.entity.refcli.TacheId</value> -->
+				<value>com.company.myApplication.entity.refcli.Tribunal</value>
+				<value>com.company.myApplication.entity.refcli.TypeGroupeProduit</value>
+				<value>com.company.myApplication.entity.refcli.TypePers</value>
+				<value>com.company.myApplication.entity.refcli.TypePiece</value>
+				<value>com.company.myApplication.entity.refcli.TypeStructure</value>
+				<value>com.company.myApplication.entity.saga.AffectationGarantie</value>
+				<value>com.company.myApplication.entity.saga.Assurance</value>
+				<value>com.company.myApplication.entity.saga.Caracteristique</value>
+				<value>com.company.myApplication.entity.saga.CaracteristiqueGarantie</value>
+				<value>com.company.myApplication.entity.saga.CaracteristiqueGarantieId</value>
+				<value>com.company.myApplication.entity.saga.CautionAvaliste</value>
+				<value>com.company.myApplication.entity.saga.Charge</value>
+				<value>com.company.myApplication.entity.saga.Creancier</value>
+				<value>com.company.myApplication.entity.saga.Garantie</value>
+				<value>com.company.myApplication.entity.saga.GarantieProp</value>
+				<value>com.company.myApplication.entity.saga.GarantiePropId</value>
+				<value>com.company.myApplication.entity.saga.GarantieSubstitue</value>
+				<value>com.company.myApplication.entity.saga.GarantieSubstitueId</value>
+				<value>com.company.myApplication.entity.saga.PersonneProp</value>
+				<value>com.company.myApplication.entity.saga.PropPers</value>
+				<value>com.company.myApplication.entity.saga.PropPersId</value>
+				<value>com.company.myApplication.entity.saga.Proprietaire</value>
+				<value>com.company.myApplication.entity.saga.RisqGar</value>
+				<value>com.company.myApplication.entity.saga.TypeGarantie</value>
+				<value>com.company.myApplication.entity.saga.ValeurDomaine</value>
+				<value>com.company.myApplication.entity.saga.NatureCaracteristique</value>
+				<value>com.company.myApplication.entity.saga.NatureCaracteristiqueId</value>
+				<value>com.company.myApplication.entity.saga.NatureGarantie</value>
+				<value>com.company.myApplication.entity.saga.NatureRisque</value>
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+			</props>
+		</property>
+	</bean>
+
+	<context:component-scan base-package="com.company.myApplication" />
+
+
+
+	<context:property-placeholder
+		location="classpath:jdbc.properties,classpath:ldap.properties" />
+
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" lazy-init="true">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="10" />
+		<property name="maxActive" value="60" />
+		<property name="maxIdle" value="20" />
+		<!-- <property name="removeAbandoned" value="true" /> -->
+		<!-- <property name="removeAbandonedTimeout" value="5" /> -->
+	</bean>
+
+	<bean id="dataSource835As400" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" lazy-init="true">
+		<property name="driverClassName" value="${jdbc.driverClassNameAs400}" />
+		<property name="url" value="${jdbc.urlAs400_835}" />
+		<property name="username" value="${jdbc.usernameAs400}" />
+		<property name="password" value="${jdbc.passwordAs400}" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<!-- <property name="removeAbandoned" value="true" /> -->
+		<!-- <property name="removeAbandonedTimeout" value="5" /> -->
+	</bean>
+
+	<bean id="dataSource883As400" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" lazy-init="true">
+		<property name="driverClassName" value="${jdbc.driverClassNameAs400}" />
+		<property name="url" value="${jdbc.urlAs400_883}" />
+		<property name="username" value="${jdbc.usernameAs400}" />
+		<property name="password" value="${jdbc.passwordAs400}" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<!-- <property name="removeAbandoned" value="true" /> -->
+		<!-- <property name="removeAbandonedTimeout" value="5" /> -->
+	</bean>
+
+	<bean id="dataSource885As400" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" lazy-init="true">
+		<property name="driverClassName" value="${jdbc.driverClassNameAs400}" />
+		<property name="url" value="${jdbc.urlAs400_885}" />
+		<property name="username" value="${jdbc.usernameAs400}" />
+		<property name="password" value="${jdbc.passwordAs400}" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<!-- <property name="removeAbandoned" value="true" /> -->
+		<!-- <property name="removeAbandonedTimeout" value="5" /> -->
+	</bean>
+
+
+	<bean id="dataSource886As400" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" lazy-init="true">
+		<property name="driverClassName" value="${jdbc.driverClassNameAs400}" />
+		<property name="url" value="${jdbc.urlAs400_886}" />
+		<property name="username" value="${jdbc.usernameAs400}" />
+		<property name="password" value="${jdbc.passwordAs400}" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<!-- <property name="removeAbandoned" value="true" /> -->
+		<!-- <property name="removeAbandonedTimeout" value="5" /> -->
+	</bean>
+
+
+	<bean id="dataSource888As400" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" lazy-init="true">
+		<property name="driverClassName" value="${jdbc.driverClassNameAs400}" />
+		<property name="url" value="${jdbc.urlAs400_888}" />
+		<property name="username" value="${jdbc.usernameAs400}" />
+		<property name="password" value="${jdbc.passwordAs400}" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<!-- <property name="removeAbandoned" value="true" /> -->
+		<!-- <property name="removeAbandonedTimeout" value="5" /> -->
+	</bean>
+
+	<bean id="dataSource889As400" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" lazy-init="true">
+		<property name="driverClassName" value="${jdbc.driverClassNameAs400}" />
+		<property name="url" value="${jdbc.urlAs400_889}" />
+		<property name="username" value="${jdbc.usernameAs400}" />
+		<property name="password" value="${jdbc.passwordAs400}" />
+		<property name="initialSize" value="5" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+		<!-- <property name="removeAbandoned" value="true" /> -->
+		<!-- <property name="removeAbandonedTimeout" value="5" /> -->
+	</bean>
+
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+
+	<!-- Transaction management -->
+
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+
+
+	<tx:annotation-driven mode="proxy" />
+
+
+
+	<bean id="abstractHabilHibernateDAO"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		abstract="true">
+		<property name="sessionFactory" ref="sessionFactoryHabil" />
+	</bean>
+
+
+	<bean id="userDao" class="com.company.myApplication.security.habilitation.dao.impl.UserDaoImpl">
+		<property name="dataSource" ref="dataSourceHabil"></property>
+		<property name="jdbcTemplate" ref="jdbcTemplateHabil"></property>
+		<property name="ldapUserSearch" ref="ldapUserSearch"></property>
+		<property name="sessionFactory" ref="sessionFactoryHabil"></property>
+	</bean>
+
+	<bean id="dataSourceHabil" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close" lazy-init="true">
+		<property name="initialSize" value="20" />
+		<property name="maxActive" value="50" />
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.usernameHabil}" />
+		<property name="password" value="${jdbc.passwordHabil}" />
+
+	</bean>
+
+	<bean id="jdbcTemplateHabil" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSourceHabil" />
+	</bean>
+
+	<!-- HIBERNATE CONFIGURATION -->
+	<bean id="sessionFactoryHabil"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSourceHabil" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.company.myApplication.security.habilitation.model.Application</value>
+				<value>com.company.myApplication.security.habilitation.model.ChefAge</value>
+				<value>com.company.myApplication.security.habilitation.model.ChefAgeId</value>
+				<value>com.company.myApplication.security.habilitation.model.Cre</value>
+				<value>com.company.myApplication.security.habilitation.model.Fonction</value>
+				<value>com.company.myApplication.security.habilitation.model.HabilPers</value>
+				<value>com.company.myApplication.security.habilitation.model.HabilPersId</value>
+				<value>com.company.myApplication.security.habilitation.model.HistInterim</value>
+				<value>com.company.myApplication.security.habilitation.model.HistMutation</value>
+				<value>com.company.myApplication.security.habilitation.model.HistoriqueRessource
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.HistPersonnel
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.HistProfil</value>
+				<value>com.company.myApplication.security.habilitation.model.HistProfilId</value>
+				<value>com.company.myApplication.security.habilitation.model.HistRessource
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.HistRole</value>
+				<value>com.company.myApplication.security.habilitation.model.HistUtilisateur
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.HistUtilisateurProfil
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.HistUtilisateurProfilId
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.Interim</value>
+				<value>com.company.myApplication.security.habilitation.model.Mutation</value>
+				<value>com.company.myApplication.security.habilitation.model.MutationId</value>
+				<value>com.company.myApplication.security.habilitation.model.ParametreProfil
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.Personnel</value>
+				<value>com.company.myApplication.security.habilitation.model.Profil</value>
+				<value>com.company.myApplication.security.habilitation.model.ProfilRessource
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.Ressource</value>
+				<value>com.company.myApplication.security.habilitation.model.SegmentsStructure
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.SegmentsStructureId
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.TypeRessource
+				</value>
+				<value>com.company.myApplication.security.habilitation.model.UserRole</value>
+				<value>com.company.myApplication.security.habilitation.model.UserRoleId</value>
+				<value>com.company.myApplication.security.habilitation.model.Structure</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+
+			</props>
+		</property>
+	</bean>
+	<security:http pattern="/**/*.css*" security="none" />
+	<security:http pattern="/**/*.xcss*" security="none" />
+	<security:http pattern="/**/*.png*" security="none" />
+	<security:http pattern="/**/*.js*" security="none" />
+	<security:http pattern="/index*" security="none" />
+	<security:http pattern="/login*" security="none" />
+	<security:http pattern="/**/403*" security="none" />
+	<security:http pattern="/wsctx/**" security="none" />
+
+	<bean id="accessDeniedHandler"
+		class="com.company.myApplication.security.authorities.CustomAccessDeniedHandler">
+		<property name="accessDeniedUrl" value="/loginCtx.xhtml"></property>
+	</bean>
+
+
+	<security:http use-expressions="true" once-per-request="false">
+		<security:intercept-url pattern="/**"
+			access="hasAnyRole('PRPRECCT','PRCNXCCTX')" />
+		<security:form-login login-page="/loginCtx.xhtml"
+			authentication-failure-url="/loginCtx.xhtml" login-processing-url="/j_spring_security_check"
+			default-target-url="/facelets/menuCtx.xhtml"
+			always-use-default-target="true" />
+		<security:logout invalidate-session="true"
+			logout-success-url="/loginCtx.xhtml" />
+		<security:access-denied-handler ref="accessDeniedHandler" />
+
+
+	</security:http>
+
+
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider
+			ref="ldapAuthProvider" />
+	</security:authentication-manager>
+
+
+	<security:ldap-server id="ldapServer" url="${ldap.providerUrl}"
+		manager-dn="${ldap.securityPrincipal}" manager-password="${ldap.securityCredantial}" />
+
+
+	<bean id="ldapAuthProvider"
+		class="org.springframework.security.ldap.authentication.LdapAuthenticationProvider">
+		<constructor-arg ref="ldapBindAuthenticator" />
+		<constructor-arg ref="ldapAuthoritiesPopulator" />
+	</bean>
+
+
+	<bean id="ldapBindAuthenticator"
+		class="org.springframework.security.ldap.authentication.BindAuthenticator">
+		<constructor-arg ref="ldapServer" />
+		<property name="userSearch" ref="ldapSearchBean" />
+		<property name="userDnPatterns" value="${ldap.userDnPatterns}"></property>
+	</bean>
+
+
+
+
+	<bean id="ldapSearchBean"
+		class="org.springframework.security.ldap.search.FilterBasedLdapUserSearch">
+		<constructor-arg value="${ldap.searchBase}" />
+		<constructor-arg value="${ldap.filter}" />
+		<constructor-arg ref="ldapServer" />
+	</bean>
+
+
+	<bean id="ldapUserSearch" class="com.company.myApplication.security.ldap.LdapUserSearch">
+		<property name="searchBase" value="${ldap.searchBase}" />
+		<property name="filter" value="${ldap.filter}" />
+		<property name="initialContextFactory" value="com.sun.jndi.ldap.LdapCtxFactory" />
+		<property name="providerUrl" value="${ldap.providerUrl}" />
+		<property name="securityPrincipal" value="${ldap.securityPrincipal}" />
+		<property name="securityCredantial" value="${ldap.securityCredantial}" />
+	</bean>
+
+
+
+	<bean id="ctxAuthoritiesUserDetailsServiceImpl"
+		class="com.company.myApplication.security.CtxAuthoritiesUserDetailsServiceImpl">
+		<constructor-arg ref="userDao" />
+	</bean>
+
+	<bean id="ldapAuthoritiesPopulator"
+		class="org.springframework.security.ldap.authentication.UserDetailsServiceLdapAuthoritiesPopulator">
+		<constructor-arg ref="ctxAuthoritiesUserDetailsServiceImpl" />
+	</bean>
+
+</beans>

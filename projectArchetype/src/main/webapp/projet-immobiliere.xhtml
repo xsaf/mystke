@@ -1,0 +1,503 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://java.sun.com/jsf/passthrough"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+
+<h:head>
+
+	<!-- META SECTION -->
+
+	<title>Détails</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<!-- END META SECTION -->
+
+	<!-- CSS INCLUDE -->
+	<link rel="stylesheet" type="text/css" id="theme"
+		href="css/theme-default.css" />
+	<link href="google-drive/lightbox.css" rel="stylesheet" />
+	<link href="google-drive/google-drive.css" rel="stylesheet"
+		type="text/css" />
+	<!-- EOF CSS INCLUDE -->
+
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="body">
+
+
+			<div id="idoszone" style="width: 1100px;">
+
+
+				<!-- ID DOSSIER AJOUTE -->
+				<h2 id="yesfolder">Dernier dossier</h2>
+
+
+				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+				<div id="transparent-wrapper"></div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="login-box" class="hide">
+					<p>Please login on your google account.</p>
+					<button id="btnLogin" onclick="handleAuthClick(event)"
+						class="button">Login</button>
+				</div>
+
+				<div id="drive-box" class="hide">
+					<!-- This will be the google drive navigation-->
+					<div id="drive-breadcrumb">
+						<span class='breadcrumb-arrow'></span> <a data-id='root'
+							data-level='0'>Home</a> <span id="span-navigation"></span>
+					</div>
+
+					<!-- This popup panel will be used as user information panel-->
+					<div class="user-item">
+						<a id="link-logout" class="logout-link">Logout</a>
+					</div>
+
+					<!-- A list of menus available for user to use-->
+					<div id="drive-menu">
+						<div id="button-reload" title="Refresh"></div>
+						<div id="button-upload" title="Upload to Google Drive"
+							class="button-opt"></div>
+						<div id="button-addfolder" title="Add Folder" class="button-opt"></div>
+						<div id="button-share" title="Show shared files only"></div>
+					</div>
+					<div id="drive-content"></div>
+					<div id="error-message" class="flash hidden"></div>
+					<div id="status-message" class="flash hidden"></div>
+				</div>
+
+				<!-- This upload control is used for uploading file to google drive-->
+				<input type="file" id="fUpload" class="hide" style="display: none" />
+
+				<!-- This popup panel will be used to create folder-->
+				<div class="float-box" id="float-box">
+					<div class="folder-form">
+						<div class="close-x">
+							<img id="imgClose" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Add New Folder</h3>
+						<div>
+							<input type="text" id="txtFolder" class="text-input" />
+						</div>
+						<button id="btnAddFolder" value="Save" class="button">Add</button>
+						<button id="btnClose" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document/file information -->
+				<div id="float-box-info" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseInfo" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">File information</h3>
+						<table cellpadding="0" cellspacing="0" class="tbl-info">
+							<tr>
+								<td class="label">Created Date</td>
+								<td><span id="spanCreatedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Modified Date</td>
+								<td><span id="spanModifiedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Owner</td>
+								<td><span id="spanOwner"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Title</td>
+								<td><span id="spanTitle"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Size</td>
+								<td><span id="spanSize"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Extension</td>
+								<td><span id="spanExtension"></span></td>
+							</tr>
+						</table>
+						<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="float-box-text" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseText" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Text Content</h3>
+						<div id="text-content"></div>
+						<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+				<!-- This iframe is used for logout-->
+				<iframe id="frameLogout" class="hide"></iframe>
+			</div>
+
+
+
+
+
+
+
+
+
+			<div class="panel panel-default"
+				style="margin-top: 0.3cm; margin-left: 0.3cm;">
+				<div class="container">
+
+					<div class="tab-content">
+
+						<div class="tab-pane fade in active">
+							<div style="margin-top: 0.5cm">
+								<ul>
+									<h3>
+										<li><b>Projet :</b></li>
+									</h3>
+								</ul>
+							</div>
+
+							<p:outputPanel rendered="#{detailsCtr.projet.descEtat=='111'}">
+								<h:form>
+									<div style="margin-left: 3cm;">
+										<h4>
+											<b>-> Description du projet :</b>
+										</h4>
+
+
+										<div align="center"
+											style="margin-bottom: 0.2cm; margin-top: 0.2cm">
+											<p:inputText id="ititreproj" placeholder="Titre projet"
+												value="#{detailsCtr.projet.nomProj}" />
+										</div>
+
+										<div align="center">
+											<p:inputTextarea id="idescproj" rows="5" cols="30"
+												queryDelay="750" placeholder="Description projet"
+												minQueryLength="4" value="#{detailsCtr.projet.libelleProj}" />
+										</div>
+										<div style="margin-left: 3cm; margin-top: 0.3cm">
+											<h4>
+												<b>-> Equipe :</b>
+											</h4>
+										</div>
+
+										<table align="center">
+											<tr>
+												<td><p:selectOneMenu value="#{detailsCtr.directeur}"
+														style="width:180px">
+														<f:selectItem itemLabel="Directeur Général" itemValue="" />
+														<f:selectItems value="#{detailsCtr.directeurs}" />
+													</p:selectOneMenu></td>
+												<td><p:selectOneMenu value="#{detailsCtr.agent}"
+														style="width:180px; margin-left: 0.5cm">
+														<f:selectItem itemLabel="Agent Conseil d'administartion"
+															itemValue="" />
+														<f:selectItems value="#{detailsCtr.agents}" />
+													</p:selectOneMenu></td>
+											</tr>
+											<tr>
+												<td><p:selectOneMenu value="#{detailsCtr.respMark}"
+														style="width:180px">
+														<f:selectItem itemLabel="Responsable Service Marketing"
+															itemValue="" />
+														<f:selectItems value="#{detailsCtr.respMarks}" />
+													</p:selectOneMenu></td>
+												<td><p:selectOneMenu value="#{detailsCtr.respTec}"
+														style="width:180px; margin-left: 0.5cm">
+														<f:selectItem itemLabel="Responsable Service Technique"
+															itemValue="" />
+														<f:selectItems value="#{detailsCtr.respTecs}" />
+													</p:selectOneMenu></td>
+											</tr>
+											<tr>
+												<td><p:selectOneMenu value="#{detailsCtr.architecte}"
+														style="width:180px">
+														<f:selectItem itemLabel="Architecte" itemValue="" />
+														<f:selectItems value="#{detailsCtr.architectes}" />
+													</p:selectOneMenu></td>
+												<td><p:selectOneMenu value="#{detailsCtr.controleur}"
+														style="width:180px; margin-left: 0.5cm">
+														<f:selectItem itemLabel="Controleur de Gestion"
+															itemValue="" />
+														<f:selectItems value="#{detailsCtr.controleurs}" />
+													</p:selectOneMenu></td>
+											</tr>
+										</table>
+										<div align="center">
+											<p:selectOneMenu value="#{detailsCtr.chef}"
+												style="width:180px">
+												<f:selectItem itemLabel="Chef de Projet" itemValue="" />
+												<f:selectItems value="#{detailsCtr.chefs}" />
+											</p:selectOneMenu>
+										</div>
+
+										<div style="margin-left: 3cm; margin-top: 0.3cm">
+											<h4>
+												<b>-> Planning :</b>
+											</h4>
+										</div>
+										<table align="center">
+											<tr>
+												<td><p:inputText id="ietudeestime" required="true"
+														style="margin-bottom: 0.2cm; margin-right:0.6cm"
+														placeholder="Nbr semaine Etude"
+														value="#{detailsCtr.planning.etudeSemaine}" /></td>
+												<td><p:inputText id="iplanificationestime"
+														required="true"
+														style="margin-bottom: 0.2cm; margin-right:0.6cm"
+														placeholder="Nbr semaine Planification"
+														value="#{detailsCtr.planning.planificationSemaine}" /></td>
+											</tr>
+											<tr>
+												<td><p:inputText id="ireunionestime" required="true"
+														style="margin-bottom: 0.2cm; margin-right:0.6cm"
+														placeholder="Nbr semaine Reunion"
+														value="#{detailsCtr.planning.reunionSemaine}" /></td>
+												<td><p:inputText id="iclotureestime" required="true"
+														style="margin-bottom: 0.2cm; margin-right:0.6cm"
+														placeholder="Nbr semaine Cloture"
+														value="#{detailsCtr.planning.clotureSemaine}" /></td>
+											</tr>
+										</table>
+										<div align="center">
+											<p:inputText style="margin-bottom: 0.6cm"
+												placeholder="Nbr semaine Analyse"
+												value="#{detailsCtr.planning.analyseSemaine}" />
+										</div>
+										<div align="center" style="margin-bottom: 0.6cm">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{detailsCtr.createProjet()}">
+												<f:actionListener binding="#{detailsCtr.createEquipe()}" />
+												<f:actionListener binding="#{detailsCtr.createPlanning()}" />
+											</p:commandButton>
+										</div>
+									</div>
+								</h:form>
+							</p:outputPanel>
+
+
+
+
+							<p:outputPanel rendered="#{detailsCtr.projet.descEtat=='112'}">
+								<div style="margin-left: 3cm; margin-bottom: 0.5cm;">
+									<h4>
+										<b>-> Description du projet :</b>
+									</h4>
+									<table id="
+										descprojtab" style="margin-left: 6cm;">
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b>Id Projet :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<h5>
+													<b>#{detailsCtr.projet.idProj}</b>
+												</h5>
+											</td>
+										</tr>
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b>Titre Projet :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<h5>
+													<b>#{detailsCtr.projet.nomProj}</b>
+												</h5>
+											</td>
+										</tr>
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b>Description Projet :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td width="400px">
+												<h5>
+													<b>#{detailsCtr.projet.libelleProj}</b>
+												</h5>
+											</td>
+										</tr>
+									</table>
+									<div style="margin-left: 3cm; margin-top: 0.3cm">
+										<h4>
+											<b>-> Equipe :</b>
+										</h4>
+									</div>
+									<table id="equipetab" style="margin-left: 6cm;">
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b>Directeur Général :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<h5>
+													<b>#{detailsCtr.dir}</b>
+												</h5>
+											</td>
+										</tr>
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b>Agent Conseil d'administration :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<h5>
+													<b>#{detailsCtr.ag}</b>
+												</h5>
+											</td>
+										</tr>
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b>Responsable Service Marketing :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<h5>
+													<b>#{detailsCtr.rM}</b>
+												</h5>
+											</td>
+										</tr>
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b>Responsable Service Technique :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<h5>
+													<b>#{detailsCtr.rT}</b>
+												</h5>
+											</td>
+										</tr>
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b>Architecte :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<h5>
+													<b>#{detailsCtr.ar}</b>
+												</h5>
+											</td>
+										</tr>
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b id="ocontroleur">Controleur de Gestion :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<h5>
+													<b>#{detailsCtr.co}</b>
+												</h5>
+											</td>
+										</tr>
+										<tr>
+											<td width="300px">
+												<ul>
+													<li>
+														<h5>
+															<b id="ochefprojet">Chef de Projet :</b>
+														</h5>
+													</li>
+												</ul>
+											</td>
+											<td>
+												<h5>
+													<b>#{detailsCtr.ch}</b>
+												</h5>
+											</td>
+										</tr>
+									</table>
+									<div style="margin-left: 3cm; margin-top: 0.3cm">
+										<h4>
+											<b>-> Planning :</b>
+										</h4>
+									</div>
+									<table id="graphtab" align="center">
+										<td><p:chart id="oplanning" type="bar"
+												model="#{detailsCtr.animatedModel}" style="width:700px;" /></td>
+									</table>
+								</div>
+							</p:outputPanel>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+
+
+</h:body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
+   PATH="/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="projet-immobiliere::#projet-immobiliere.xhtml" NAME="output"
+    PATH="/projet-immobiliere.xhtml"
+    TARGET="rules:#projet-immobiliere.xhtml" TITLE="projet-immobiliere" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#projet-immobiliere.xhtml"
+  PATH="/projet-immobiliere.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

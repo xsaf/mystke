@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+
+		<p align="center">
+			<h:outputLabel value="HTTP Status 403 - Access is denied"
+				style="color:black" />
+		</p>
+
+
+	
+
+
+
+
+		<h:form>
+			
+			<p align="center" >
+				<img src="/migration/resources/images/warning.png" height="48"
+					width="48" />
+			</p>
+			<p align="center" >
+				<h:outputText value="${sessionScope.messageSpring}"
+					style="FONT-SIZE: large; color:red" />
+			</p>
+			<p align="center" style="FONT-SIZE: large;">
+				<h:commandLink value="relogin" action="relogin" />
+			</p>
+
+
+		</h:form>
+
+
+
+</ui:composition>
+

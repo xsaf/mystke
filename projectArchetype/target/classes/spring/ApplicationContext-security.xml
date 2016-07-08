@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+
+	<security:http pattern="/images/**" security="none" />
+	<security:http pattern="/resources/**" security="none" />
+	<security:http pattern="/**/*.css*" security="none" />
+	<security:http pattern="/**/*.xcss*" security="none" />
+	<security:http pattern="/**/*.png*" security="none" />
+	<security:http pattern="/**/*.js*" security="none" />
+	<security:http pattern="/login*" security="none" />
+	<security:http pattern="/**/403*" security="none" />
+
+	<bean id="accessDeniedHandler"
+		class="com.arabsoft.mySTKE.security.authorities.CustomAccessDeniedHandler">
+		<property name="accessDeniedUrl" value="/login.xhtml"></property>
+	</bean>
+
+	<security:global-method-security
+		pre-post-annotations="enabled" />
+
+	<security:http use-expressions="true" once-per-request="false">
+		<security:intercept-url pattern="/**"
+			access="hasAnyRole('PRCONX')" />
+		<security:form-login login-page="/login.xhtml"
+			authentication-failure-url="/login.xhtml" login-processing-url="/j_spring_security_check"
+			default-target-url="/index.xhtml" always-use-default-target="true" />
+		<security:logout invalidate-session="true"
+			logout-success-url="/login.xhtml" />
+		<security:access-denied-handler ref="accessDeniedHandler" />
+
+
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider
+			user-service-ref="myAuthoritiesUserDetailsServiceImpl">
+
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<bean id="myAuthoritiesUserDetailsServiceImpl"
+		class="com.arabsoft.mySTKE.security.habilitation.dao.impl.UserDaoImpl">
+	</bean>
+
+
+
+<!-- 	<bean id="dataSourceHabil" class="org.apache.commons.dbcp.BasicDataSource" -->
+<!-- 		destroy-method="close" lazy-init="true"> -->
+<!-- 		<property name="initialSize" value="20" /> -->
+<!-- 		<property name="maxActive" value="50" /> -->
+<!-- 		<property name="driverClassName" value="${jdbc.driverClassName}" /> -->
+<!-- 		<property name="url" value="${jdbc.url}" /> -->
+<!-- 		<property name="username" value="${jdbc.username}" /> -->
+<!-- 		<property name="password" value="${jdbc.password}" /> -->
+
+<!-- 	</bean> -->
+
+
+
+	<!-- HIBERNATE CONFIGURATION -->
+<!-- 	<bean id="sessionFactoryHabil" -->
+<!-- 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" -->
+<!-- 		lazy-init="true"> -->
+<!-- 		<property name="dataSource" ref="dataSourceHabil" /> -->
+<!-- 		<property name="annotatedClasses"> -->
+<!-- 			<list> -->
+<!-- 				<value>com.company.myApplication.security.habilitation.model.Utilisateur -->
+<!-- 				</value> -->
+<!-- 				<value>com.company.myApplication.security.habilitation.model.Profil -->
+<!-- 				</value> -->
+<!-- 				<value>com.company.myApplication.security.habilitation.model.UserRole -->
+<!-- 				</value> -->
+<!-- 				<value>com.company.myApplication.security.habilitation.model.UserRoleId -->
+<!-- 				</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 		<property name="hibernateProperties"> -->
+<!-- 			<props> -->
+<!-- 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop> -->
+<!-- 				<prop key="hibernate.show_sql">true</prop> -->
+<!-- 				<prop key="hibernate.use_outer_join">true</prop> -->
+<!-- 				<prop key="hibernate.max_fetch_depth">3</prop> -->
+<!-- 				<prop key="hibernate.jdbc.batch_size">0</prop> -->
+<!-- 				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop> -->
+<!-- 				<prop key="hibernate.hbm2ddl.auto">update</prop> -->
+
+<!-- 			</props> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="jdbcTemplateHabil" class="org.springframework.jdbc.core.JdbcTemplate"> -->
+<!-- 		<property name="dataSource" ref="dataSourceHabil" /> -->
+<!-- 	</bean> -->
+
+	
+
+</beans>

@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html lang="en" class="body-full-height"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head>
+	<!-- META SECTION -->
+	<title>MySTKE - Login</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<!-- END META SECTION -->
+
+	<!-- CSS INCLUDE -->
+	<link rel="stylesheet" type="text/css" id="theme"
+		href="css/theme-default.css" />
+	<!-- EOF CSS INCLUDE -->
+
+</h:head>
+<body>
+
+	<div class="login-container">
+
+		<div class="login-box animated fadeInDown">
+			<div class="login-logo"></div>
+			<div class="login-body">
+				<div class="login-title">
+					<strong>Welcome</strong>, Please login
+				</div>
+				<h:form id="loginFormId" prependId="false" role="login"
+					action="index.html" styleClass="form-horizontal" method="post">
+					<div class="form-group">
+						<div class="col-md-12">
+							<p:inputText id="j_username" name="j_username" placeholder="Entrer votre login"
+								value="#{loginCtr.username}" styleClass="form-control"
+								required="true" />
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-12">
+							<p:password id="j_password" name="j_password" placeholder="Entrer votre mot de passe"
+								value="#{loginCtr.password}" styleClass="form-control"
+								required="true" />
+						</div>
+					</div>
+					<div style="margin-left: 3cm" class="form-group">
+						<div align="center" class="col-md-6">
+							<h:commandButton styleClass="btn btn-info btn-block"
+								action="#{loginCtr.doLogin()}" value="Login" />
+
+						</div>
+					</div>
+
+				</h:form>
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- DATASOURCE DEFINITON -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<!-- HIBERNATE CONFIGURATION -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		lazy-init="true">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.arabsoft.mySTKE.security.habilitation.model.Utilisateur
+				</value>
+				<value>com.arabsoft.mySTKE.security.habilitation.model.Profil
+				</value>
+				<value>com.arabsoft.mySTKE.security.habilitation.model.UserRole
+				</value>
+				<value>com.arabsoft.mySTKE.security.habilitation.model.UserRoleId
+				</value>
+
+				<value>com.arabsoft.mySTKE.entity.AbsDoc</value>
+				<value>com.arabsoft.mySTKE.entity.Analyse</value>
+				<value>com.arabsoft.mySTKE.entity.AnalyseCout</value>
+				<value>com.arabsoft.mySTKE.entity.AnalyseFinanciere</value>
+				<value>com.arabsoft.mySTKE.entity.AnalyseZone</value>
+				<value>com.arabsoft.mySTKE.entity.Appartement</value>
+				<value>com.arabsoft.mySTKE.entity.AvantProjetDetaille</value>
+				<value>com.arabsoft.mySTKE.entity.AvantProjetSommaire</value>
+				<value>com.arabsoft.mySTKE.entity.Avis</value>
+				<value>com.arabsoft.mySTKE.entity.AxeAmelioration</value>
+				<value>com.arabsoft.mySTKE.entity.Bureau</value>
+				<value>com.arabsoft.mySTKE.entity.Client</value>
+				<value>com.arabsoft.mySTKE.entity.Defaut</value>
+				<value>com.arabsoft.mySTKE.entity.Departement</value>
+				<value>com.arabsoft.mySTKE.entity.Document</value>
+				<value>com.arabsoft.mySTKE.entity.Dossier</value>
+				<value>com.arabsoft.mySTKE.entity.Entrepreneur</value>
+				<value>com.arabsoft.mySTKE.entity.Etape</value>
+				<value>com.arabsoft.mySTKE.entity.EtudeRentabillite</value>
+				<value>com.arabsoft.mySTKE.entity.Equipe</value>
+				<value>com.arabsoft.mySTKE.entity.Fonction</value>
+				<value>com.arabsoft.mySTKE.entity.Immeuble</value>
+				<value>com.arabsoft.mySTKE.entity.Modification</value>
+				<value>com.arabsoft.mySTKE.entity.Notification</value>
+				<value>com.arabsoft.mySTKE.entity.Operation</value>
+				<value>com.arabsoft.mySTKE.entity.Planning</value>
+				<value>com.arabsoft.mySTKE.entity.PlanningActivite</value>
+				<value>com.arabsoft.mySTKE.entity.PlanningGlobal</value>
+				<value>com.arabsoft.mySTKE.entity.Programme</value>
+				<value>com.arabsoft.mySTKE.entity.Projet</value>
+				<value>com.arabsoft.mySTKE.entity.ProjetValidation</value>
+				<value>com.arabsoft.mySTKE.entity.ProjetEtape</value>
+				<value>com.arabsoft.mySTKE.entity.Recommandation</value>
+				<value>com.arabsoft.mySTKE.entity.Reserve</value>
+				<value>com.arabsoft.mySTKE.entity.ReunionChantier</value>
+				<value>com.arabsoft.mySTKE.entity.Terrain</value>
+				<value>com.arabsoft.mySTKE.entity.Utilisa</value>
+				<value>com.arabsoft.mySTKE.entity.Zone</value>
+
+
+			</list>
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.use_outer_join">true</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<context:component-scan base-package="com.arabsoft.mySTKE" />
+
+
+
+</beans>

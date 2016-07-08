@@ -1,0 +1,1151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+
+<h:head>
+
+	<!-- META SECTION -->
+
+	<title>Planification du projet</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<!-- END META SECTION -->
+
+	<!-- CSS INCLUDE -->
+	<link rel="stylesheet" type="text/css" id="theme"
+		href="css/theme-default.css" />
+	<link href="google-drive/lightbox.css" rel="stylesheet" />
+	<link href="google-drive/google-drive.css" rel="stylesheet"
+		type="text/css" />
+	<!-- EOF CSS INCLUDE -->
+
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="body">
+
+
+
+			<div class="panel panel-default"
+				style="margin-top: 2cm; margin-left: 0.3cm;">
+				<div class="container">
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#programme"><p:outputPanel
+									rendered="#{planCtr.projet.descEtat>='223'}">Programme</p:outputPanel></a>
+						</li>
+						<li><a data-toggle="tab" href="#avantprojet"><p:outputPanel
+									rendered="#{planCtr.projet.descEtat>='316'}">Avant-Projet</p:outputPanel></a>
+						</li>
+						<li><a data-toggle="tab" href="#planning"><p:outputPanel
+									rendered="#{planCtr.projet.descEtat>='327'}">Planning</p:outputPanel></a>
+						</li>
+						<li><a data-toggle="tab" href="#validation"><p:outputPanel
+									rendered="#{planCtr.projet.descEtat>='333'}">Validation</p:outputPanel></a>
+						</li>
+					</ul>
+
+
+					<div class="tab-content">
+
+						<div id="programme" class="tab-pane fade in active">
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat=='223'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<h:form>
+										<table style="margin-top: 0.5cm">
+											<td width="350px">
+												<ul>
+													<h3>
+														<li><b>Chef de projet :</b></li>
+													</h3>
+												</ul>
+											</td>
+											<td><p:selectOneMenu value="#{planCtr.chef}"
+													style="width:180px;">
+													<f:selectItem itemLabel="Chef de projet" itemValue="" />
+													<f:selectItems value="#{planCtr.chefs}" />
+												</p:selectOneMenu></td>
+											<td><div style="margin-left: 0.2cm;">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="ok" title="Valider"
+														action="#{planCtr.updateEquipe()}" ajax="false" />
+												</div></td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='312'}">
+								<table style="margin-top: 0.5cm; margin-bottom: 0.5cm;">
+									<td width="435px">
+										<ul>
+											<h3>
+												<li><b>Chef de projet :</b></li>
+											</h3>
+										</ul>
+									</td>
+									<td>
+										<h4 style="margin-left: 1.6cm;">#{planCtr.ch.prenomUti}
+											#{planCtr.ch.nomUti}</h4>
+									</td>
+								</table>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat=='312'}">
+								<sec:authorize access="hasRole('PRAR')">
+									<table style="margin-left: 0.6cm; margin-top: 0.5cm">
+										<td width="400px">
+											<h3>
+												<li><b>Cahier des charges de lotissement :</b></li>
+											</h3>
+										</td>
+										<td><div style="margin-left: 1cm;">
+												<h:form>
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="Ajouter" title="Valider"
+														action="#{planCtr.createCahierCharge()}" ajax="false" />
+												</h:form>
+											</div></td>
+									</table>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='313'}">
+								<table
+									style="margin-bottom: 0.5cm; margin-left: 0.6cm; margin-top: 0.5cm">
+									<td width="435px">
+										<h3>
+											<li><b>Cahier des charges de lotissement :</b></li>
+										</h3>
+									</td>
+									<td><div style="margin-left: 1cm;">
+											<h4>Cahier ajoutée au système GED</h4>
+										</div></td>
+								</table>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='313'}">
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='313'}">
+									<sec:authorize access="hasRole('PRRST')">
+										<h:form>
+											<ul>
+												<h3>
+													<li><b>Programme du projet immobilier :</b></li>
+												</h3>
+											</ul>
+											<h:panelGrid align="center" columns="2"
+												style="margin-left: 5cm" cellpadding="20">
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Nombre des immeubles :</p:outputLabel>
+												<p:inputText style="width:70px" placeholder="Nbr Immeuble"
+													value="#{planCtr.programme.nbrImm}" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Nombre des étages :</p:outputLabel>
+												<p:inputText style="width:70px" placeholder="Nbr Etage"
+													value="#{planCtr.programme.nbrEtage}" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Répartition du terrain :</p:outputLabel>
+												<p:inputTextarea rows="5"
+													placeholder="Répartition du terrain"
+													style="margin-top:0.3cm; width: 350px" cols="30"
+													queryDelay="750" minQueryLength="4"
+													value="#{planCtr.programme.descRepartition}" />
+											</h:panelGrid>
+											<div align="center" width="50px">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{planCtr.createProgramme()}" ajax="false" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='314'}">
+									<ul>
+										<h3>
+											<li><b>Programme du projet immobilier :</b></li>
+										</h3>
+									</ul>
+									<table>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Nombre d'immeuble :</b>
+												</h4>
+											</td>
+											<td width="500px">
+												<h4>#{planCtr.programme.nbrImm} Immeuble</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Nombre d'étage :</b>
+												</h4>
+											</td>
+											<td width="500px">
+												<h4>#{planCtr.programme.nbrEtage} Etage</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Répartition du terrain :</b>
+												</h4>
+											</td>
+											<td width="500px">
+												<h4>#{planCtr.programme.descRepartition}</h4>
+											</td>
+										</tr>
+									</table>
+								</p:outputPanel>
+
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='314'}">
+									<sec:authorize access="hasRole('PRDG')">
+										<h:form>
+											<h4 style="margin-left: 3cm;">
+												<b>-> Recommandations du directeur général :</b>
+											</h4>
+											<div align="center">
+												<p:inputTextarea rows="5"
+													placeholder="Recommandations du directeur général"
+													style="margin-top:0.1cm; width: 350px" cols="30"
+													queryDelay="750" minQueryLength="4"
+													value="#{planCtr.programme.recommandation}" />
+											</div>
+											<div align="center" width="50px">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{planCtr.updateProgramme()}" ajax="false" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='315'}">
+									<table style="margin-bottom: 0.5cm;">
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Recommandations du directeur général :</b>
+											</h4>
+										</td>
+										<td width="500px">
+											<h4>#{planCtr.programme.recommandation}</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='315'}">
+									<sec:authorize access="hasRole('PRDG')">
+										<div align="center"
+											style="margin-top: 0.5cm; margin-bottom: 0.4cm;">
+											<h:form>
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="Valider le programme" title="Valider"
+													action="#{planCtr.updateProgrammeValider()}" ajax="false" />
+											</h:form>
+										</div>
+									</sec:authorize>
+								</p:outputPanel>
+							</p:outputPanel>
+						</div>
+
+
+
+
+						<div id="avantprojet" class="tab-pane fade in active">
+
+							<div style="margin-top: 0.5cm;">
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='316'}">
+									<sec:authorize access="hasRole('PRAR')">
+										<h:form>
+											<ul>
+												<h3>
+													<li><b>Avant-projet sommaire :</b></li>
+												</h3>
+											</ul>
+											<h:panelGrid align="center" columns="3"
+												style="margin-left: 5cm; margin-bottom: 1cm"
+												cellpadding="20">
+												<p:outputLabel style="margin-right: 3cm;">Budget estimé du projet :</p:outputLabel>
+												<p:inputText required="true" placeholder="Budget estimé"
+													value="#{planCtr.avantProjetSommaire.budgetEstime}" />
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													style="margin-left: 0.5cm" value="ok" title="Valider"
+													action="#{planCtr.createAvantProjetSommaire()}"
+													ajax="false" />
+											</h:panelGrid>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='317'}">
+									<ul>
+										<h3>
+											<li><b>Avant-projet sommaire :</b></li>
+										</h3>
+									</ul>
+									<table>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Budget estimé :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{planCtr.avantProjetSommaire.budgetEstime} Milles
+												Euros</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='317'}">
+									<sec:authorize access="hasRole('PRRST')">
+										<h:form>
+											<h4 style="margin-left: 3cm;">
+												<b>-> Recommandations du RST :</b>
+											</h4>
+											<div align="center">
+												<p:inputTextarea id="irecomm-rst" rows="5"
+													placeholder="Recommandations"
+													style="margin-top:0.3cm; width: 350px" cols="30"
+													queryDelay="750" minQueryLength="4"
+													value="#{planCtr.avantProjetSommaire.recommandationRST}" />
+											</div>
+											<div align="center" width="50px">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{planCtr.updateAvantProjetSommaire()}"
+													ajax="false" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='318'}">
+									<table>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Recommandations du Responsable Service Technique :</b>
+											</h4>
+										</td>
+										<td width="500px">
+											<h4>#{planCtr.avantProjetSommaire.recommandationRST}</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='318'}">
+									<sec:authorize access="hasRole('PRDG')">
+										<h:form>
+											<h4 style="margin-left: 3cm;">
+												<b>-> Recommandations du directeur général :</b>
+											</h4>
+											<div align="center">
+												<p:inputTextarea id="irecomm-dg1" rows="5"
+													placeholder="Recommandations"
+													style="margin-top:0.3cm; width: 350px" cols="30"
+													queryDelay="750" minQueryLength="4"
+													value="#{planCtr.avantProjetSommaire.recommandationDG}" />
+											</div>
+											<div align="center" width="50px">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{planCtr.updateAvantProjetSommaire()}"
+													ajax="false" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='319'}">
+									<table>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Recommandations du directeur général :</b>
+											</h4>
+										</td>
+										<td width="500px">
+											<h4>#{planCtr.avantProjetSommaire.recommandationDG}</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='319'}">
+									<sec:authorize access="hasRole('PRDG')">
+										<div align="center"
+											style="margin-top: 0.5cm; margin-bottom: 0.4cm;">
+											<h:form>
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="Valider l'avant-projet" title="Valider"
+													action="#{planCtr.updateAvantProjetSommaire()}"
+													ajax="false" />
+											</h:form>
+										</div>
+									</sec:authorize>
+								</p:outputPanel>
+							</div>
+
+							<div>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='320'}">
+									<sec:authorize access="hasRole('PRRST')">
+										<h:form>
+											<ul>
+												<h3>
+													<li><b>Equipe de maitrise d'oeuvre :</b></li>
+												</h3>
+											</ul>
+											<div align="center">
+												<h:panelGrid columns="2" style="margin-bottom: 0.2cm"
+													cellpadding="20">
+													<p:outputLabel
+														style="margin-right: 3cm; margin-bottom: 0.5cm">Bureau de pilotage :</p:outputLabel>
+													<p:inputText required="true"
+														placeholder="Bureau de pilotage"
+														value="#{planCtr.avantProjetSommaire.bureauPilotage}" />
+													<p:outputLabel
+														style="margin-right: 3cm; margin-bottom: 0.5cm">Bureau de controle :</p:outputLabel>
+													<p:inputText required="true"
+														placeholder="Bureau de controle"
+														value="#{planCtr.avantProjetSommaire.bureauControle}" />
+													<p:outputLabel
+														style="margin-right: 3cm; margin-bottom: 0.5cm">Bureau des ingénieurs :</p:outputLabel>
+													<p:inputText required="true"
+														placeholder="Bureau des ingénieurs"
+														value="#{planCtr.avantProjetSommaire.bureauIngenieur}" />
+												</h:panelGrid>
+											</div>
+											<div align="center">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{planCtr.updateAvantProjetSommaire()}"
+													ajax="false" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='321'}">
+									<ul>
+										<h3>
+											<li><b>Equipe de maitrise d'oeuvre :</b></li>
+										</h3>
+									</ul>
+									<table>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Bureau de pilotage :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{planCtr.avantProjetSommaire.bureauPilotage}</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='321'}">
+									<sec:authorize access="hasRole('PRCP')">
+										<h:form>
+											<div align="center">
+												<p:inputTextarea rows="5"
+													placeholder="Mission du bureau de pilotage"
+													style="margin-top:0.1cm; width: 350px" cols="30"
+													queryDelay="750" minQueryLength="4"
+													value="#{planCtr.avantProjetSommaire.missionPilotage}" />
+											</div>
+											<div align="center" width="50px">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{planCtr.updateAvantProjetSommaire()}"
+													ajax="false" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='322'}">
+									<table id="miss-pilo">
+										<td width="500px">
+											<h4 style="margin-left: 6cm;">
+												<b>--> Mission :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{planCtr.avantProjetSommaire.missionPilotage}</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='321'}">
+									<table>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Bureau de controle :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{planCtr.avantProjetSommaire.bureauControle}</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='322'}">
+									<sec:authorize access="hasRole('PRCP')">
+										<h:form>
+											<div align="center">
+												<p:inputTextarea id="imissioncont" rows="5"
+													placeholder="Mission du bureau de controle"
+													style="margin-top:0.1cm; width: 350px" cols="30"
+													queryDelay="750" minQueryLength="4"
+													value="#{planCtr.avantProjetSommaire.missionControle}" />
+											</div>
+											<div align="center" width="50px">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{planCtr.updateAvantProjetSommaire()}"
+													ajax="false" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='323'}">
+									<table>
+										<td width="500px">
+											<h4 style="margin-left: 6cm;">
+												<b>--> Mission :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{planCtr.avantProjetSommaire.missionControle}</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='321'}">
+									<table>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Bureau des ingénieurs :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{planCtr.avantProjetSommaire.bureauIngenieur}</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='323'}">
+									<sec:authorize access="hasRole('PRCP')">
+										<h:form>
+											<div align="center">
+												<p:inputTextarea id="imissioning" rows="5"
+													placeholder="Mission du bureau d'ingénieur"
+													style="margin-top:0.1cm; width: 350px" cols="30"
+													queryDelay="750" minQueryLength="4"
+													value="#{planCtr.avantProjetSommaire.missionIngenieur}" />
+											</div>
+											<div align="center" width="50px">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{planCtr.updateAvantProjetSommaire()}"
+													ajax="false" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='324'}">
+									<table>
+										<td width="500px">
+											<h4 style="margin-left: 6cm;">
+												<b>--> Mission :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{planCtr.avantProjetSommaire.missionIngenieur}</h4>
+										</td>
+									</table>
+								</p:outputPanel>
+							</div>
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat=='324'}">
+								<sec:authorize access="hasRole('PRCP')">
+									<h:form>
+										<ul style="margin-top: 0.7cm">
+											<h3>
+												<li><b>Avant-projet détaillé :</b></li>
+											</h3>
+										</ul>
+										<h:panelGrid align="center" columns="3" cellpadding="20">
+											<p:outputLabel style="margin-left: 5cm; margin-right: 3cm;">Budget définitif :</p:outputLabel>
+											<p:inputText required="true" placeholder="Budget définitif"
+												value="#{planCtr.avantProjetDetaille.budgetDefinitive}"
+												style="margin-right: 0.7cm;" />
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{planCtr.createAvantProjetDetaille()}" ajax="false" />
+										</h:panelGrid>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='325'}">
+								<ul style="margin-top: 0.5">
+									<h3>
+										<li><b>Avant-projet détaillé :</b></li>
+									</h3>
+								</ul>
+								<table>
+									<td width="500px">
+										<h4 style="margin-left: 3cm;">
+											<b>-> Budget définitif :</b>
+										</h4>
+									</td>
+									<td>
+										<h4>#{planCtr.avantProjetDetaille.budgetDefinitive}
+											Milles Euros</h4>
+									</td>
+								</table>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{planCtr.projet.descEtat=='325'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<h:form>
+										<h4 style="margin-left: 3cm;">
+											<b>-> Recommandations du RST :</b>
+										</h4>
+										<div align="center">
+											<p:inputTextarea rows="5" placeholder="Recommandations"
+												style="margin-top:0.3cm; width: 350px" cols="30"
+												queryDelay="750" minQueryLength="4"
+												value="#{planCtr.avantProjetDetaille.recommandationRST}" />
+										</div>
+										<div align="center" width="50px">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{planCtr.updateAvantProjetDetaille()}" ajax="false" />
+										</div>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='326'}">
+								<table>
+									<td width="500px">
+										<h4 style="margin-left: 3cm;">
+											<b>-> Recommandations du Responsable Service Technique :</b>
+										</h4>
+									</td>
+									<td width="500px">
+										<h4>#{planCtr.avantProjetDetaille.recommandationRST}</h4>
+									</td>
+								</table>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{planCtr.projet.descEtat=='326'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<div align="center" style="margin-bottom: 0.4cm;">
+										<h:form>
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="Valider l'avant-projet détaillé" title="Valider"
+												action="#{planCtr.updateAvantProjetDetaille()}" ajax="false" />
+										</h:form>
+									</div>
+								</sec:authorize>
+							</p:outputPanel>
+						</div>
+
+
+
+
+						<div id="planning" class="tab-pane fade in active">
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='327'}">
+								<div style="margin-top: 0.5cm;">
+									<div style="margin-top: 0.5cm;">
+										<p:outputPanel rendered="#{planCtr.projet.descEtat=='327'}">
+											<sec:authorize access="hasRole('PRDG')">
+												<h:form>
+													<ul>
+														<h3>
+															<li><b>Batiment :</b></li>
+														</h3>
+													</ul>
+													<table>
+														<td width="500px">
+															<h4 style="margin-left: 3cm;">
+																<b>-> Demande de batir :</b>
+															</h4>
+														</td>
+														<td><p:commandButton
+																styleClass="btn btn-info btn-rounded" value="Ajouter"
+																title="Valider" action="#{planCtr.createDemandeBatir()}"
+																ajax="false" /></td>
+													</table>
+												</h:form>
+											</sec:authorize>
+										</p:outputPanel>
+									</div>
+									<div style="margin-top: 0.5cm;">
+										<p:outputPanel rendered="#{planCtr.projet.descEtat>='328'}">
+											<ul>
+												<h3>
+													<li><b>Batiment :</b></li>
+												</h3>
+											</ul>
+											<table>
+												<td width="500px">
+													<h4 style="margin-left: 3cm;">
+														<b>-> Demande de batir :</b>
+													</h4>
+												</td>
+												<td><h4>Demande ajoutée au systeme GED</h4></td>
+											</table>
+										</p:outputPanel>
+									</div>
+									<p:outputPanel rendered="#{planCtr.projet.descEtat=='328'}">
+										<sec:authorize access="hasRole('PRCP')">
+											<h:form>
+												<table>
+													<td width="500px">
+														<h4 style="margin-left: 3cm;">
+															<b>-> Autorisation de batir :</b>
+														</h4>
+													</td>
+													<td><p:commandButton
+															styleClass="btn btn-info btn-rounded" value="Ajouter"
+															title="Valider"
+															action="#{planCtr.createAutorisationBatir()}"
+															ajax="false" /></td>
+												</table>
+											</h:form>
+										</sec:authorize>
+									</p:outputPanel>
+									<p:outputPanel rendered="#{planCtr.projet.descEtat>='329'}">
+										<table>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Autorisation de batir :</b>
+												</h4>
+											</td>
+											<td><h4>Autorisation ajoutée au systeme GED</h4></td>
+										</table>
+									</p:outputPanel>
+								</div>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat=='329'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<h:form>
+										<ul>
+											<h3>
+												<li><b>Budget :</b></li>
+											</h3>
+										</ul>
+										<h:panelGrid align="center" columns="3" cellpadding="20">
+											<p:outputLabel style="margin-left: 5cm; margin-right: 3cm;">Budget final :</p:outputLabel>
+											<p:inputText required="true" placeholder="Budget définitif"
+												value="#{planCtr.projet.budgetFinal}"
+												style="margin-right: 0.7cm;" />
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{planCtr.updateBudgetFinal()}" ajax="false" />
+										</h:panelGrid>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='330'}">
+								<ul>
+									<h3>
+										<li><b>Budget :</b></li>
+									</h3>
+								</ul>
+								<table>
+									<td width="500px">
+										<h4 style="margin-left: 3cm;">
+											<b>-> Budget final :</b>
+										</h4>
+									</td>
+									<td width="500px">
+										<h4>#{planCtr.projet.budgetFinal} Milles Euros</h4>
+									</td>
+								</table>
+							</p:outputPanel>
+
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='330'}">
+								<ul>
+									<h3>
+										<li><b>Planning :</b></li>
+									</h3>
+								</ul>
+								<div>
+									<h4 style="margin-left: 3cm;">
+										<b>-> Planning global :</b>
+									</h4>
+								</div>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='330'}">
+									<sec:authorize access="hasRole('PRRST')">
+										<h:form>
+											<div align="center">
+												<h:panelGrid align="center" columns="2" cellpadding="20">
+													<p:outputLabel style="margin-right: 3cm;">Date début :</p:outputLabel>
+													<p:calendar placeholder="Date début"
+														value="#{planCtr.planningGlobal.dateDebut}"
+														showOn="button" />
+													<p:outputLabel style="margin-right: 3cm;">Date fin :</p:outputLabel>
+													<p:calendar placeholder="Date fin"
+														value="#{planCtr.planningGlobal.dateFin}" showOn="button" />
+													<p:outputLabel style="margin-right: 3cm;">Description du planning :</p:outputLabel>
+													<p:inputTextarea rows="5"
+														placeholder="Description du planning"
+														style="margin-top:0.1cm; width: 350px" cols="30"
+														queryDelay="750" minQueryLength="4"
+														value="#{planCtr.planningGlobal.descPlanning}" />
+												</h:panelGrid>
+											</div>
+											<div align="center">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{planCtr.createPlanningGlobal()}" ajax="false" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='331'}">
+									<table align="center"
+										style="text-shadow: black; margin-left: 4.5cm;">
+										<tr>
+											<td width="330px"><div>
+													<li><b>Date début du projet :</b></li>
+												</div></td>
+											<td width="330px"><h4>#{planCtr.planningGlobal.dateDebut}</h4></td>
+										</tr>
+										<tr>
+											<td width="330px"><div>
+													<li><b>Date fin du projet :</b></li>
+												</div></td>
+											<td width="330px"><h4>#{planCtr.planningGlobal.dateFin}</h4></td>
+										</tr>
+										<tr>
+											<td width="330px"><div>
+													<li><b>Description du planning :</b></li>
+												</div></td>
+											<td width="330px"><h4>#{planCtr.planningGlobal.descPlanning}</h4></td>
+										</tr>
+									</table>
+								</p:outputPanel>
+
+
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='331'}">
+									<div style="margin-top: 0.5cm;">
+										<h4 style="margin-left: 3cm;">
+											<b>-> Planning des activités :</b>
+										</h4>
+
+										<h:form id="form">
+											<p:growl id="msgs" showDetail="true" />
+											<div align="center">
+												<p:dataTable id="singleDT" var="planningActivites"
+													value="#{planCtr.planningActivites}" selectionMode="single"
+													style="margin-top: 0.3cm; margin-bottom: 0.5cm; width: 1000px;"
+													selection="#{planCtr.selectedActivite}"
+													rowKey="#{planningActivites.idPlanAct}">
+													<p:column headerText="Id Activité">
+														<h:outputText value="#{planningActivites.idPlanAct}" />
+													</p:column>
+													<p:column headerText="Date Début">
+														<h:outputText value="#{planningActivites.debutAct}" />
+													</p:column>
+													<p:column headerText="Date Fin">
+														<h:outputText value="#{planningActivites.finAct}" />
+													</p:column>
+													<p:column headerText="Budget Activité">
+														<h:outputText value="#{planningActivites.budgetAct}" />
+													</p:column>
+													<p:column headerText="Description Activité">
+														<h:outputText value="#{planningActivites.libelleAct}" />
+													</p:column>
+													<f:facet name="footer">
+														<p:outputPanel
+															rendered="#{'333'>=planCtr.projet.descEtat}">
+															<sec:authorize access="hasRole('PRCG')">
+																<p:panelGrid columns="2">
+																	<p:commandButton icon="ui-icon-trash"
+																		validateClient="true" value="Ajouter"
+																		update=":form:Detail"
+																		oncomplete="PF('activitesDialog').show();" />
+																	<p:commandButton icon="ui-icon-trash"
+																		validateClient="true" value="Modifier"
+																		process="singleDT" update=":form:Detail111"
+																		oncomplete="PF('modificationDialog').show();" />
+																</p:panelGrid>
+															</sec:authorize>
+															<sec:authorize access="hasRole('PRRST')">
+																<p:commandButton icon="ui-icon-trash"
+																	validateClient="true" value="Ajouter"
+																	update=":form:Detail"
+																	oncomplete="PF('activitesDialog').show();" />
+															</sec:authorize>
+														</p:outputPanel>
+													</f:facet>
+												</p:dataTable>
+											</div>
+
+											<p:dialog header="Planning d'activité"
+												widgetVar="modificationDialog" modal="true"
+												showEffect="fade" hideEffect="fade" resizable="false">
+												<p:outputPanel id="Detail111" style="text-align:center;">
+													<p:panelGrid columns="2"
+														rendered="#{not empty planCtr.selectedActivite}">
+														<h:outputText value="Date début :" />
+														<p:calendar placeholder="Date début"
+															value="#{planCtr.selectedActivite.debutAct}"
+															showOn="button" />
+														<h:outputText value="Date fin :" />
+														<p:calendar placeholder="Date début"
+															value="#{planCtr.selectedActivite.finAct}"
+															showOn="button" />
+														<h:outputText value="Budget activité :" />
+														<p:inputText required="true" placeholder="Budget activité"
+															value="#{planCtr.selectedActivite.budgetAct}" />
+														<h:outputText value="Description activité :" />
+														<p:inputTextarea rows="5"
+															placeholder="Description activité"
+															style="margin-top:0.1cm; width: 350px" cols="30"
+															queryDelay="750" minQueryLength="4"
+															value="#{planCtr.selectedActivite.libelleAct}" />
+													</p:panelGrid>
+												</p:outputPanel>
+												<div align="center">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="ok" title="Valider"
+														action="#{planCtr.updatePlanningActivite()}" ajax="false" />
+												</div>
+											</p:dialog>
+
+											<p:dialog header="Planning d'activité"
+												widgetVar="activitesDialog" modal="true" showEffect="fade"
+												hideEffect="fade" resizable="false">
+												<p:outputPanel id="Detail" style="text-align:center;">
+													<p:panelGrid columns="2">
+														<h:outputText value="Date début :" />
+														<p:calendar placeholder="Date début"
+															value="#{planCtr.planningActivite.debutAct}"
+															showOn="button" />
+														<h:outputText value="Date fin :" />
+														<p:calendar placeholder="Date début"
+															value="#{planCtr.planningActivite.finAct}"
+															showOn="button" />
+														<h:outputText value="Budget activité :" />
+														<p:inputText required="true" placeholder="Budget activité"
+															value="#{planCtr.planningActivite.budgetAct}" />
+														<h:outputText value="Description activité :" />
+														<p:inputTextarea rows="5"
+															placeholder="Description activité"
+															style="margin-top:0.1cm; width: 350px" cols="30"
+															queryDelay="750" minQueryLength="4"
+															value="#{planCtr.planningActivite.libelleAct}" />
+													</p:panelGrid>
+												</p:outputPanel>
+												<div align="center">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="ok" title="Valider"
+														action="#{planCtr.createPlanningActivite()}" ajax="false" />
+												</div>
+											</p:dialog>
+
+										</h:form>
+
+									</div>
+								</p:outputPanel>
+							</p:outputPanel>
+						</div>
+
+
+						<div id="validation" class="tab-pane fade in active">
+							<div id="reunionca" style="margin-top: 0.5cm">
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='333'}">
+									<sec:authorize access="hasRole('PRDG')">
+										<ul>
+											<h3>
+												<li><b>Réunion du conseil d'administration :</b></li>
+											</h3>
+										</ul>
+										<h:form>
+											<table style="margin-bottom: 1cm">
+											<td width="400px"><h4 style="margin-left: 3cm;">
+													<b>-> Date de la réunion :</b>
+												</h4></td>
+											<td><p:calendar
+													value="#{planCtr.projetValidation.dateReunion}"
+													pattern="MM/dd/yyyy HH:mm:ss" /></td>
+											<td width="50px">
+												<div
+													style="margin-left: 1cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="ok" title="Valider"
+														action="#{planCtr.createProjetValid()}" ajax="false" />
+												</div>
+											</td>
+										</table>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='334'}">
+									<ul>
+										<h3>
+											<li><b>Réunion du conseil d'administration :</b></li>
+										</h3>
+									</ul>
+									<table>
+										<td width="450px"><h4 style="margin-left: 3cm;">
+												<b>-> Date de la réunion :</b>
+											</h4></td>
+										<td><h4>#{planCtr.projetValidation.dateReunion}</h4></td>
+									</table>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='334'}">
+									<sec:authorize access="hasRole('PRAC')">
+										<h:form>
+											<table>
+												<td width="450px">
+													<h4 style="margin-left: 3cm;">
+														<b>-> PV de la réunion :</b>
+													</h4>
+												</td>
+												<td><p:commandButton
+														styleClass="btn btn-info btn-rounded" value="Ajouter"
+														title="Valider" action="#{planCtr.createPVReunion()}" ajax="false" /></td>
+											</table>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+								<p:outputPanel rendered="#{planCtr.projet.descEtat>='335'}">
+									<table>
+										<td width="450px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> PV de la réunion :</b>
+											</h4>
+										</td>
+										<td><h4>PV ajouté au systeme GED</h4></td>
+									</table>
+								</p:outputPanel>
+								
+								<p:outputPanel rendered="#{planCtr.projet.descEtat=='335'}">
+									<sec:authorize access="hasRole('PRAC')">
+										<div style="margin-top: 0.2cm; margin-left: 12cm;">
+											<h:form>
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="Valider le planning" title="Valider"
+													action="#{planCtr.updatePlanningGlobalValiderConseil()}" ajax="false"/>
+											</h:form>
+										</div>
+									</sec:authorize>
+								</p:outputPanel>
+							</div>
+							
+							<p:outputPanel rendered="#{planCtr.projet.descEtat=='336'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<h:form>
+										<table id="ficheprojet" style="margin-top: 0.5cm">
+											<td width="450px"><ul>
+													<h3>
+														<li><b>Fiche du projet :</b></li>
+													</h3>
+												</ul></td>
+											<td><p:commandButton
+													styleClass="btn btn-info btn-rounded" value="Ajouter"
+													title="Valider" action="#{planCtr.createFicheProjet()}" ajax="false"/></td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='337'}">
+								<table style="margin-top: 0.5cm">
+									<td width="450px"><ul>
+											<h3>
+												<li><b>Fiche du projet :</b></li>
+											</h3>
+										</ul></td>
+									<td><h4>Fiche du projet ajoutée au systeme GED</h4></td>
+								</table>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{planCtr.projet.descEtat=='337'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<ul>
+										<h3>
+											<li><b>Projet :</b></li>
+										</h3>
+									</ul>
+									<h:form>
+										<table>
+											<td width="450px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Calendrier :</b>
+												</h4>
+											</td>
+											<td><p:commandButton
+													styleClass="btn btn-info btn-rounded" value="Valider"
+													title="Valider"
+													action="#{planCtr.updatePlanningGlobalValiderRST()}" ajax="false" /></td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='338'}">
+								<ul>
+									<h3>
+										<li><b>Projet :</b></li>
+									</h3>
+								</ul>
+								<table>
+									<td width="450px">
+										<h4 style="margin-left: 3cm;">
+											<b>-> Calendrier :</b>
+										</h4>
+									</td>
+									<td><h4>Calendrier validée</h4></td>
+								</table>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{planCtr.projet.descEtat=='338'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<h:form>
+										<table>
+											<td width="450px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Ordre de service :</b>
+												</h4>
+											</td>
+											<td><p:commandButton
+													styleClass="btn btn-info btn-rounded" value="ok"
+													title="Valider" action="#{planCtr.updateProjet()}" ajax="false" /></td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{planCtr.projet.descEtat>='339'}">
+								<table>
+									<td width="450px">
+										<h4 style="margin-left: 3cm;">
+											<b>-> Ordre de service :</b>
+										</h4>
+									</td>
+									<td><h4>Ordre de service validé</h4></td>
+								</table>
+							</p:outputPanel>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

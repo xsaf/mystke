@@ -1,0 +1,151 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+
+<h:head>
+<style type="text/css">
+#aa{
+	background: linear-gradient(to right, green, rgba(0,255,0,0));
+	}
+</style>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<title>Gestion ..... </title>
+<link rel="stylesheet" type="text/css"
+	href="#{facesContext.externalContext.requestContextPath}/css/print.css"
+	media="print" />
+<!--<link rel="stylesheet" type="text/css"-->
+<!--	href="#{facesContext.externalContext.requestContextPath}/css/styles.css" />-->
+
+
+<script type="text/javascript">
+
+function message(){
+
+}
+
+	function filtrerTouches(event) {
+		var keyShift = event.shiftKey;
+		var keyAlt = event.altKey;
+		var keyCtrl = event.ctrlKey;
+		var keyCode = event.keyCode;
+		var val = "";
+		if (event.keyCode >= 112 &amp;&amp; event.keyCode &lt;= 123) {
+			//Cas de F(1..12) 
+			desactiverTouche(event);
+		}
+		
+		if (event.keyCode = 8)
+			desactiverTouche(event);
+	}
+	function desactiverTouche(event) {
+		event.keyCode = 0;
+		event.cancelBubble;
+		event.returnValue = false;
+	}
+
+	window.history.forward();
+</script>
+<script type="text/javascript" language="javascript">
+	function waitPreloadPage() { //DOM
+		if (document.getElementById) {
+			document.getElementById('prepage').style.visibility = 'hidden';
+		} else {
+			if (document.layers) { //NS4
+				document.prepage.visibility = 'hidden';
+			} else { //IE4
+				document.all.prepage.style.visibility = 'hidden';
+			}
+		}
+	}
+</script>
+</h:head>
+
+<body onKeyDown="filtrerTouches(event)" oncontextmenu="return false"
+	onunload="window.history.forward();">
+	<table width="100%" height="100%" border="0" cellpadding="0"
+		cellspacing="0">
+		<tr>
+			<td height="10" valign="top"><div align="center">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td height="25" id="headerMenu" style="background: linear-gradient(to bottom ,#164501, #4A961A)"></td>
+						</tr>
+						<tr>
+							<td height="1" bgcolor="#646464"><div align="center"></div>
+							</td>
+						</tr>
+						<tr>
+							<td bgcolor="#F1F3F5" id="header"><ui:insert name="header">
+									<ui:include src="/facelets/header.xhtml" />
+								</ui:insert></td>
+						</tr>
+						<tr>
+							<td bgcolor="#F1F3F5"><table width="98%" border="0"
+									align="center" cellpadding="0" cellspacing="0">
+									<tr>
+										<td bgcolor="#CCCCCC"><div align="center"></div></td>
+									</tr>
+									<tr>
+										<td height="1" bgcolor="#FFFFFF"><div align="center"></div>
+										</td>
+									</tr>
+								</table></td>
+						</tr>
+						<tr>
+							<td height="5" bgcolor="#F1F3F5"><div align="center"></div>
+							</td>
+						</tr>
+						<tr>
+							<td height="2"><div align="center"></div></td>
+						</tr>
+					</table>
+				</div></td>
+		</tr>
+		<tr>
+			<td valign="top"><table width="99%" height="100%" border="0"
+					align="center" cellpadding="0" cellspacing="0">
+					<tr>
+						<td valign="top"><table width="100%" height="100%" border="0"
+								cellpadding="0" cellspacing="0" bgcolor="#F1F1F1"
+								class="frameCC">
+								<tr>
+									<td height="30"
+										background="#{facesContext.externalContext.requestContextPath}/images/imagesCharte/bgWin.gif"
+										id="titleWindow"><ui:insert name="titleWindow">
+											
+										</ui:insert></td>
+								</tr>
+								<tr>
+									<td valign="top"><table width="100%" height="100%"
+											border="0" cellpadding="0" cellspacing="0">
+											<tr height="500px">
+												<td width="320px" valign="top" bgcolor="#D3D3D3"
+													id="leftMenu"><ui:insert name="leftMenu" />
+												</td>
+												<td valign="top" id="body"><ui:insert name="body" />
+												</td>
+											</tr>
+										</table></td>
+								</tr>
+
+							</table></td>
+					</tr>
+				</table></td>
+		</tr>
+		<tr>
+			<td height="5" valign="bottom"><div align="center"></div></td>
+		</tr>
+		<tr>
+			<td height="10" valign="bottom"><div align="center" id="footer">
+					<ui:insert name="footer">
+						<ui:include src="/facelets/footer.xhtml" />
+					</ui:insert>
+				</div></td>
+		</tr>
+	</table>
+</body>
+</html>

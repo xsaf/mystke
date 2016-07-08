@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+
+<h:head>
+
+
+</h:head>
+<body>
+
+	<h:form id="loginFormId" prependId="false" role="login">
+		<p:inputText id="j_username" name="j_username"
+			placeholder="Entrer votre Matricule" value="#{loginCtr.username}"
+			styleClass="form-control" required="true" />
+
+		<p:password id="j_password" name="j_password"
+			placeholder="Entrer votre mot de passe" value="#{loginCtr.password}"
+			styleClass="form-control" required="true" />
+
+		<h:commandButton action="#{loginCtr.doLogin()}" value="Login" />
+
+
+
+
+	</h:form>
+
+
+</body>
+</html>

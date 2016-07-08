@@ -1,0 +1,491 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+
+<h:head>
+
+	<!-- META SECTION -->
+
+	<title>Analyse Cloture</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<!-- END META SECTION -->
+
+	<!-- CSS INCLUDE -->
+	<link rel="stylesheet" type="text/css" id="theme"
+		href="css/theme-default.css" />
+	<link href="google-drive/lightbox.css" rel="stylesheet" />
+	<link href="google-drive/google-drive.css" rel="stylesheet"
+		type="text/css" />
+	<!-- EOF CSS INCLUDE -->
+
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="http://maps.googleapis.com/maps/api/js"></script>
+	<script src="js/google-maps.js"></script>
+	<script src="js/google-maps1.js"></script>
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="body">
+
+
+			<div data-role="navbar" id="navbar-1" class="x-navigation"
+				style="margin-top: 0.3cm; margin-left: 0.3cm; margin-right: 20cm">
+				<ul>
+					<li><a href="projet-immobiliere.xhtml">Details</a></li>
+				</ul>
+				<ul>
+					<li><a href="etude-rentabilite.xhtml">Etude de rentabilité</a></li>
+					<li><a href="planification-du-projet.xhtml">Planification
+							de projet</a></li>
+					<li><a href="suivi-reunion-chantier.xhtml">Suivi réunion
+							chantier</a></li>
+				</ul>
+				<ul>
+					<li><a href="reception-finale.xhtml">Réception finale</a></li>
+					<li class="active"><a href="#">Analyse cloture de projet</a></li>
+				</ul>
+			</div>
+
+
+			<div id="idossier" style="width: 1100px;">
+				<h2 id="yesfolder" style="display: none;">Last folder</h2>
+
+				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+				<div id="transparent-wrapper"></div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="login-box" class="hide">
+					<p>Please login on your google account.</p>
+					<button id="btnLogin" onclick="handleAuthClick(event)"
+						class="button">Login</button>
+				</div>
+
+				<div id="drive-box" class="hide">
+					<!-- This will be the google drive navigation-->
+					<div id="drive-breadcrumb">
+						<span class='breadcrumb-arrow'></span> <a data-id='root'
+							data-level='0'>Home</a> <span id="span-navigation"></span>
+					</div>
+
+					<!-- This popup panel will be used as user information panel-->
+					<div class="user-item">
+						<a id="link-logout" class="logout-link">Logout</a>
+					</div>
+
+					<!-- A list of menus available for user to use-->
+					<div id="drive-menu">
+						<div id="button-reload" title="Refresh"></div>
+						<div id="button-upload" title="Upload to Google Drive"
+							class="button-opt"></div>
+						<div id="button-addfolder" title="Add Folder" class="button-opt"></div>
+						<div id="button-share" title="Show shared files only"></div>
+					</div>
+					<div id="drive-content"></div>
+					<div id="error-message" class="flash hidden"></div>
+					<div id="status-message" class="flash hidden"></div>
+				</div>
+
+				<!-- This upload control is used for uploading file to google drive-->
+				<input type="file" id="fUpload" class="hide" style="display: none" />
+
+				<!-- This popup panel will be used to create folder-->
+				<div class="float-box" id="float-box">
+					<div class="folder-form">
+						<div class="close-x">
+							<img id="imgClose" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Add New Folder</h3>
+						<div>
+							<input type="text" id="txtFolder" class="text-input" />
+						</div>
+						<button id="btnAddFolder" value="Save" class="button">Add</button>
+						<button id="btnClose" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document/file information -->
+				<div id="float-box-info" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseInfo" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">File information</h3>
+						<table cellpadding="0" cellspacing="0" class="tbl-info">
+							<tr>
+								<td class="label">Created Date</td>
+								<td><span id="spanCreatedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Modified Date</td>
+								<td><span id="spanModifiedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Owner</td>
+								<td><span id="spanOwner"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Title</td>
+								<td><span id="spanTitle"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Size</td>
+								<td><span id="spanSize"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Extension</td>
+								<td><span id="spanExtension"></span></td>
+							</tr>
+						</table>
+						<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="float-box-text" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseText" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Text Content</h3>
+						<div id="text-content"></div>
+						<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+				<!-- This iframe is used for logout-->
+				<iframe id="frameLogout" class="hide"></iframe>
+			</div>
+
+
+			<div class="panel panel-default"
+				style="margin-top: 2cm; margin-left: 0.3cm;">
+				<div class="container">
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#cloture">Cloture</a></li>
+						<li><a data-toggle="tab" href="#validation">Validation</a></li>
+					</ul>
+
+					<div class="tab-content">
+
+						<div id="cloture" class="tab-pane fade in active">
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='526'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<h:form>
+										<table style="margin-top: 0.5cm">
+											<td width="465px">
+												<ul>
+													<h3>
+														<li><b>Cloture de projet :</b></li>
+													</h3>
+												</ul>
+											</td>
+											<td><p:commandButton
+													styleClass="btn btn-info btn-rounded" value="Valider"
+													title="Valider"
+													action="#{analyseCtr.createClotureProjet()}" /></td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='611'}"
+								style="margin-top: 0.5cm">
+								<ul>
+									<h3>
+										<li><b>Cloture de projet :</b></li>
+									</h3>
+								</ul>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='611'}">
+								<sec:authorize access="hasRole('PRCG')">
+									<h:form>
+										<table style="margin-left: 3cm; margin-top: 0.3cm">
+											<td width="380px">
+												<h4>
+													<b>-> Rapport de cloture :</b>
+												</h4>
+											</td>
+											<td><p:commandButton
+													styleClass="btn btn-info btn-rounded" value="Ajouter"
+													title="Valider"
+													action="#{analyseCtr.createRapportClotureProjet()}" /></td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='612'}">
+								<sec:authorize access="hasRole('PRCG')">
+									<h:form>
+										<table style="margin-left: 3cm; margin-top: 0.3cm">
+											<td width="380px">
+												<h4>
+													<b>-> Rapport de cloture :</b>
+												</h4>
+											</td>
+											<td><h4>Rapport de cloture est ajouté au systeme
+													GED</h4></td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{'614'>=analyseCtr.projet.descEtat}">
+								<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='613'}">
+									<sec:authorize access="hasRole('PRCG')">
+										<h:form>
+											<div align="center"
+												style="margin-bottom: 0.2cm; margin-top: 0.2cm">
+												<p:inputText required="true"
+													placeholder="Axe d'amélioration"
+													value="#{analyseCtr.axeAmelioration.nomAxe}" />
+											</div>
+											<div align="center">
+												<p:inputTextarea rows="5" cols="30" queryDelay="750"
+													placeholder="Description d'amélioration" minQueryLength="4"
+													value="#{analyseCtr.axeAmelioration.descAxe}" />
+											</div>
+											<div align="center">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{analyseCtr.createAxeAmelioration()}" />
+											</div>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='613'}">
+								<div align="center" style="margin-bottom: 0.6cm">
+									<p:dataTable var="axeAmeliorations"
+										value="#{analyseCtr.axeAmeliorations}"
+										style="margin-top: 0.5cm; width: 800px;">
+										<p:column headerText="Id Amélioration" style="width: 200px">
+											<h:outputText value="#{axeAmeliorations.idAxe}" />
+										</p:column>
+										<p:column headerText="Axe d'amélioration" style="width: 200px">
+											<h:outputText value="#{axeAmeliorations.nomAxe}" />
+										</p:column>
+										<p:column headerText="Déscription">
+											<h:outputText value="#{axeAmeliorations.descAxe}" />
+										</p:column>
+									</p:dataTable>
+								</div>
+							</p:outputPanel>
+						</div>
+
+
+						<div id="validation" class="tab-pane fade">
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='613'}">
+								<sec:authorize access="hasRole('PRDG')">
+									<h:form>
+										<div style="margin-top: 0.5cm">
+											<ul>
+												<h3>
+													<li><b>Réunion du conseil d'administration :</b></li>
+												</h3>
+											</ul>
+											<table>
+												<td width="400px"><h4 style="margin-left: 3cm;">
+														<b>-> Date de la réunion :</b>
+													</h4></td>
+												<td><p:calendar
+														value="#{analyseCtr.projetValidation.dateReunion}" /></td>
+												<td width="50px">
+													<div align="center">
+														<p:commandButton styleClass="btn btn-info btn-rounded"
+															value="ok" title="Valider"
+															action="#{analyseCtr.createProjetValid()}" />
+													</div>
+												</td>
+											</table>
+										</div>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='614'}">
+								<ul style="margin-top: 0.5cm">
+									<h3>
+										<li><b>Réunion du conseil d'administration :</b></li>
+									</h3>
+								</ul>
+								<table>
+									<td width="400px"><h4 style="margin-left: 3cm;">
+											<b>-> Date de la réunion :</b>
+										</h4></td>
+									<td>
+										<h4>#{analyseCtr.projetValidation.dateReunion}</h4>
+									</td>
+								</table>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='614'}">
+								<sec:authorize access="hasRole('PRDG')">
+									<h:form>
+										<table>
+											<td width="410px"><h4 style="margin-left: 3cm;">
+													<b>-> PV de la réunion :</b>
+												</h4></td>
+											<td width="50px">
+												<div
+													style="margin-left: 14cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+													<p:commandButton icon="ui-icon-star" title="Valider"
+														style="width: 40px; height: 40px;"
+														action="#{analyseCtr.createPVReunion()}">
+													</p:commandButton>
+												</div>
+											</td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='615'}">
+								<table>
+									<td width="410px"><h4 style="margin-left: 3cm;">
+											<b>-> PV de la réunion :</b>
+										</h4></td>
+									<td><h4>PV a été ajouté au systeme GED</h4></td>
+								</table>
+							</p:outputPanel>
+
+							<div id="rapportcloture-2">
+								<ul>
+									<h3>
+										<li><b>Rapport de cloture :</b></li>
+									</h3>
+								</ul>
+
+								<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='615'}">
+									<sec:authorize access="hasRole('PRDG')">
+										<h:form>
+											<table>
+												<td width="410px"><h4 style="margin-left: 3cm;">
+														<b>-> Validation du rapport :</b>
+													</h4></td>
+												<td width="50px">
+													<div
+														style="margin-left: 14cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+														<p:commandButton icon="ui-icon-star" title="Valider"
+															style="width: 40px; height: 40px;"
+															action="#{analyseCtr.createValiderRapport()}">
+														</p:commandButton>
+													</div>
+												</td>
+											</table>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='616'}">
+									<table>
+										<td width="410px"><h4 style="margin-left: 3cm;">
+												<b>-> Validation du rapport :</b>
+											</h4></td>
+										<td><h4>Rapport validé par le directeur général</h4></td>
+									</table>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='616'}">
+									<sec:authorize access="hasRole('PRAC')">
+										<h:form>
+											<table>
+												<td width="410px"><h4 style="margin-left: 3cm;">
+														<b>-> Validation du rapport :</b>
+													</h4></td>
+												<td width="50px">
+													<div
+														style="margin-left: 14cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+														<p:commandButton icon="ui-icon-star" title="Valider"
+															style="width: 40px; height: 40px;"
+															action="#{analyseCtr.createValiderRapport()}">
+														</p:commandButton>
+													</div>
+												</td>
+											</table>
+										</h:form>
+									</sec:authorize>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='617'}">
+									<table>
+										<td width="410px"><h4 style="margin-left: 3cm;">
+												<b>-> Validation du rapport :</b>
+											</h4></td>
+										<td><h4>Rapport validé par la conseil
+												d'administration</h4></td>
+									</table>
+								</p:outputPanel>
+
+								<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='617'}">
+									<h4 style="margin-left: 3cm;">
+										<b>-> Recommandations :</b>
+									</h4>
+									<p:outputPanel rendered="#{'618'>=analyseCtr.projet.descEtat}">
+										<sec:authorize access="hasRole('PRAC')">
+											<h:form>
+												<div align="center">
+													<p:inputTextarea rows="5" cols="30" queryDelay="750"
+														placeholder="Recommandations" minQueryLength="4"
+														value="#{analyseCtr.avis.descAvis}" />
+												</div>
+												<div align="center">
+													<p:commandButton icon="ui-icon-star" title="Valider"
+														style="width: 40px; height: 40px;"
+														action="#{analyseCtr.createRecommandation()}">
+													</p:commandButton>
+												</div>
+											</h:form>
+										</sec:authorize>
+									</p:outputPanel>
+
+									<div align="center" style="margin-bottom: 0.6cm">
+										<p:dataTable var="aviss" value="#{analyseCtr.aviss}"
+											style="margin-top: 0.5cm; width: 800px;">
+											<p:column headerText="Id Recommandation" style="width: 150px">
+												<h:outputText value="#{aviss.idAvis}" />
+											</p:column>
+											<p:column headerText="Déscription">
+												<h:outputText value="#{aviss.descAvis}" />
+											</p:column>
+											<p:column headerText="Validation DG" style="width: 150px">
+												<h:outputText value="#{aviss.validDG}" />
+											</p:column>
+											<p:column headerText="Validation RST" style="width: 150px">
+												<h:outputText value="#{aviss.validRST}" />
+											</p:column>
+										</p:dataTable>
+									</div>
+								</p:outputPanel>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="2.1" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
+ <!-- 	<navigation-rule> 
+ 		<from-view-id>*</from-view-id> 
+ 		<navigation-case> 
+ 			<from-outcome>menuPrincipal</from-outcome> 
+ 			<to-view-id>/facelets/menuPrincipal.xhtml</to-view-id> 
+ 			<redirect></redirect> 
+ 		</navigation-case> 
+ 	</navigation-rule> -->
+ <navigation-rule>
+  <from-view-id>/index.xhtml</from-view-id>
+  <navigation-case>
+   <from-outcome>projet-immobiliere</from-outcome>
+   <to-view-id>/projet-immobiliere.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+ </navigation-rule>
+ <application>
+  <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+  <resource-bundle>
+   <base-name>ApplicationResources</base-name>
+   <var>messages</var>
+  </resource-bundle>
+ </application>
+</faces-config>

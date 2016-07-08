@@ -1,0 +1,949 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<h:head>
+
+	<!-- META SECTION -->
+
+	<title>Etude De Rentabilité</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="google-site-verification"
+		content="2z0sk1EKEHf6N3PSdtoBYHTPSfBqcPUuH4d1pBuT1_g" />
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<!-- END META SECTION -->
+
+	<!-- CSS INCLUDE -->
+	<link rel="stylesheet" type="text/css" id="theme"
+		href="css/theme-default.css" />
+	<link href="google-drive/lightbox.css" rel="stylesheet" />
+	<link href="google-drive/google-drive.css" rel="stylesheet"
+		type="text/css" />
+	<!-- EOF CSS INCLUDE -->
+
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="http://maps.google.com/maps/api/js?sensor=false"
+		type="text/javascript"></script>
+
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="body">
+
+
+			<div id="idoszone" style="width: 1100px;">
+				<h2 id="yesfolder" style="display: none;">Last folder</h2>
+
+				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+				<div id="transparent-wrapper"></div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="login-box" class="hide">
+					<p>Please login on your google account.</p>
+					<button id="btnLogin" onclick="handleAuthClick(event)"
+						class="button">Login</button>
+				</div>
+
+				<div id="drive-box" class="hide">
+					<!-- This will be the google drive navigation-->
+					<div id="drive-breadcrumb">
+						<span class='breadcrumb-arrow'></span> <a data-id='root'
+							data-level='0'>Home</a> <span id="span-navigation"></span>
+					</div>
+
+					<!-- This popup panel will be used as user information panel-->
+					<div class="user-item">
+						<a id="link-logout" class="logout-link">Logout</a>
+					</div>
+
+					<!-- A list of menus available for user to use-->
+					<div id="drive-menu">
+						<div id="button-reload" title="Refresh"></div>
+						<div id="button-upload" title="Upload to Google Drive"
+							class="button-opt"></div>
+						<div id="button-addfolder" title="Add Folder" class="button-opt"></div>
+						<div id="button-share" title="Show shared files only"></div>
+					</div>
+					<div id="drive-content"></div>
+					<div id="error-message" class="flash hidden"></div>
+					<div id="status-message" class="flash hidden"></div>
+				</div>
+
+				<!-- This upload control is used for uploading file to google drive-->
+				<input type="file" id="fUpload" class="hide" style="display: none" />
+
+				<!-- This popup panel will be used to create folder-->
+				<div class="float-box" id="float-box">
+					<div class="folder-form">
+						<div class="close-x">
+							<img id="imgClose" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Add New Folder</h3>
+						<div>
+							<input type="text" id="txtFolder" class="text-input" />
+						</div>
+						<button id="btnAddFolder" value="Save" class="button">Add</button>
+						<button id="btnClose" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document/file information -->
+				<div id="float-box-info" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseInfo" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">File information</h3>
+						<table cellpadding="0" cellspacing="0" class="tbl-info">
+							<tr>
+								<td class="label">Created Date</td>
+								<td><span id="spanCreatedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Modified Date</td>
+								<td><span id="spanModifiedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Owner</td>
+								<td><span id="spanOwner"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Title</td>
+								<td><span id="spanTitle"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Size</td>
+								<td><span id="spanSize"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Extension</td>
+								<td><span id="spanExtension"></span></td>
+							</tr>
+						</table>
+						<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="float-box-text" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseText" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Text Content</h3>
+						<div id="text-content"></div>
+						<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+				<!-- This iframe is used for logout-->
+				<iframe id="frameLogout" class="hide"></iframe>
+			</div>
+
+
+			<div class="panel panel-default"
+				style="margin-top: 2cm; margin-left: 0.3cm; margin-bottom: 1.5cm;">
+				<div class="container">
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#etude"><p:outputPanel
+									rendered="#{etudeCtr.projet.descEtat>='112'}">Etude</p:outputPanel></a>
+						</li>
+						<li><a data-toggle="tab" href="#analyse"><p:outputPanel
+									rendered="#{etudeCtr.projet.descEtat>='216'}">Analyse</p:outputPanel></a>
+						</li>
+						<li><a data-toggle="tab" href="#validation"><p:outputPanel
+									rendered="#{etudeCtr.projet.descEtat>='219'}">Validation</p:outputPanel></a>
+						</li>
+					</ul>
+
+					<div class="tab-content">
+
+						<div id="etude" class="tab-pane fade in active">
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='112'}">
+								<sec:authorize access="hasAnyRole('PRAC','PRRSM')">
+									<h:form>
+										<div style="margin-top: 0.5cm">
+											<ul>
+												<h3>
+													<li><b>Zone d'implémentation :</b></li>
+												</h3>
+											</ul>
+										</div>
+										<h:panelGrid align="center" columns="2"
+											style="margin-left: 5cm" cellpadding="20">
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Adresse de la zone :</p:outputLabel>
+											<p:inputText required="true"
+												value="#{etudeCtr.zone.adresseZone}"
+												style="margin-right: 0.5cm" placeholder="Adresse" />
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Ville de la zone :</p:outputLabel>
+											<p:inputText required="true"
+												value="#{etudeCtr.zone.villeZone}"
+												style="margin-right: 0.5cm" placeholder="Ville" />
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Pays de la zone :</p:outputLabel>
+											<p:inputText required="true"
+												value="#{etudeCtr.zone.paysZone}" placeholder="Pays" />
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Coordonnée X :</p:outputLabel>
+											<p:inputText required="true" value="#{etudeCtr.zone.xZone}"
+												style="margin-right: 0.5cm" placeholder="Coor X" />
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Coordonnée Y :</p:outputLabel>
+											<p:inputText required="true" value="#{etudeCtr.zone.yZone}"
+												placeholder="Coor Y" />
+										</h:panelGrid>
+										<div align="center" style="margin-top: 0.2cm">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider" action="#{etudeCtr.createZone()}"
+												style="margin-bottom: 0.5cm" ajax="false">
+											</p:commandButton>
+										</div>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='212'}">
+								<div style="margin-bottom: 0.5cm; margin-top: 0.5cm">
+									<ul>
+										<h3>
+											<li><b>Zone d'implémentation :</b></li>
+										</h3>
+									</ul>
+									<div style="margin-left: 3cm;">
+										<h4 style="margin-top: 0.4cm;">
+											<b>-> Zone suggérée :</b>
+										</h4>
+										<div style="margin-left: 1cm;">
+											<div
+												style="margin-top: 0.3cm; margin-right: 10cm; margin-bottom: 0.3cm; float: right;">
+												<p:gmap
+													center="#{etudeCtr.zone.xZone},#{etudeCtr.zone.yZone}"
+													zoom="13" type="HYBRID" style="width:300px;height:150px;" />
+											</div>
+											<p>#{etudeCtr.zone.adresseZone}</p>
+											<p>#{etudeCtr.zone.villeZone}</p>
+											<p>#{etudeCtr.zone.paysZone}</p>
+										</div>
+									</div>
+								</div>
+							</p:outputPanel>
+
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='212'}">
+								<sec:authorize access="hasRole('PRDG')">
+									<div style="margin-bottom: 1cm;">
+										<ul style="margin-top: 3cm;">
+											<h3>
+												<li><b>Terrain :</b></li>
+											</h3>
+										</ul>
+										<h:form>
+											<h4 style="margin-left: 3cm;">
+												<b>-> Détails :</b>
+											</h4>
+											<h:panelGrid align="center" columns="2"
+												style="margin-left: 5cm" cellpadding="20">
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Numero du terrain :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.terrain.numTerrain}"
+													style="margin-right: 0.5cm" placeholder="Id Terrain" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Adresse du terrain :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.terrain.adresse}"
+													style="margin-right: 0.5cm" placeholder="Adresse terrain" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Ville du terrain :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.terrain.ville}"
+													placeholder="Ville terrain" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Coordonnée X :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.terrain.xTerrain}"
+													style="margin-right: 0.5cm" placeholder="Coor X" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Coordonnée Y :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.terrain.yTerrain}" placeholder="Coor Y" />
+											</h:panelGrid>
+											<div align="center" style="margin-top: 0.2cm">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{etudeCtr.createTerrain()}"
+													style="margin-bottom: 0.5cm" ajax="false" />
+											</div>
+										</h:form>
+									</div>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='213'}">
+								<ul style="margin-top: 3cm;">
+									<h3>
+										<li><b>Terrain :</b></li>
+									</h3>
+								</ul>
+								<div style="margin-left: 3cm;">
+									<h4>
+										<b>-> Détails :</b>
+									</h4>
+									<div style="margin-left: 1cm;">
+										<div
+											style="margin-top: 0.3cm; margin-bottom: 0.3cm; margin-right: 10cm; float: right;">
+											<p:gmap
+												center="#{etudeCtr.terrain.xTerrain},#{etudeCtr.terrain.yTerrain}"
+												zoom="13" type="HYBRID" style="width:300px;height:150px;"
+												model="#{etudeCtr.simpleModel1}" />
+										</div>
+										<p>Id Terrain: #{etudeCtr.terrain.numTerrain}</p>
+										<p>#{etudeCtr.terrain.adresse}</p>
+										<p>#{etudeCtr.terrain.ville}</p>
+									</div>
+								</div>
+							</p:outputPanel>
+
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='213'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<h:form>
+										<table
+											style="margin-left: 3cm; margin-top: 3.5cm; margin-bottom: 0.5cm">
+											<td width="300px">
+												<h4>
+													<b>-> Visite du terrain :</b>
+												</h4>
+											</td>
+											<td width="180px"><p:calendar
+													value="#{etudeCtr.terrain.dateVisite}"
+													pattern="MM/dd/yyyy HH:mm:ss" /></td>
+											<td>
+												<div align="center">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="ok" title="Valider"
+														action="#{etudeCtr.updateVisiteTerrain()}" ajax="false" />
+												</div>
+											</td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='214'}">
+								<table
+									style="margin-left: 3cm; margin-top: 3.5cm; margin-bottom: 0.5cm">
+									<td width="350px">
+										<h4>
+											<b>-> Visite du terrain :</b>
+										</h4>
+									</td>
+									<td><h4>Terrain visité par le responsable service
+											technique le #{etudeCtr.terrain.dateVisite}</h4></td>
+								</table>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='214'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<h:form>
+										<table style="margin-top: 0.5cm; margin-bottom: 1cm">
+											<td width="420px">
+												<ul>
+													<h3>
+														<li><b>Architecte :</b></li>
+													</h3>
+												</ul>
+											</td>
+											<td width="220px"><p:selectOneMenu
+													value="#{etudeCtr.architecte}"
+													style="width:180px; margin-left: 0.5cm;">
+													<f:selectItem itemLabel="Architecte" itemValue="" />
+													<f:selectItems value="#{etudeCtr.architectes}" />
+												</p:selectOneMenu></td>
+											<td><div align="center">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="ok" title="Valider"
+														action="#{etudeCtr.updateEquipe()}" ajax="false" />
+												</div></td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='215'}">
+								<h:form>
+									<table style="margin-top: 0.5cm; margin-bottom: 0.3cm">
+										<td width="470px">
+											<ul>
+												<h3>
+													<li><b>Architecte :</b></li>
+												</h3>
+											</ul>
+										</td>
+										<td><h4>#{etudeCtr.ar.prenomUti}
+												#{etudeCtr.ar.nomUti}</h4></td>
+									</table>
+								</h:form>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='215'}">
+								<sec:authorize access="hasRole('PRAR')">
+									<div style="margin-bottom: 0.3cm;">
+										<h:form>
+											<ul>
+												<h3>
+													<li><b>Etude de rentabilité :</b></li>
+												</h3>
+											</ul>
+											<h:panelGrid align="center" columns="2"
+												style="margin-left: 5cm" cellpadding="20">
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Prix de vente moyen :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.etude.prixVenteMoyen}"
+													placeholder="Prix de vente moyen" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Prix du terrain :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.etude.prixTerrain}"
+													placeholder="Prix du terrain" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Charges de construction :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.etude.chargesConstruction}"
+													style="margin-top: 0.2cm"
+													placeholder="Charges de construction" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Frais proportionnels :</p:outputLabel>
+												<p:inputText required="true" value="#{etudeCtr.etude.frais}"
+													style="margin-top: 0.2cm"
+													placeholder="Frais proportionnels" />
+											</h:panelGrid>
+											<div style="margin-left: 15cm; margin-top: 0.2cm">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{etudeCtr.createEtudeRentabilite()}" ajax="false" />
+											</div>
+										</h:form>
+									</div>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='216'}">
+								<ul>
+									<h3>
+										<li><b>Etude de rentabilité :</b></li>
+									</h3>
+								</ul>
+								<table style="margin-top: 0.5cm">
+									<tr>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Prix de vente moyen des loyers :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{etudeCtr.etude.prixVenteMoyen} Milles Euros</h4>
+										</td>
+									</tr>
+									<tr>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Prix du terrain estimé :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{etudeCtr.etude.prixTerrain} Milles Euros</h4>
+										</td>
+									</tr>
+									<tr>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Charges de construction :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{etudeCtr.etude.chargesConstruction} Milles Euros</h4>
+										</td>
+									</tr>
+									<tr>
+										<td width="500px">
+											<h4 style="margin-left: 3cm;">
+												<b>-> Frais proportionnels :</b>
+											</h4>
+										</td>
+										<td>
+											<h4>#{etudeCtr.etude.frais} Milles Euros</h4>
+										</td>
+									</tr>
+								</table>
+							</p:outputPanel>
+						</div>
+
+
+						<div id="analyse" class="tab-pane fade">
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='216'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<div style="margin-top: 0.5cm;">
+										<ul>
+											<h3>
+												<li><b>Analyse des couts :</b></li>
+											</h3>
+										</ul>
+										<h:form>
+											<h:panelGrid align="center" columns="2"
+												style="margin-left: 5cm" cellpadding="20">
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Cout du terrain :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.analyseCout.coutTerrain}"
+													placeholder="Cout du terrain" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Cout des travaux :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.analyseCout.coutTavaux}"
+													placeholder="Cout des travaux" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Cout des prestataires :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.analyseCout.coutPrestataires}"
+													style="margin-top: 0.2cm"
+													placeholder="Cout des prestataires" />
+												<p:outputLabel
+													style="margin-right: 5cm; margin-bottom: 0.5cm">Cout administratif :</p:outputLabel>
+												<p:inputText required="true"
+													value="#{etudeCtr.analyseCout.coutAdministratifs}"
+													style="margin-top: 0.2cm" placeholder="Cout administratif" />
+											</h:panelGrid>
+											<div style="margin-left: 15cm; margin-top: 0.2cm">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{etudeCtr.createAnalyseCout()}" ajax="false" />
+											</div>
+										</h:form>
+									</div>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='217'}">
+								<div style="margin-top: 0.5cm;">
+									<ul>
+										<h3>
+											<li><b>Analyse des couts :</b></li>
+										</h3>
+									</ul>
+									<table>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Cout d'acquisition du terrain :</b>
+												</h4>
+											</td>
+											<td>
+												<h4>#{etudeCtr.analyseCout.coutTerrain} Milles Euros</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Cout des travaux et matériaux :</b>
+												</h4>
+											</td>
+											<td>
+												<h4>#{etudeCtr.analyseCout.coutTavaux} Milles Euros</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Cout des prestataires :</b>
+												</h4>
+											</td>
+											<td>
+												<h4>#{etudeCtr.analyseCout.coutPrestataires} Milles
+													Euros</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Cout administratif :</b>
+												</h4>
+											</td>
+											<td>
+												<h4>#{etudeCtr.analyseCout.coutAdministratifs} Milles
+													Euros</h4>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='217'}">
+								<sec:authorize access="hasRole('PRRSM')">
+									<ul>
+										<h3>
+											<li><b>Analyse de la zone d'implémentation :</b></li>
+										</h3>
+									</ul>
+									<h:form>
+										<table width="800px" align="center" style="margin-top: 0.2cm">
+											<tr>
+												<td><p:inputTextarea rows="5" cols="30"
+														value="#{etudeCtr.analyseZone.descImm}" queryDelay="750"
+														placeholder="Description des immeubles" minQueryLength="4" /></td>
+												<td>
+													<div style="margin-left: 0.2cm;">
+														<p:inputTextarea rows="5" cols="30"
+															value="#{etudeCtr.analyseZone.descLoyer}"
+															queryDelay="750" placeholder="Description des logements"
+															minQueryLength="4" />
+													</div>
+												</td>
+												<td><div style="margin-left: 0.2cm;">
+														<p:inputTextarea rows="5" cols="30"
+															value="#{etudeCtr.analyseZone.descBureau}"
+															queryDelay="750" placeholder="Description des bureaux"
+															minQueryLength="4" />
+													</div></td>
+											</tr>
+										</table>
+										<div
+											style="width: 100px; margin-left: 12.3cm; margin-top: 0.2cm">
+											<p:inputText value="#{etudeCtr.analyseZone.prixMetre}"
+												placeholder="Prix d'un mètre carré" required="true" />
+										</div>
+										<div
+											style="margin-left: 13.5cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{etudeCtr.createAnalyseZone()}" ajax="false" />
+										</div>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='218'}">
+								<div style="margin-top: 0.5cm;">
+									<ul>
+										<h3>
+											<li><b>Analyse de la zone d'implémentation :</b></li>
+										</h3>
+									</ul>
+									<table>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Description des immeubles :</b>
+												</h4>
+											</td>
+											<td width="400px">
+												<h4>#{etudeCtr.analyseZone.descImm}</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Description des logements :</b>
+												</h4>
+											</td>
+											<td width="400px">
+												<h4>#{etudeCtr.analyseZone.descLoyer}</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Description des bureaux :</b>
+												</h4>
+											</td>
+											<td width="400px">
+												<h4>#{etudeCtr.analyseZone.descBureau}</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Prix d'un mètre carré du terrain :</b>
+												</h4>
+											</td>
+											<td width="400px">
+												<h4>#{etudeCtr.analyseZone.prixMetre} Euros</h4>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='218'}">
+								<sec:authorize access="hasRole('PRCG')">
+									<ul>
+										<h3>
+											<li><b>Analyse financière :</b></li>
+										</h3>
+									</ul>
+									<h:form>
+										<table width="600px" align="center" style="margin-top: 0.2cm">
+											<tr>
+												<td><p:inputText required="true"
+														value="#{etudeCtr.analyseFinanciere.estimRecette}"
+														placeholder="Estimation des recettes" /></td>
+												<td><p:inputText required="true"
+														value="#{etudeCtr.analyseFinanciere.estimProjet}"
+														placeholder="Cout estimé de projet" /></td>
+												<td><p:inputText required="true"
+														value="#{etudeCtr.analyseFinanciere.margeRentabilite}"
+														placeholder="Marge de rentabilité" /></td>
+											</tr>
+										</table>
+										<div
+											style="width: 250px; margin-left: 11.7cm; margin-top: 0.2cm">
+											<p:inputTextarea rows="5"
+												value="#{etudeCtr.analyseFinanciere.propReparition}"
+												placeholder="Répartition des biens" cols="30"
+												queryDelay="750" minQueryLength="4" />
+										</div>
+										<div
+											style="margin-left: 14cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{etudeCtr.createAnalyseFinanciere()}" ajax="false" />
+										</div>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='219'}">
+								<div style="margin-top: 0.5cm;">
+									<ul>
+										<h3>
+											<li><b>Analyse financière :</b></li>
+										</h3>
+									</ul>
+									<table>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Estimation des recettes :</b>
+												</h4>
+											</td>
+											<td>
+												<h4>#{etudeCtr.analyseFinanciere.estimRecette} Milles
+													Euros</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Cout estimé de projet :</b>
+												</h4>
+											</td>
+											<td>
+												<h4>#{etudeCtr.analyseFinanciere.estimProjet} Milles
+													Euros</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Estimation de la marge de rentabilité :</b>
+												</h4>
+											</td>
+											<td>
+												<h4>#{etudeCtr.analyseFinanciere.margeRentabilite}
+													Milles Euros</h4>
+											</td>
+										</tr>
+										<tr>
+											<td width="500px">
+												<h4 style="margin-left: 3cm;">
+													<b>-> Proposition de répartition des biens :</b>
+												</h4>
+											</td>
+											<td>
+												<h4>#{etudeCtr.analyseFinanciere.propReparition}</h4>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</p:outputPanel>
+						</div>
+
+
+						<div id="validation" class="tab-pane fade">
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='219'}">
+								<sec:authorize access="hasRole('PRDG')">
+									<h:form>
+										<ul style="margin-top: 0.5cm">
+											<h3>
+												<li><b>Réunion du conseil d'administration :</b></li>
+											</h3>
+										</ul>
+										<table>
+											<td width="400px"><h4 style="margin-left: 3cm;">
+													<b>-> Date de la réunion :</b>
+												</h4></td>
+											<td><p:calendar
+													value="#{etudeCtr.projetValidation.dateReunion}"
+													pattern="MM/dd/yyyy HH:mm:ss" /></td>
+											<td width="50px">
+												<div
+													style="margin-left: 1cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="ok" title="Valider"
+														action="#{etudeCtr.createProjetValid()}" ajax="false" />
+												</div>
+											</td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='220'}">
+								<ul style="margin-top: 0.5cm">
+									<h3>
+										<li><b>Réunion du conseil d'administration :</b></li>
+									</h3>
+								</ul>
+								<table>
+									<td width="400px"><h4 style="margin-left: 3cm;">
+											<b>-> Date de la réunion :</b>
+										</h4></td>
+									<td>
+										<h4>#{etudeCtr.projetValidation.dateReunion}</h4>
+									</td>
+								</table>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='220'}">
+								<sec:authorize access="hasRole('PRDG')">
+									<h:form>
+										<table>
+											<td width="410px"><h4 style="margin-left: 3cm;">
+													<b>-> PV de la réunion :</b>
+												</h4></td>
+											<td width="50px">
+												<div
+													style="margin-left: 2cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="Ajouter" title="Valider"
+														action="#{etudeCtr.addPVReunion()}" ajax="false" />
+												</div>
+											</td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='221'}">
+								<table>
+									<td width="400px"><h4 style="margin-left: 3cm;">
+											<b>-> PV de la réunion :</b>
+										</h4></td>
+									<td><h4>PV a été ajouté au systeme GED</h4></td>
+								</table>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='221'}">
+								<sec:authorize access="hasRole('PRAC')">
+									<h:form>
+										<ul>
+											<h3>
+												<li><b>Projet :</b></li>
+											</h3>
+										</ul>
+										<table>
+											<td width="400px"><h4 style="margin-left: 3cm;">
+													<b>-> Projet validé :</b>
+												</h4></td>
+											<td width="50px">
+												<div
+													style="margin-left: 2cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="Valider" title="Valider"
+														action="#{etudeCtr.updateProjetValid()}" ajax="false" />
+												</div>
+											</td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='222'}">
+								<ul>
+									<h3>
+										<li><b>Projet :</b></li>
+									</h3>
+								</ul>
+								<table>
+									<td width="400px"><h4 style="margin-left: 3cm;">
+											<b>-> Validation du projet</b>
+										</h4></td>
+									<td><h4>Projet validé par le conseil d'administration</h4></td>
+								</table>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='222'}">
+								<sec:authorize access="hasRole('PRAC')">
+									<h:form>
+										<table style="margin-bottom: 0.5cm">
+											<td width="400px"><h4 style="margin-left: 3cm;">
+													<b>-> Achat du terrain :</b>
+												</h4></td>
+											<td><p:inputText required="true"
+													value="#{etudeCtr.terrain.achatTerrain}"
+													placeholder="Prix achat du terrain" /></td>
+											<td width="50px">
+												<div
+													style="margin-left: 1cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
+													<p:commandButton styleClass="btn btn-info btn-rounded"
+														value="ok" title="Valider"
+														action="#{etudeCtr.updateAchatTerrain()}" ajax="false" />
+												</div>
+											</td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{etudeCtr.projet.descEtat>='223'}">
+								<table style="margin-bottom: 0.5cm">
+									<td width="400px"><h4 style="margin-left: 3cm;">
+											<b>-> Achat du terrain :</b>
+										</h4></td>
+									<td><h4>#{etudeCtr.terrain.achatTerrain} Milles Euros</h4></td>
+								</table>
+							</p:outputPanel>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+
+
+
+	<!-- END SCRIPTS -->
+</h:body>
+</html>

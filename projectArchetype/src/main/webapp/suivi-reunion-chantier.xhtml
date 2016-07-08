@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+
+<h:head>
+
+	<!-- META SECTION -->
+
+	<title>Suivi Réunion Chantier</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<!-- END META SECTION -->
+
+	<!-- CSS INCLUDE -->
+	<link rel="stylesheet" type="text/css" id="theme"
+		href="css/theme-default.css" />
+	<link href="google-drive/lightbox.css" rel="stylesheet" />
+	<link href="google-drive/google-drive.css" rel="stylesheet"
+		type="text/css" />
+	<!-- EOF CSS INCLUDE -->
+
+	<script
+		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="body">
+
+
+
+			<div class="panel panel-default"
+				style="margin-top: 2cm; margin-left: 0.3cm;">
+				<div class="container">
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#reunion">Réunion
+								Chantier</a></li>
+					</ul>
+
+					<div class="tab-content">
+
+						<div class="tab-pane fade in active">
+							<p:outputPanel rendered="#{reunionCtr.projet.descEtat>='339'}">
+
+								<div style="margin-top: 0.5cm;">
+									<ul>
+										<h3>
+											<li><b>Déroulement des travaux :</b></li>
+										</h3>
+									</ul>
+
+									<h:form id="form">
+										<p:growl id="msgs" showDetail="true" />
+										<div align="center">
+											<p:dataTable var="reunionChantiers"
+												value="#{reunionCtr.reunionChantiers}"
+												style="margin-top: 0.3cm; width: 1000px;">
+												<p:column headerText="Id Réunion">
+													<h:outputText value="#{reunionChantiers.idReunion}" />
+												</p:column>
+												<p:column headerText="Date Réunion">
+													<h:outputText value="#{reunionChantiers.dateReunion}" />
+												</p:column>
+												<p:column headerText="Etat">
+													<h:outputText value="#{reunionChantiers.etatTravaux}" />
+												</p:column>
+												<p:column headerText="Avancement">
+													<h:outputText value="#{reunionChantiers.avancement}" />
+												</p:column>
+												<p:column headerText="Description">
+													<h:outputText value="#{reunionChantiers.libelleReunion}" />
+												</p:column>
+												<p:column headerText="Id Activité">
+													<h:outputText
+														value="#{reunionChantiers.planningActivite.idPlanAct}" />
+												</p:column>
+												<f:facet name="footer">
+													<p:outputPanel
+														rendered="#{'412'>=reunionCtr.projet.descEtat}">
+														<sec:authorize access="hasRole('PRCP')">
+															<p:panelGrid columns="2">
+																<p:commandButton icon="ui-icon-trash"
+																	validateClient="true" value="Ajouter"
+																	update=":form:Detail"
+																	oncomplete="PF('travauxDialog').show();" />
+															</p:panelGrid>
+														</sec:authorize>
+													</p:outputPanel>
+												</f:facet>
+											</p:dataTable>
+										</div>
+										<p:dialog header="Travaux" widgetVar="travauxDialog"
+											modal="true" showEffect="fade" hideEffect="fade"
+											resizable="false">
+											<p:outputPanel id="Detail" style="text-align:center;">
+												<p:panelGrid columns="2">
+													<h:outputText value="Id Activité :" />
+													<p:selectOneMenu value="#{reunionCtr.activité}"
+														style="width:180px; margin-right:0.3cm">
+														<f:selectItem itemLabel="Id Activité" itemValue="" />
+														<f:selectItems value="#{reunionCtr.activités}" />
+													</p:selectOneMenu>
+													<h:outputText value="Date réunion :" />
+													<p:calendar placeholder="Date réunion" required="true"
+														value="#{reunionCtr.reunionChantier.dateReunion}"
+														showOn="button" />
+													<h:outputText value="Etat des travaux :" />
+													<p:selectOneRadio style="width: 300px"
+														value="#{reunionCtr.reunionChantier.etatTravaux}">
+														<f:selectItem itemLabel="Mauvais" itemValue="Mauvais" />
+														<f:selectItem itemLabel="Moyen" itemValue="Moyen" />
+														<f:selectItem itemLabel="Bon" itemValue="Bon" />
+													</p:selectOneRadio>
+													<h:outputText value="Description des travaux :" />
+													<p:inputTextarea rows="5" cols="30" queryDelay="750"
+														value="#{reunionCtr.reunionChantier.libelleReunion}"
+														placeholder="Description des travaux" minQueryLength="4" />
+													<h:outputText value="Avanacement des travaux :" />
+													<p:selectOneRadio
+														value="#{reunionCtr.reunionChantier.avancement}"
+														style="width: 200px">
+														<f:selectItem itemLabel="1" itemValue="1" />
+														<f:selectItem itemLabel="2" itemValue="2" />
+														<f:selectItem itemLabel="3" itemValue="3" />
+														<f:selectItem itemLabel="4" itemValue="4" />
+														<f:selectItem itemLabel="5" itemValue="5" />
+													</p:selectOneRadio>
+												</p:panelGrid>
+											</p:outputPanel>
+											<div align="center">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{reunionCtr.createReunionChantier()}" ajax="false" />
+											</div>
+										</p:dialog>
+									</h:form>
+								</div>
+							</p:outputPanel>
+
+
+							<div style="margin-top: 0.7cm;">
+								<p:outputPanel rendered="#{reunionCtr.projet.descEtat>='411'}">
+									<ul>
+										<h3>
+											<li><b>Planning :</b></li>
+										</h3>
+									</ul>
+									<h:form id="form2">
+										<p:growl id="msgs" showDetail="true" />
+										<div align="center">
+											<p:dataTable var="planningActivites"
+												value="#{reunionCtr.planningActivites}"
+												style="margin-top: 0.3cm; margin-bottom:0.3cm; width: 1000px;"
+												id="singleDT" selectionMode="single"
+												selection="#{reunionCtr.selectedActivite}"
+												rowKey="#{planningActivites.idPlanAct}">
+												<p:column headerText="Id Activité">
+													<h:outputText value="#{planningActivites.idPlanAct}" />
+												</p:column>
+												<p:column headerText="Date Début">
+													<h:outputText value="#{planningActivites.debutAct}" />
+												</p:column>
+												<p:column headerText="Date Fin">
+													<h:outputText value="#{planningActivites.finAct}" />
+												</p:column>
+												<p:column headerText="Budget Activité">
+													<h:outputText value="#{planningActivites.budgetAct}" />
+												</p:column>
+												<p:column headerText="Description Activité">
+													<h:outputText value="#{planningActivites.libelleAct}" />
+												</p:column>
+												<p:column headerText="Source Modification">
+													<h:outputText
+														value="#{planningActivites.sourceModification}" />
+												</p:column>
+												<p:column headerText="Progression">
+													<h:outputText value="#{planningActivites.progression}" />
+												</p:column>
+												<f:facet name="footer">
+													<p:outputPanel
+														rendered="#{'411'>=reunionCtr.projet.descEtat}">
+														<sec:authorize access="hasRole('PRRST')">
+															<p:commandButton icon="ui-icon-trash"
+																validateClient="true" value="Modifier"
+																process="singleDT" update=":form2:Detail2"
+																oncomplete="PF('modification2Dialog').show();" />
+														</sec:authorize>
+													</p:outputPanel>
+												</f:facet>
+											</p:dataTable>
+										</div>
+
+										<p:dialog header="Planning d'activité"
+											widgetVar="modification2Dialog" modal="true"
+											showEffect="fade" hideEffect="fade" resizable="false">
+											<p:outputPanel id="Detail2" style="text-align:center;">
+												<p:panelGrid columns="2"
+													rendered="#{not empty reunionCtr.selectedActivite}">
+													<h:outputText value="Date début :" />
+													<p:calendar placeholder="Date début"
+														value="#{reunionCtr.selectedActivite.debutAct}"
+														showOn="button" />
+													<h:outputText value="Date fin :" />
+													<p:calendar placeholder="Date fin"
+														value="#{reunionCtr.selectedActivite.finAct}"
+														showOn="button" />
+													<h:outputText value="Budget activité :" />
+													<p:inputText required="true" placeholder="Budget activité"
+														value="#{reunionCtr.selectedActivite.budgetAct}" />
+													<h:outputText value="Description activité :" />
+													<p:inputTextarea rows="5"
+														placeholder="Description activité"
+														style="margin-top:0.1cm; width: 350px" cols="30"
+														queryDelay="750" minQueryLength="4"
+														value="#{reunionCtr.selectedActivite.libelleAct}" />
+													<h:outputText value="Source de modification :" />
+													<p:inputTextarea rows="5"
+														placeholder="Source de modification à modifier"
+														style="margin-top:0.1cm; width: 300px" cols="30"
+														queryDelay="750" minQueryLength="4"
+														value="#{reunionCtr.selectedActivite.sourceModification}" />
+													<h:outputText value="Progression :" />
+													<p:selectOneRadio style="width: 200px"
+														value="#{reunionCtr.selectedActivite.progression}">
+														<f:selectItem itemLabel="1" itemValue="1" />
+														<f:selectItem itemLabel="2" itemValue="2" />
+														<f:selectItem itemLabel="3" itemValue="3" />
+														<f:selectItem itemLabel="4" itemValue="4" />
+														<f:selectItem itemLabel="5" itemValue="5" />
+													</p:selectOneRadio>
+												</p:panelGrid>
+											</p:outputPanel>
+											<div align="center">
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{reunionCtr.updatePlanningActivite()}"
+													ajax="false" />
+											</div>
+										</p:dialog>
+									</h:form>
+
+								</p:outputPanel>
+
+
+							</div>
+							<p:outputPanel rendered="#{reunionCtr.projet.descEtat=='411'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<table style="margin-bottom: 0.4cm; margin-top: 0.5cm;">
+										<td width="495px">
+											<ul>
+												<h3>
+													<li><b>Projet :</b></li>
+												</h3>
+											</ul>
+										</td>
+										<td><h:form>
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="Travaux Terminés" title="Valider"
+													action="#{reunionCtr.updateProjetValid()}" ajax="false" />
+											</h:form></td>
+									</table>
+								</sec:authorize>
+							</p:outputPanel>
+							<p:outputPanel rendered="#{reunionCtr.projet.descEtat>='412'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<table style="margin-bottom: 0.4cm; margin-top: 0.5cm;">
+										<td width="340px">
+											<ul>
+												<h3>
+													<li><b>Projet :</b></li>
+												</h3>
+											</ul>
+										</td>
+										<td><h4>Travaux terminés et Projet validée</h4></td>
+									</table>
+								</sec:authorize>
+							</p:outputPanel>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</ui:define>
+	</ui:composition>
+
+
+</h:body>
+</html>
