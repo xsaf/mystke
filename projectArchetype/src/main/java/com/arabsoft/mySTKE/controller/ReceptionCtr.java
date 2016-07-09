@@ -229,14 +229,25 @@ public class ReceptionCtr {
 		projet = projetBusiness.updateProjet(projet);
 	}
 	
-	public void validerReservesFinale(){
+	public void updateDefautClientValidationFinale(){
+		selectedDefaut.setValidationDefaut("validé");
+		defautBusiness.updateDefaut(selectedDefaut);
+	}
+	
+	public void validerDefautsFinale(){
 		projet.setDescEtat(525);
 		projet = projetBusiness.updateProjet(projet);
 	}
 	
 	public void updateDefautClientFinale(){
-		defautBusiness.updateDefaut(defaut);
+		selectedDefaut.setTravauxDefaut(selectedTravaux);
+		defautBusiness.updateDefaut(selectedDefaut);
 	}
+	
+	public void updateDefautLeveeReserveFinale(){
+		selectedDefaut.setLeveeReserve(selectedReserve);
+		defautBusiness.updateDefaut(selectedDefaut);
+	}	
 	
 	public void validerLeveeReservesFinale(){
 		projet.setDescEtat(526);

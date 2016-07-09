@@ -27,6 +27,10 @@ public class AnalyseCtr {
 
 	private List<AxeAmelioration> axeAmeliorations;
 	private List<Avis> aviss;
+	private Avis selectedAvis = new Avis();
+	private Avis selectedAvis2 = new Avis();
+	private String selectedValid;
+	private String selectedValid2;
 	
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -44,12 +48,12 @@ public class AnalyseCtr {
 	@PostConstruct
 	public void initialisation(){
 		
-		projet.setIdProj(1);
-		projet.setDescEtat(611);
+		projet.setIdProj(11810);
+		//projet.setDescEtat(611);
 		
-		// projet = projetBusiness.findProjetById(projet.getIdProj());
+		projet = projetBusiness.findProjetById(projet.getIdProj());
 		
-		if(projet.getDescEtat()>=511){
+		if(projet.getDescEtat()>=612){
 			axeAmeliorations = axeAmeliorationBusiness.findAxeAmeliorationByIdProjet(projet.getIdProj());
 		}
 		if(projet.getDescEtat()>=614){
@@ -73,6 +77,7 @@ public class AnalyseCtr {
 	}
 	
 	public void createAxeAmelioration(){
+		axeAmelioration.setProjet(projet);
 		axeAmeliorationBusiness.createAxeAmelioration(axeAmelioration);
 		projet.setDescEtat(613);
 		projet = projetBusiness.updateProjet(projet);
@@ -101,7 +106,23 @@ public class AnalyseCtr {
 	public void createRecommandation(){
 		projet.setDescEtat(618);
 		projet = projetBusiness.updateProjet(projet);
+		avis.setProjet(projet);
 		avisBusiness.createAvis(avis);
+	}
+	
+	public void updateAvisDG(){
+		selectedAvis.setValidDG(selectedValid);
+		avisBusiness.updateAvis(selectedAvis);
+	}
+
+	public void updateAvisRST(){
+		selectedAvis.setValidRST(selectedValid2);
+		avisBusiness.updateAvis(selectedAvis);
+	}
+	
+	public void cloturerProjet(){
+		projet.setDescEtat(619);
+		projet = projetBusiness.updateProjet(projet);
 	}
 
 
@@ -184,6 +205,39 @@ public class AnalyseCtr {
 	public void setAvisBusiness(AvisBusiness avisBusiness) {
 		this.avisBusiness = avisBusiness;
 	}
+
+	public Avis getSelectedAvis() {
+		return selectedAvis;
+	}
+
+	public void setSelectedAvis(Avis selectedAvis) {
+		this.selectedAvis = selectedAvis;
+	}
+
+	public String getSelectedValid() {
+		return selectedValid;
+	}
+
+	public void setSelectedValid(String selectedValid) {
+		this.selectedValid = selectedValid;
+	}
+
+	public String getSelectedValid2() {
+		return selectedValid2;
+	}
+
+	public void setSelectedValid2(String selectedValid2) {
+		this.selectedValid2 = selectedValid2;
+	}
+
+	public Avis getSelectedAvis2() {
+		return selectedAvis2;
+	}
+
+	public void setSelectedAvis2(Avis selectedAvis2) {
+		this.selectedAvis2 = selectedAvis2;
+	}
+	
 	
 	
 	

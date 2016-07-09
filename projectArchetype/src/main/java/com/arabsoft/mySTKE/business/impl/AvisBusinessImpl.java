@@ -27,6 +27,15 @@ public class AvisBusinessImpl implements AvisBusiness {
 		List<Avis> l = genericDao.findByPropriety(Avis.class.getName(), "PROJET_IDPROJ", ""+idProj);
 		return l;
 	}
+
+	@Override
+	public void updateAvis(Avis selectedAvis) {
+		
+		genericDao.update(selectedAvis);
+		
+	}
+	
+	
 	
 	
 	

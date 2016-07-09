@@ -13,4 +13,6 @@ public interface AvisBusiness {
 
 	List<Avis> findAvisByIdProjet(int idProj);
 
+	void updateAvis(Avis selectedAvis);
+
 }

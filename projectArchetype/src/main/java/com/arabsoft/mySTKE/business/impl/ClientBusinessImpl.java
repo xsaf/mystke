@@ -30,7 +30,7 @@ public class ClientBusinessImpl implements ClientBusiness {
 		List<Client> l = genericDao.findByPropriety(Client.class.getName(), "PROJET_IDPROJ",""+idProj);
 		List<Client> l1 = new ArrayList<Client>();
 		for(int i=0; i<l.size(); i++){
-			if(!l.get(i).getFonctionSyndicat().equals(null))
+			if(l.get(i).getFonctionSyndicat()!=null && !l.get(i).getFonctionSyndicat().isEmpty() )
 				l1.add(l.get(i));
 		}	
 		return l1;
