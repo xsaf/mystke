@@ -236,10 +236,9 @@ function getFiles(){
        if (!resp.error) {
 			showUserInfo();
             DRIVE_FILES = resp.items;           
-	        buildFiles();
-	       
-	        foldering([{name:'newfolder', value: DRIVE_FILES[0].id}]);
-
+	            buildFiles();
+	           
+	            foldering([{name:'newfolder', value: DRIVE_FILES[0].id}]);
        }else{
             showErrorMessage("Error: " + resp.error.message);
        }
@@ -269,7 +268,7 @@ function buildFiles(){
     	
     	console.log("es yes yes " + DRIVE_FILES[0].id + " ");
     	IDNewFolder = DRIVE_FILES[0].id;
-        
+    	
     	for (var i = 0; i < DRIVE_FILES.length; i++) {
 			DRIVE_FILES[i].textContentURL = "";
 			DRIVE_FILES[i].level = (parseInt(FOLDER_LEVEL) + 1).toString();
@@ -589,7 +588,8 @@ function createFolder() {
 		   if (!resp.error) {
 				showStatus("Loading Google Drive files...");
 				getDriveFiles();	
-		    	IDNewFolder = DRIVE_FILES[0].id;	
+		    	IDNewFolder = DRIVE_FILES[0].id;
+				
 		   }else{
 				hideStatus();
 				hideLoading();
@@ -600,5 +600,4 @@ function createFolder() {
 
 //Get ID Folder
 function getIDFolder(){
-	
 }

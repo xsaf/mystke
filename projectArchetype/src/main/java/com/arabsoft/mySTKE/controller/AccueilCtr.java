@@ -53,7 +53,6 @@ public class AccueilCtr {
 		projet.setDescEtat(11);
 		projet = projetBusiness.createProjet(projet);
 		FacesUtil.setSessionMapValue("AccueilCtr.idprojet", projet.getIdProj());
-
 	}
 
 	public void goToDetails() {
@@ -68,12 +67,12 @@ public class AccueilCtr {
 	public String test123() {
 
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(6000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 
-		return "details-new";
+		return "test";
 	}
 
 	@PreDestroy
