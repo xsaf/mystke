@@ -37,6 +37,8 @@ public class AccueilCtr {
 
 	private String saa;
 	private String soverwrite;
+	
+	private String yes = "no";
 
 	@PostConstruct
 	public void initialisation() {
@@ -53,21 +55,27 @@ public class AccueilCtr {
 		projet.setDescEtat(11);
 		projet = projetBusiness.createProjet(projet);
 		FacesUtil.setSessionMapValue("AccueilCtr.idprojet", projet.getIdProj());
+		
+		yes = "yes";
 	}
 
 	public void goToDetails() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> map = context.getExternalContext().getRequestParameterMap();
-		soverwrite = (String) map.get("newfolder");
-		System.out.println("yyyyyy + " + soverwrite);
+		soverwrite = (String) map.get("newfolder");		
 		FacesUtil.setSessionMapValue("AccueilCtr.newfolder", soverwrite);
+
+		if(yes.equals("yes")){
+			System.out.println("yyyyyy + " + soverwrite);
+			yes = "no";
+		}
 
 	}
 
 	public String test123() {
 
 		try {
-			Thread.sleep(6000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

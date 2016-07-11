@@ -41,117 +41,9 @@
 		<ui:define name="body">
 
 
-<div id="idoszone" style="width: 1100px;">
 
-				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
-				<div id="transparent-wrapper"></div>
 
-				<!-- This popup panel will be used to display the document text-->
-				<div id="login-box" class="hide">
-					<p>Please login on your google account.</p>
-					<button id="btnLogin" onclick="handleAuthClick(event)"
-						class="button">Login</button>
-				</div>
 
-				<div id="drive-box" class="hide">
-					<!-- This will be the google drive navigation-->
-					<div id="drive-breadcrumb">
-						<span class='breadcrumb-arrow'></span> <a data-id='root'
-							data-level='0'>Home</a> <span id="span-navigation"></span>
-					</div>
-
-					<!-- This popup panel will be used as user information panel-->
-					<div class="user-item">
-						<a id="link-logout" class="logout-link">Logout</a>
-					</div>
-
-					<!-- A list of menus available for user to use-->
-					<div id="drive-menu">
-						<div id="button-reload" title="Refresh"></div>
-						<div id="button-upload" title="Upload to Google Drive"
-							class="button-opt"></div>
-						<div id="button-addfolder" title="Add Folder" class="button-opt"></div>
-						<div id="button-share" title="Show shared files only"></div>
-					</div>
-					<div id="drive-content"></div>
-					<div id="error-message" class="flash hidden"></div>
-					<div id="status-message" class="flash hidden"></div>
-				</div>
-
-				<!-- This upload control is used for uploading file to google drive-->
-				<input type="file" id="fUpload" class="hide" style="display: none" />
-
-				<!-- This popup panel will be used to create folder-->
-				<div class="float-box" id="float-box">
-					<div class="folder-form">
-						<div class="close-x">
-							<img id="imgClose" class="imgClose"
-								src="google-drive/images/button_close.png" alt="close" />
-						</div>
-						<h3 class="clear">Add New Folder</h3>
-						<div>
-							<input type="text" id="txtFolder" class="text-input" />
-						</div>
-						<button id="btnAddFolder" value="Save" class="button">Add</button>
-						<button id="btnClose" value="Close" class="button btnClose">Close</button>
-					</div>
-				</div>
-
-				<!-- This popup panel will be used to display the document/file information -->
-				<div id="float-box-info" class="float-box">
-					<div class="info-form">
-						<div class="close-x">
-							<img id="imgCloseInfo" class="imgClose"
-								src="google-drive/images/button_close.png" alt="close" />
-						</div>
-						<h3 class="clear">File information</h3>
-						<table cellpadding="0" cellspacing="0" class="tbl-info">
-							<tr>
-								<td class="label">Created Date</td>
-								<td><span id="spanCreatedDate"></span></td>
-							</tr>
-							<tr>
-								<td class="label">Modified Date</td>
-								<td><span id="spanModifiedDate"></span></td>
-							</tr>
-							<tr>
-								<td class="label">Owner</td>
-								<td><span id="spanOwner"></span></td>
-							</tr>
-							<tr>
-								<td class="label">Title</td>
-								<td><span id="spanTitle"></span></td>
-							</tr>
-							<tr>
-								<td class="label">Size</td>
-								<td><span id="spanSize"></span></td>
-							</tr>
-							<tr>
-								<td class="label">Extension</td>
-								<td><span id="spanExtension"></span></td>
-							</tr>
-						</table>
-						<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
-					</div>
-				</div>
-
-				<!-- This popup panel will be used to display the document text-->
-				<div id="float-box-text" class="float-box">
-					<div class="info-form">
-						<div class="close-x">
-							<img id="imgCloseText" class="imgClose"
-								src="google-drive/images/button_close.png" alt="close" />
-						</div>
-						<h3 class="clear">Text Content</h3>
-						<div id="text-content"></div>
-						<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
-					</div>
-				</div>
-				<!-- This iframe is used for logout-->
-				<iframe id="frameLogout" class="hide"></iframe>
-			</div>
-
-			
 
 
 			<div class="col-md-4">
@@ -163,7 +55,8 @@
 						<div class="list-group border-bottom">
 
 							<h:form id="hformid" style="text-align: center">
-<p:growl id="msgs" showDetail="true" />
+								<p:growl id="msgs" showDetail="true" />
+
 								<p:remoteCommand name="foldering"
 									actionListener="#{accueilCtr.goToDetails()}" />
 
@@ -180,7 +73,168 @@
 												binding="#{accueilCtr.createProjet(nomProj.value)}" />
 										</p:commandButton></td>
 								</table>
-								
+
+
+								<p:dataTable id="singleDT" selectionMode="single"
+									style="margin-top: 0.3cm; margin-bottom: 0.5cm; width: 1000px;">
+									<p:column headerText="Id Activité">
+										<h:outputText value="dsfsd" />
+									</p:column>
+									<p:column headerText="Date Début">
+										<h:outputText value="sdfsdf" />
+									</p:column>
+									<f:facet name="footer">
+										<p:outputPanel>
+											<p:commandButton icon="ui-icon-trash" validateClient="true"
+												value="Ajouter"
+												oncomplete="PF('gedDialog').show();" />
+										</p:outputPanel>
+									</f:facet>
+								</p:dataTable>
+
+
+
+
+
+								<p:dialog header="GED" widgetVar="gedDialog" modal="true"
+									showEffect="fade" hideEffect="fade" resizable="false">
+									<p:outputPanel id="Detail" style="text-align:center;">
+										<p:panelGrid columns="2">
+
+<p>fdsfsdf jsdfsd</p>
+
+											<div id="idoszone" style="width: 1100px;">
+
+												<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+												<div id="transparent-wrapper"></div>
+
+												<!-- This popup panel will be used to display the document text-->
+												<div id="login-box" class="hide">
+													<p>Please login on your google account.</p>
+													<button id="btnLogin" onclick="handleAuthClick(event)"
+														class="button">Login</button>
+												</div>
+
+												<div id="drive-box" class="hide">
+													<!-- This will be the google drive navigation-->
+													<div id="drive-breadcrumb">
+														<span class='breadcrumb-arrow'></span> <a data-id='root'
+															data-level='0'>Home</a> <span id="span-navigation"></span>
+													</div>
+
+													<!-- This popup panel will be used as user information panel-->
+													<div class="user-item">
+														<a id="link-logout" class="logout-link">Logout</a>
+													</div>
+
+													<!-- A list of menus available for user to use-->
+													<div id="drive-menu">
+														<div id="button-reload" title="Refresh"></div>
+														<div id="button-upload" title="Upload to Google Drive"
+															class="button-opt"></div>
+														<div id="button-addfolder" title="Add Folder"
+															class="button-opt"></div>
+														<div id="button-share" title="Show shared files only"></div>
+													</div>
+													<div id="drive-content"></div>
+													<div id="error-message" class="flash hidden"></div>
+													<div id="status-message" class="flash hidden"></div>
+												</div>
+
+												<!-- This upload control is used for uploading file to google drive-->
+												<input type="file" id="fUpload" class="hide"
+													style="display: none" />
+
+												<!-- This popup panel will be used to create folder-->
+												<div class="float-box" id="float-box">
+													<div class="folder-form">
+														<div class="close-x">
+															<img id="imgClose" class="imgClose"
+																src="google-drive/images/button_close.png" alt="close" />
+														</div>
+														<h3 class="clear">Add New Folder</h3>
+														<div>
+															<input type="text" id="txtFolder" class="text-input" />
+														</div>
+														<button id="btnAddFolder" value="Save" class="button">Add</button>
+														<button id="btnClose" value="Close"
+															class="button btnClose">Close</button>
+													</div>
+												</div>
+
+												<!-- This popup panel will be used to display the document/file information -->
+												<div id="float-box-info" class="float-box">
+													<div class="info-form">
+														<div class="close-x">
+															<img id="imgCloseInfo" class="imgClose"
+																src="google-drive/images/button_close.png" alt="close" />
+														</div>
+														<h3 class="clear">File information</h3>
+														<table cellpadding="0" cellspacing="0" class="tbl-info">
+															<tr>
+																<td class="label">Created Date</td>
+																<td><span id="spanCreatedDate"></span></td>
+															</tr>
+															<tr>
+																<td class="label">Modified Date</td>
+																<td><span id="spanModifiedDate"></span></td>
+															</tr>
+															<tr>
+																<td class="label">Owner</td>
+																<td><span id="spanOwner"></span></td>
+															</tr>
+															<tr>
+																<td class="label">Title</td>
+																<td><span id="spanTitle"></span></td>
+															</tr>
+															<tr>
+																<td class="label">Size</td>
+																<td><span id="spanSize"></span></td>
+															</tr>
+															<tr>
+																<td class="label">Extension</td>
+																<td><span id="spanExtension"></span></td>
+															</tr>
+														</table>
+														<button id="btnCloseInfo" value="Close"
+															class="button btnClose">Close</button>
+													</div>
+												</div>
+
+												<!-- This popup panel will be used to display the document text-->
+												<div id="float-box-text" class="float-box">
+													<div class="info-form">
+														<div class="close-x">
+															<img id="imgCloseText" class="imgClose"
+																src="google-drive/images/button_close.png" alt="close" />
+														</div>
+														<h3 class="clear">Text Content</h3>
+														<div id="text-content"></div>
+														<button id="btnCloseText" value="Close"
+															class="button btnClose">Close</button>
+													</div>
+												</div>
+												<!-- This iframe is used for logout-->
+												<iframe id="frameLogout" class="hide"></iframe>
+											</div>
+
+
+
+
+										</p:panelGrid>
+									</p:outputPanel>
+									<div align="center">
+										<p:commandButton styleClass="btn btn-info btn-rounded"
+											value="ok" title="Valider" onclick="createFolder();"
+											action="#{accueilCtr.test123()}" ajax="false">
+											<f:actionListener
+												binding="#{accueilCtr.createProjet(nomProj.value)}" />
+										</p:commandButton>
+									</div>
+
+								</p:dialog>
+
+
 							</h:form>
 
 						</div>

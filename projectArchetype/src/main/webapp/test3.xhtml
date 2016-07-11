@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+<h:head>
+
+	<!-- META SECTION -->
+
+	<title>Test</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/template.xhtml">
+
+		<ui:define name="body">
+		<h:form>
+		<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="yeeeeees" title="Valider"  
+												style="margin-bottom: 0.5cm">
+											</p:commandButton>
+</h:form>
+			<h:form>
+				<p:outputPanel rendered="#{'1'=='1'}">
+
+					<sec:authorize access="hasRole('PRDG')">
+						<p:commandButton value="Modal" type="button"
+							onclick="PF('dlg2').show();" />
+					</sec:authorize>
+
+					<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"
+						height="100">
+						<h:outputText value="This is a Modal Dialog." />
+					</p:dialog>
+				</p:outputPanel>
+
+<p:outputPanel rendered="#{'520'>=receptionCtr.projet.descEtat}">
+				<sec:authorize access="hasRole('PRRST')">
+					<p>RST</p>
+				</sec:authorize></p:outputPanel>
+
+				<sec:authorize access="hasRole('PRDG')">
+					<p>DG</p>
+				</sec:authorize>
+
+
+				<p:outputPanel autoUpdate="true">
+					<sec:authorize access="hasRole('PRDG')">
+						<p:panel rendered="#{etudeCtr.projet.descEtat=='1'}">Première Etape</p:panel>
+					</sec:authorize>
+					<p:panel rendered="#{etudeCtr.projet.descEtat=='2'}">Deuxieme Etape</p:panel>
+					<p:panel rendered="#{etudeCtr.projet.descEtat=='3'}">Troisième Etape</p:panel>
+				</p:outputPanel>
+			</h:form>
+
+			<p:outputPanel rendered="#{etudeCtr.projet.descEtat=='1'}">
+				<sec:authorize access="hasRole('PRDG')">
+				</sec:authorize>
+			</p:outputPanel>
+
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+</html>
