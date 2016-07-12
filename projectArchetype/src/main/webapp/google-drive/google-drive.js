@@ -238,7 +238,11 @@ function getFiles(){
             DRIVE_FILES = resp.items;           
 	            buildFiles();
 	           
-	            foldering([{name:'newfolder', value: DRIVE_FILES[0].id}]);
+	            foldering([{name:'parentFolder', value: FOLDER_ID},{name:'idFolder', value: DRIVE_FILES[0].id},
+	                       {name:'typeFolder', value: DRIVE_FILES[0].fileType},{name:'nameFolder', value: DRIVE_FILES[0].title},
+	                       {name:'dateFolder', value: DRIVE_FILES[0].createdDate},{name:'levelFolder', value: DRIVE_FILES[0].level}]);
+	          
+	            
        }else{
             showErrorMessage("Error: " + resp.error.message);
        }

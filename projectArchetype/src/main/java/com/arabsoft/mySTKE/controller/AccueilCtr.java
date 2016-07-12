@@ -36,8 +36,13 @@ public class AccueilCtr {
 	private ThemeService service;
 
 	private String saa;
-	private String soverwrite;
-	
+	private String idFolder;
+	private String typeFolder;
+	private String parentFolder;
+	private String nameFolder;
+	private String dateFolder;
+	private String levelFolder;
+
 	private String yes = "no";
 
 	@PostConstruct
@@ -55,18 +60,26 @@ public class AccueilCtr {
 		projet.setDescEtat(11);
 		projet = projetBusiness.createProjet(projet);
 		FacesUtil.setSessionMapValue("AccueilCtr.idprojet", projet.getIdProj());
-		
+
 		yes = "yes";
 	}
 
 	public void goToDetails() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> map = context.getExternalContext().getRequestParameterMap();
-		soverwrite = (String) map.get("newfolder");		
-		FacesUtil.setSessionMapValue("AccueilCtr.newfolder", soverwrite);
+		idFolder = (String) map.get("idFolder");
+		nameFolder = (String) map.get("nameFolder");
+		dateFolder = (String) map.get("dateFolder");
+		typeFolder = (String) map.get("typeFolder");
+		levelFolder = (String) map.get("levelFolder");
+		parentFolder = (String) map.get("parentFolder");
 
-		if(yes.equals("yes")){
-			System.out.println("yyyyyy + " + soverwrite);
+		FacesUtil.setSessionMapValue("AccueilCtr.newfolder", idFolder);
+		System.out.println("id: " + idFolder + " !! type: " + typeFolder + " !! parent: " + parentFolder + " !! name: "
+				+ nameFolder + " !! date: " + dateFolder+ " !! level: " + levelFolder);
+
+		if (yes.equals("yes")) {
+
 			yes = "no";
 		}
 
@@ -85,7 +98,7 @@ public class AccueilCtr {
 
 	@PreDestroy
 	public void hey() {
-		System.out.println("lllllll + " + soverwrite);
+		System.out.println("lllllll + " + idFolder);
 	}
 
 	public Projet getProjet() {

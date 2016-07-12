@@ -4,12 +4,15 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
+@PrimaryKeyJoinColumn(name = "idAbsDoc")
 public class Dossier extends AbsDoc {
 
 	@OneToMany(mappedBy = "dossier")
 	private Set<AbsDoc> absDocs;
+	
 
 	public Dossier() {
 		super();
