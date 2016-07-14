@@ -2,7 +2,7 @@
 var SCOPES = ['https://www.googleapis.com/auth/drive','profile'];
 var CLIENT_ID = '142440927738-ltd3qpdsf7c1pl041kj4e2cuc2ptbabe.apps.googleusercontent.com';
 var FOLDER_NAME = "";
-var FOLDER_ID = "0B_KzijCYeJPvalRhMFVpYjl2bTA";
+var FOLDER_ID = document.getElementById("hformid:idProjet").value;
 var FOLDER_PERMISSION = true;
 var FOLDER_LEVEL = 0;
 var NO_OF_FILES = 1000;
@@ -11,6 +11,8 @@ var FILE_COUNTER = 0;
 var FOLDER_ARRAY = [];
 var IDNewFolder;
 var newfolder ="jjjjjj";
+var idFOLDER = document.getElementById("hformid:idProjet").value;
+
 
 
 /** ****************** AUTHENTICATION ******************* */
@@ -435,7 +437,7 @@ function browseFolder(obj) {
 
     if (typeof FOLDER_NAME === "undefined") {
         FOLDER_NAME = "";
-        FOLDER_ID = "0B_KzijCYeJPvalRhMFVpYjl2bTA";
+        FOLDER_ID = idFOLDER;
         FOLDER_LEVEL = 0;
 		FOLDER_PERMISSION = true;
         FOLDER_ARRAY = [];

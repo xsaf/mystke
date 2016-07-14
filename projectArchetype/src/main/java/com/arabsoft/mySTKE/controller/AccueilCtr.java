@@ -33,41 +33,31 @@ public class AccueilCtr {
 	private Utilisa utilisa = new Utilisa();
 	private Projet projet = new Projet();
 	private List<Projet> projets = new ArrayList<Projet>();
-	private Dossier dossier = new Dossier();
-	private Document document = new Document();
 	private Dossier dossierParent = new Dossier();
 	private AbsDoc absDoc;
-	
+
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
-	
+
 	@ManagedProperty(value = "#{absDocBusiness}")
 	private AbsDocBusiness absDocBusiness;
 
-	private List<Theme> themes;
-	private Theme theme;
 
-	@ManagedProperty("#{themeService}")
-	private ThemeService service;
-
-	private String saa;
 	private String idFolder;
 	private String typeFolder;
 	private String parentFolder;
 	private String nameFolder;
 	private String dateFolder;
 	private String levelFolder;
+	
+	private String folder;
 
-	private String yes = "no";
 
 	@PostConstruct
 	public void initialisation() {
-		utilisa.setIdUti(4);
-		themes = new ArrayList<Theme>();
+		folder = "0B_KzijCYeJPveXkyNzJDTDQ0NEk";
 		projets = projetBusiness.findAllProjetByUser(utilisa.getIdUti());
-		for (int i = 0; i < projets.size(); i++) {
-			themes.add(new Theme(i, projets.get(i).getNomProj(), projets.get(i).getNomProj()));
-		}
+
 	}
 
 	public void createProjet(String nomProj) {
@@ -76,7 +66,6 @@ public class AccueilCtr {
 		projet = projetBusiness.createProjet(projet);
 		FacesUtil.setSessionMapValue("AccueilCtr.idprojet", projet.getIdProj());
 
-		yes = "yes";
 	}
 
 	public void goToDetails() {
@@ -88,26 +77,24 @@ public class AccueilCtr {
 		typeFolder = (String) map.get("typeFolder");
 		levelFolder = (String) map.get("levelFolder");
 		parentFolder = (String) map.get("parentFolder");
-		
+
 		dossierParent = absDocBusiness.findFolderByNum(parentFolder);
-				
-		String day = dateFolder.substring(0,10);
-		String hour = dateFolder.substring(11,19);
-		day = day+" "+hour;
-		DateFormat formatter ; 
-		Date date = null ; 
-		   formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		   try {
+
+		String day = dateFolder.substring(0, 10);
+		String hour = dateFolder.substring(11, 19);
+		day = day + " " + hour;
+		DateFormat formatter;
+		Date date = null;
+		formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		try {
 			date = formatter.parse(day);
-			System.out.println("vvvvvv +"+date.toString());
+			System.out.println("vvvvvv +" + date.toString());
 
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-		
-		if(typeFolder.equals("folder"))
-		{
+
+		if (typeFolder.equals("folder")) {
 			absDoc = new Dossier();
 			absDoc.setNumAbsDoc(idFolder);
 			absDoc.setNomAbsDoc(nameFolder);
@@ -117,9 +104,8 @@ public class AccueilCtr {
 			absDoc.setProjet(projet);
 			absDocBusiness.createDossier((Dossier) absDoc);
 		}
-		
-		if(typeFolder.equals("file"))
-		{
+
+		if (typeFolder.equals("file")) {
 			absDoc = new Document();
 			absDoc.setNumAbsDoc(idFolder);
 			absDoc.setNomAbsDoc(nameFolder);
@@ -129,16 +115,11 @@ public class AccueilCtr {
 			absDoc.setProjet(projet);
 			absDocBusiness.createDocument((Document) absDoc);
 		}
-		
 
 		FacesUtil.setSessionMapValue("AccueilCtr.newfolder", idFolder);
 		System.out.println("id: " + idFolder + " !! type: " + typeFolder + " !! parent: " + parentFolder + " !! name: "
-				+ nameFolder + " !! date: " + dateFolder+ " !! level: " + levelFolder);
+				+ nameFolder + " !! date: " + dateFolder + " !! level: " + levelFolder);
 
-		if (yes.equals("yes")) {
-
-			yes = "no";
-		}
 
 	}
 
@@ -174,22 +155,6 @@ public class AccueilCtr {
 		this.projetBusiness = projetBusiness;
 	}
 
-	public List<Theme> getThemes() {
-		return themes;
-	}
-
-	public void setThemes(List<Theme> themes) {
-		this.themes = themes;
-	}
-
-	public ThemeService getService() {
-		return service;
-	}
-
-	public void setService(ThemeService service) {
-		this.service = service;
-	}
-
 	public Utilisa getUtilisa() {
 		return utilisa;
 	}
@@ -206,28 +171,20 @@ public class AccueilCtr {
 		this.projets = projets;
 	}
 
-	public Theme getTheme() {
-		return theme;
-	}
-
-	public void setTheme(Theme theme) {
-		this.theme = theme;
-	}
-
-	public String getSaa() {
-		return saa;
-	}
-
-	public void setSaa(String saa) {
-		this.saa = saa;
-	}
-
 	public AbsDocBusiness getAbsDocBusiness() {
 		return absDocBusiness;
 	}
 
 	public void setAbsDocBusiness(AbsDocBusiness absDocBusiness) {
 		this.absDocBusiness = absDocBusiness;
+	}
+
+	public String getFolder() {
+		return folder;
+	}
+
+	public void setFolder(String folder) {
+		this.folder = folder;
 	}
 	
 	
