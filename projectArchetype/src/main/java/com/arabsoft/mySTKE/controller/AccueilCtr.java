@@ -1,6 +1,10 @@
 package com.arabsoft.mySTKE.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +15,11 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
+import com.arabsoft.mySTKE.entity.AbsDoc;
+import com.arabsoft.mySTKE.entity.Document;
+import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.Utilisa;
 import com.arabsoft.utils.FacesUtil;
@@ -25,9 +33,16 @@ public class AccueilCtr {
 	private Utilisa utilisa = new Utilisa();
 	private Projet projet = new Projet();
 	private List<Projet> projets = new ArrayList<Projet>();
-
+	private Dossier dossier = new Dossier();
+	private Document document = new Document();
+	private Dossier dossierParent = new Dossier();
+	private AbsDoc absDoc;
+	
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
+	
+	@ManagedProperty(value = "#{absDocBusiness}")
+	private AbsDocBusiness absDocBusiness;
 
 	private List<Theme> themes;
 	private Theme theme;
@@ -73,6 +88,48 @@ public class AccueilCtr {
 		typeFolder = (String) map.get("typeFolder");
 		levelFolder = (String) map.get("levelFolder");
 		parentFolder = (String) map.get("parentFolder");
+		
+		dossierParent = absDocBusiness.findFolderByNum(parentFolder);
+				
+		String day = dateFolder.substring(0,10);
+		String hour = dateFolder.substring(11,19);
+		day = day+" "+hour;
+		DateFormat formatter ; 
+		Date date = null ; 
+		   formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		   try {
+			date = formatter.parse(day);
+			System.out.println("vvvvvv +"+date.toString());
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		
+		if(typeFolder.equals("folder"))
+		{
+			absDoc = new Dossier();
+			absDoc.setNumAbsDoc(idFolder);
+			absDoc.setNomAbsDoc(nameFolder);
+			absDoc.setDateCreationAbsDoc(date);
+			absDoc.setNiveauAbsDoc(Integer.parseInt(levelFolder));
+			absDoc.setDossier(dossierParent);
+			absDoc.setProjet(projet);
+			absDocBusiness.createDossier((Dossier) absDoc);
+		}
+		
+		if(typeFolder.equals("file"))
+		{
+			absDoc = new Document();
+			absDoc.setNumAbsDoc(idFolder);
+			absDoc.setNomAbsDoc(nameFolder);
+			absDoc.setDateCreationAbsDoc(date);
+			absDoc.setNiveauAbsDoc(Integer.parseInt(levelFolder));
+			absDoc.setDossier(dossierParent);
+			absDoc.setProjet(projet);
+			absDocBusiness.createDocument((Document) absDoc);
+		}
+		
 
 		FacesUtil.setSessionMapValue("AccueilCtr.newfolder", idFolder);
 		System.out.println("id: " + idFolder + " !! type: " + typeFolder + " !! parent: " + parentFolder + " !! name: "
@@ -164,5 +221,15 @@ public class AccueilCtr {
 	public void setSaa(String saa) {
 		this.saa = saa;
 	}
+
+	public AbsDocBusiness getAbsDocBusiness() {
+		return absDocBusiness;
+	}
+
+	public void setAbsDocBusiness(AbsDocBusiness absDocBusiness) {
+		this.absDocBusiness = absDocBusiness;
+	}
+	
+	
 
 }

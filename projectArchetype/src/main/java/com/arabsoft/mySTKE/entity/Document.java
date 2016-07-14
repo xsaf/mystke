@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "idAbsDoc")
 public class Document extends AbsDoc {
 
 	public Document() {
