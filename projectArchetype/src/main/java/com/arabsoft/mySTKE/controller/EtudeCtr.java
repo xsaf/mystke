@@ -14,6 +14,7 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 
+import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.AnalyseCoutBusiness;
 import com.arabsoft.mySTKE.business.AnalyseFinanciereBusiness;
 import com.arabsoft.mySTKE.business.AnalyseZoneBusiness;
@@ -23,9 +24,11 @@ import com.arabsoft.mySTKE.business.ProjetBusiness;
 import com.arabsoft.mySTKE.business.ProjetValidationBusiness;
 import com.arabsoft.mySTKE.business.TerrainBusiness;
 import com.arabsoft.mySTKE.business.ZoneBusiness;
+import com.arabsoft.mySTKE.entity.AbsDoc;
 import com.arabsoft.mySTKE.entity.AnalyseCout;
 import com.arabsoft.mySTKE.entity.AnalyseFinanciere;
 import com.arabsoft.mySTKE.entity.AnalyseZone;
+import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Equipe;
 import com.arabsoft.mySTKE.entity.EtudeRentabillite;
 import com.arabsoft.mySTKE.entity.Fonction;
@@ -51,8 +54,8 @@ public class EtudeCtr {
 	private AnalyseZone analyseZone = new AnalyseZone();
 	private AnalyseFinanciere analyseFinanciere = new AnalyseFinanciere();
 	private ProjetValidation projetValidation = new ProjetValidation();
+	private AbsDoc absDoc = new Dossier();
 
-	
 
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -81,6 +84,12 @@ public class EtudeCtr {
 	@ManagedProperty(value = "#{projetValidationBusiness}")
 	private ProjetValidationBusiness projetValidationBusiness;
 	
+	@ManagedProperty(value = "#{absDocBusiness}")
+	private AbsDocBusiness absDocBusiness;
+
+	@ManagedProperty(value = "#{gedCtr}")
+	private GedCtr gedCtr;
+	
     private MapModel simpleModel1;
     
     private int architecte;
@@ -90,11 +99,14 @@ public class EtudeCtr {
 	@PostConstruct
 	public void initialisation() {
 		// test
-		projet.setIdProj(11810);
+		projet.setIdProj(15830);
 
 		// Projet
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 
+		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+		gedCtr.setFolder(absDoc.getNumAbsDoc());
+		
 		
 		if(projet.getDescEtat()>=212){
 			zone = zoneBusiness.findZoneByIdProjet(projet.getIdProj());			
@@ -132,6 +144,11 @@ public class EtudeCtr {
 			projetValidation = projetValidationBusiness.findProjetValidationByIdProjet(projet.getIdProj(),220);
 		}
 		
+	}
+	
+	public void createFolder(){
+		gedCtr.setProjet(projet);
+		gedCtr.createFolder();
 	}
 
 	public void createZone() {
@@ -410,6 +427,30 @@ public class EtudeCtr {
 
 	public void setEtude(EtudeRentabillite etude) {
 		this.etude = etude;
+	}
+
+	public AbsDoc getAbsDoc() {
+		return absDoc;
+	}
+
+	public void setAbsDoc(AbsDoc absDoc) {
+		this.absDoc = absDoc;
+	}
+
+	public AbsDocBusiness getAbsDocBusiness() {
+		return absDocBusiness;
+	}
+
+	public void setAbsDocBusiness(AbsDocBusiness absDocBusiness) {
+		this.absDocBusiness = absDocBusiness;
+	}
+
+	public GedCtr getGedCtr() {
+		return gedCtr;
+	}
+
+	public void setGedCtr(GedCtr gedCtr) {
+		this.gedCtr = gedCtr;
 	}
 
 	

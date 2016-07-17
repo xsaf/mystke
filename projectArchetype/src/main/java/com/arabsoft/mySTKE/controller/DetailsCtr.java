@@ -14,14 +14,16 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
+import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.EquipeBusiness;
 import com.arabsoft.mySTKE.business.PlanningBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
+import com.arabsoft.mySTKE.entity.AbsDoc;
+import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Equipe;
 import com.arabsoft.mySTKE.entity.Planning;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.Utilisa;
-import com.arabsoft.utils.FacesUtil;
 import com.arabsoft.utils.Theme;
 import com.arabsoft.utils.ThemeService;
 
@@ -32,6 +34,7 @@ public class DetailsCtr {
 	private Projet projet = new Projet();
 	private Planning planning = new Planning();
 	private Equipe equipe = new Equipe();
+	private AbsDoc absDoc = new Dossier();
 	private Utilisa utilisa = new Utilisa();
 
 	@ManagedProperty(value = "#{projetBusiness}")
@@ -42,7 +45,13 @@ public class DetailsCtr {
 
 	@ManagedProperty(value = "#{equipeBusiness}")
 	private EquipeBusiness equipeBusiness;
+	
+	@ManagedProperty(value = "#{absDocBusiness}")
+	private AbsDocBusiness absDocBusiness;
 
+	@ManagedProperty(value = "#{gedCtr}")
+	private GedCtr gedCtr;
+	
 	@ManagedProperty("#{themeService}")
 	private ThemeService service;
 
@@ -89,14 +98,15 @@ public class DetailsCtr {
 //		System.out.println("safweeen + " + idprojet);
 
 		
-		
-		
-		
+			
 		// test
-		projet.setIdProj(1736);
-		//projet.setDescEtat(111);
+		projet.setIdProj(15170);
 		// Projet
 		projet = projetBusiness.findProjetById(projet.getIdProj());
+			
+		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+		gedCtr.setFolder(absDoc.getNumAbsDoc());
+				
 
 		if (projet.getDescEtat() == 111) {
 
@@ -191,6 +201,12 @@ public class DetailsCtr {
 		createAnimatedModels();
 
 		
+	}
+	
+	
+	public void createFolder(){
+		gedCtr.setProjet(projet);
+		gedCtr.createFolder();
 	}
 
 	public void createProjet() {
@@ -547,6 +563,30 @@ public class DetailsCtr {
 
 	public void setAnimatedModel(BarChartModel animatedModel) {
 		this.animatedModel = animatedModel;
+	}
+
+	public AbsDoc getAbsDoc() {
+		return absDoc;
+	}
+
+	public void setAbsDoc(AbsDoc absDoc) {
+		this.absDoc = absDoc;
+	}
+
+	public AbsDocBusiness getAbsDocBusiness() {
+		return absDocBusiness;
+	}
+
+	public void setAbsDocBusiness(AbsDocBusiness absDocBusiness) {
+		this.absDocBusiness = absDocBusiness;
+	}
+
+	public GedCtr getGedCtr() {
+		return gedCtr;
+	}
+
+	public void setGedCtr(GedCtr gedCtr) {
+		this.gedCtr = gedCtr;
 	}
 
 }

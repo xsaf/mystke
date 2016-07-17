@@ -42,6 +42,257 @@
 		<ui:define name="body">
 
 
+			<div id="idoszone" style="width: 1100px;">
+
+				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+				<div id="transparent-wrapper"></div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="login-box" class="hide">
+					<p>Please login on your google account.</p>
+					<button id="btnLogin" onclick="handleAuthClick(event)"
+						class="button">Login</button>
+				</div>
+
+				<div id="drive-box" class="hide">
+					<!-- This will be the google drive navigation-->
+					<div id="drive-breadcrumb">
+						<span class='breadcrumb-arrow'></span> <a data-id='root'
+							data-level='0'>Home</a> <span id="span-navigation"></span>
+					</div>
+
+					<!-- This popup panel will be used as user information panel-->
+					<div class="user-item">
+						<a id="link-logout" class="logout-link">Logout</a>
+					</div>
+
+					<!-- A list of menus available for user to use-->
+					<div id="drive-menu">
+						<div id="button-reload" title="Refresh"></div>
+						<div id="button-upload" title="Upload to Google Drive"
+							class="button-opt"></div>
+						<div id="button-addfolder" title="Add Folder" class="button-opt"></div>
+						<div id="button-share" title="Show shared files only"></div>
+					</div>
+					<div id="drive-content"></div>
+					<div id="error-message" class="flash hidden"></div>
+					<div id="status-message" class="flash hidden"></div>
+				</div>
+
+				<!-- This upload control is used for uploading file to google drive-->
+				<input type="file" id="fUpload" class="hide" style="display: none" />
+
+				<!-- This popup panel will be used to create folder-->
+				<div class="float-box" id="float-box">
+					<div class="folder-form">
+						<div class="close-x">
+							<img id="imgClose" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Add New Folder</h3>
+						<div>
+							<input type="text" id="txtFolder" class="text-input" />
+						</div>
+						<button id="btnAddFolder" value="Save" class="button">Add</button>
+						<button id="btnClose" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document/file information -->
+				<div id="float-box-info" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseInfo" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">File information</h3>
+						<table cellpadding="0" cellspacing="0" class="tbl-info">
+							<tr>
+								<td class="label">Created Date</td>
+								<td><span id="spanCreatedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Modified Date</td>
+								<td><span id="spanModifiedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Owner</td>
+								<td><span id="spanOwner"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Title</td>
+								<td><span id="spanTitle"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Size</td>
+								<td><span id="spanSize"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Extension</td>
+								<td><span id="spanExtension"></span></td>
+							</tr>
+						</table>
+						<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="float-box-text" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseText" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Text Content</h3>
+						<div id="text-content"></div>
+						<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+				<!-- This iframe is used for logout-->
+				<iframe id="frameLogout" class="hide"></iframe>
+			</div>
+
+
+			<p:dialog header="GED" widgetVar="gedDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="Detail" style="text-align:center;">
+					<p:panelGrid columns="2">
+
+						<div id="idoszone" style="width: 1100px;">
+
+							<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+							<div id="transparent-wrapper"></div>
+
+							<!-- This popup panel will be used to display the document text-->
+							<div id="login-box" class="hide">
+								<p>Please login on your google account.</p>
+								<button id="btnLogin" onclick="handleAuthClick(event)"
+									class="button">Login</button>
+							</div>
+
+							<div id="drive-box" class="hide">
+								<!-- This will be the google drive navigation-->
+								<div id="drive-breadcrumb">
+									<span class='breadcrumb-arrow'></span> <a data-id='root'
+										data-level='0'>Home</a> <span id="span-navigation"></span>
+								</div>
+
+								<!-- This popup panel will be used as user information panel-->
+								<div class="user-item">
+									<a id="link-logout" class="logout-link">Logout</a>
+								</div>
+
+								<!-- A list of menus available for user to use-->
+								<div id="drive-menu">
+									<div id="button-reload" title="Refresh"></div>
+									<div id="button-upload" title="Upload to Google Drive"
+										class="button-opt"></div>
+									<div id="button-addfolder" title="Add Folder"
+										class="button-opt"></div>
+									<div id="button-share" title="Show shared files only"></div>
+								</div>
+								<div id="drive-content"></div>
+								<div id="error-message" class="flash hidden"></div>
+								<div id="status-message" class="flash hidden"></div>
+							</div>
+
+							<!-- This upload control is used for uploading file to google drive-->
+							<input type="file" id="fUpload" class="hide"
+								style="display: none" />
+
+							<!-- This popup panel will be used to create folder-->
+							<div class="float-box" id="float-box">
+								<div class="folder-form">
+									<div class="close-x">
+										<img id="imgClose" class="imgClose"
+											src="google-drive/images/button_close.png" alt="close" />
+									</div>
+									<h3 class="clear">Add New Folder</h3>
+									<div>
+										<input type="text" id="txtFolder" class="text-input" />
+									</div>
+									<button id="btnAddFolder" value="Save" class="button">Add</button>
+									<button id="btnClose" value="Close" class="button btnClose">Close</button>
+								</div>
+							</div>
+
+							<!-- This popup panel will be used to display the document/file information -->
+							<div id="float-box-info" class="float-box">
+								<div class="info-form">
+									<div class="close-x">
+										<img id="imgCloseInfo" class="imgClose"
+											src="google-drive/images/button_close.png" alt="close" />
+									</div>
+									<h3 class="clear">File information</h3>
+									<table cellpadding="0" cellspacing="0" class="tbl-info">
+										<tr>
+											<td class="label">Created Date</td>
+											<td><span id="spanCreatedDate"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Modified Date</td>
+											<td><span id="spanModifiedDate"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Owner</td>
+											<td><span id="spanOwner"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Title</td>
+											<td><span id="spanTitle"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Size</td>
+											<td><span id="spanSize"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Extension</td>
+											<td><span id="spanExtension"></span></td>
+										</tr>
+									</table>
+									<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
+								</div>
+							</div>
+
+							<!-- This popup panel will be used to display the document text-->
+							<div id="float-box-text" class="float-box">
+								<div class="info-form">
+									<div class="close-x">
+										<img id="imgCloseText" class="imgClose"
+											src="google-drive/images/button_close.png" alt="close" />
+									</div>
+									<h3 class="clear">Text Content</h3>
+									<div id="text-content"></div>
+									<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
+								</div>
+							</div>
+							<!-- This iframe is used for logout-->
+							<iframe id="frameLogout" class="hide"></iframe>
+						</div>
+
+					</p:panelGrid>
+				</p:outputPanel>
+				<div align="center">
+					<h:form>
+						<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
+							title="Valider" ajax="false" />
+					</h:form>
+				</div>
+
+			</p:dialog>
+
+			<h:form id="hformid" style="text-align: center">
+
+				<p:remoteCommand name="foldering"
+					actionListener="#{analyseCtr.createFolder()}" />
+
+				<p:inputText id="idProjet" binding="#{idProj}"
+					value="#{analyseCtr.gedCtr.folder}" style="display:none" />
+
+			</h:form>
+
+
+
 
 			<div class="panel panel-default"
 				style="margin-top: 2cm; margin-left: 0.3cm;">
@@ -68,7 +319,7 @@
 											<td><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Valider"
 													title="Valider"
-													action="#{analyseCtr.createClotureProjet()}" ajax="false"/></td>
+													action="#{analyseCtr.createClotureProjet()}" ajax="false" /></td>
 										</table>
 									</h:form>
 								</sec:authorize>
@@ -77,15 +328,15 @@
 							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='611'}"
 								style="margin-top: 0.5cm">
 								<table style="margin-top: 0.5cm">
-											<td width="400px">
-												<ul>
-													<h3>
-														<li><b>Cloture de projet :</b></li>
-													</h3>
-												</ul>
-											</td>
-											<td><h4>Projet est cloturé par le RST</h4></td>
-										</table>
+									<td width="400px">
+										<ul>
+											<h3>
+												<li><b>Cloture de projet :</b></li>
+											</h3>
+										</ul>
+									</td>
+									<td><h4>Projet est cloturé par le RST</h4></td>
+								</table>
 							</p:outputPanel>
 
 							<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='611'}">
@@ -100,7 +351,8 @@
 											<td><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Ajouter"
 													title="Valider"
-													action="#{analyseCtr.createRapportClotureProjet()}" ajax="false" /></td>
+													action="#{analyseCtr.createRapportClotureProjet()}"
+													oncomplete="PF('gedDialog').show();" /></td>
 										</table>
 									</h:form>
 								</sec:authorize>
@@ -123,40 +375,41 @@
 							</p:outputPanel>
 
 							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='612'}">
-							<div style="margin-left: 3cm;">
-							<h4>
-													<b>-> Axes d'amélioration :</b>
-												</h4>
-							</div>
-							<h:form id="form">
+								<div style="margin-left: 3cm;">
+									<h4>
+										<b>-> Axes d'amélioration :</b>
+									</h4>
+								</div>
+								<h:form id="form">
 									<p:growl id="msgs" showDetail="true" />
-								<div align="center" style="margin-bottom: 0.6cm">
-									<p:dataTable var="axeAmeliorations"
-										value="#{analyseCtr.axeAmeliorations}"
-										style="margin-top: 0.5cm; width: 800px;">
-										<p:column headerText="Id Amélioration" style="width: 200px">
-											<h:outputText value="#{axeAmeliorations.idAxe}" />
-										</p:column>
-										<p:column headerText="Axe d'amélioration" style="width: 200px">
-											<h:outputText value="#{axeAmeliorations.nomAxe}" />
-										</p:column>
-										<p:column headerText="Déscription">
-											<h:outputText value="#{axeAmeliorations.descAxe}" />
-										</p:column>
-										<f:facet name="footer">
+									<div align="center" style="margin-bottom: 0.6cm">
+										<p:dataTable var="axeAmeliorations"
+											value="#{analyseCtr.axeAmeliorations}"
+											style="margin-top: 0.5cm; width: 800px;">
+											<p:column headerText="Id Amélioration" style="width: 200px">
+												<h:outputText value="#{axeAmeliorations.idAxe}" />
+											</p:column>
+											<p:column headerText="Axe d'amélioration"
+												style="width: 200px">
+												<h:outputText value="#{axeAmeliorations.nomAxe}" />
+											</p:column>
+											<p:column headerText="Déscription">
+												<h:outputText value="#{axeAmeliorations.descAxe}" />
+											</p:column>
+											<f:facet name="footer">
 												<p:outputPanel
 													rendered="#{'613'>=analyseCtr.projet.descEtat}">
 													<sec:authorize access="hasRole('PRCG')">
 														<p:commandButton icon="ui-icon-trash"
-															validateClient="true" value="Ajouter"
-															update=":form:Axe"
+															validateClient="true" value="Ajouter" update=":form:Axe"
 															oncomplete="PF('axeDialog').show();" />
 													</sec:authorize>
-													</p:outputPanel></f:facet>
-									</p:dataTable>
-								</div>
-								
-								<p:dialog header="Axe d'amélioration" widgetVar="axeDialog"
+												</p:outputPanel>
+											</f:facet>
+										</p:dataTable>
+									</div>
+
+									<p:dialog header="Axe d'amélioration" widgetVar="axeDialog"
 										modal="true" showEffect="fade" hideEffect="fade"
 										resizable="false">
 										<p:outputPanel id="Axe" style="text-align:center;">
@@ -173,11 +426,11 @@
 										</p:outputPanel>
 										<div align="center">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
-													value="ok" title="Valider"
-													action="#{analyseCtr.createAxeAmelioration()}" ajax="false" />
+												value="ok" title="Valider"
+												action="#{analyseCtr.createAxeAmelioration()}" ajax="false" />
 										</div>
-								</p:dialog>
-								
+									</p:dialog>
+
 								</h:form>
 							</p:outputPanel>
 
@@ -195,13 +448,13 @@
 														<b>-> Date de la réunion :</b>
 													</h4></td>
 												<td><p:calendar
-													value="#{analyseCtr.projetValidation.dateReunion}"
-													pattern="MM/dd/yyyy HH:mm:ss" /></td>
+														value="#{analyseCtr.projetValidation.dateReunion}"
+														pattern="MM/dd/yyyy HH:mm:ss" /></td>
 												<td width="50px">
 													<div align="center">
 														<p:commandButton styleClass="btn btn-info btn-rounded"
 															value="ok" title="Valider"
-															action="#{analyseCtr.createProjetValid()}" ajax="false"/>
+															action="#{analyseCtr.createProjetValid()}" ajax="false" />
 													</div>
 												</td>
 											</table>
@@ -233,11 +486,10 @@
 											<td width="410px"><h4 style="margin-left: 3cm;">
 													<b>-> PV de la réunion :</b>
 												</h4></td>
-											<td width="50px">
-														<p:commandButton styleClass="btn btn-info btn-rounded"
-															value="Ajouter" title="Valider"
-															action="#{analyseCtr.createPVReunion()}" ajax="false"/>
-											</td>
+											<td width="50px"><p:commandButton
+													styleClass="btn btn-info btn-rounded" value="Ajouter"
+													title="Valider" action="#{analyseCtr.createPVReunion()}"
+													oncomplete="PF('gedDialog').show();" /></td>
 										</table>
 									</h:form>
 								</sec:authorize>
@@ -250,84 +502,83 @@
 										</h4></td>
 									<td><h4>PV a été ajouté au systeme GED</h4></td>
 								</table>
-							</p:outputPanel>								
+							</p:outputPanel>
 
-								<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='615'}">
-									<sec:authorize access="hasRole('PRDG')">
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='615'}">
+								<sec:authorize access="hasRole('PRDG')">
 									<ul>
-									<h3>
-										<li><b>Rapport de cloture :</b></li>
-									</h3>
-								</ul>
-										<h:form>
-											<table>
-												<td width="410px"><h4 style="margin-left: 3cm;">
-														<b>-> Validation du rapport DG :</b>
-													</h4></td>
-												<td width="50px">
-														<p:commandButton styleClass="btn btn-info btn-rounded"
-															value="Valider" title="Valider"
-															action="#{analyseCtr.createValiderRapport()}" ajax="false"/>
-												</td>
-											</table>
-										</h:form>
-									</sec:authorize>
-								</p:outputPanel>
+										<h3>
+											<li><b>Rapport de cloture :</b></li>
+										</h3>
+									</ul>
+									<h:form>
+										<table>
+											<td width="410px"><h4 style="margin-left: 3cm;">
+													<b>-> Validation du rapport DG :</b>
+												</h4></td>
+											<td width="50px"><p:commandButton
+													styleClass="btn btn-info btn-rounded" value="Valider"
+													title="Valider"
+													action="#{analyseCtr.createValiderRapport()}" ajax="false" />
+											</td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
 
-								<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='616'}">
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='616'}">
 								<ul>
 									<h3>
 										<li><b>Rapport de cloture :</b></li>
 									</h3>
 								</ul>
-									<table>
-										<td width="400px"><h4 style="margin-left: 3cm;">
-												<b>-> Validation du rapport DG :</b>
-											</h4></td>
-										<td><h4>Rapport validé par le directeur général</h4></td>
-									</table>
-								</p:outputPanel>
+								<table>
+									<td width="400px"><h4 style="margin-left: 3cm;">
+											<b>-> Validation du rapport DG :</b>
+										</h4></td>
+									<td><h4>Rapport validé par le directeur général</h4></td>
+								</table>
+							</p:outputPanel>
 
-								<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='616'}">
-									<sec:authorize access="hasRole('PRAC')">
-										<h:form>
-											<table>
-												<td width="410px"><h4 style="margin-left: 3cm;">
-														<b>-> Validation du rapport CA :</b>
-													</h4></td>
-												<td width="50px">
-												<p:commandButton styleClass="btn btn-info btn-rounded"
-															value="Valider" title="Valider"
-															action="#{analyseCtr.createValiderRapport()}" ajax="false"/>
-												</td>
-											</table>
-										</h:form>
-									</sec:authorize>
-								</p:outputPanel>
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='616'}">
+								<sec:authorize access="hasRole('PRAC')">
+									<h:form>
+										<table>
+											<td width="410px"><h4 style="margin-left: 3cm;">
+													<b>-> Validation du rapport CA :</b>
+												</h4></td>
+											<td width="50px"><p:commandButton
+													styleClass="btn btn-info btn-rounded" value="Valider"
+													title="Valider"
+													action="#{analyseCtr.createValiderRapport()}" ajax="false" />
+											</td>
+										</table>
+									</h:form>
+								</sec:authorize>
+							</p:outputPanel>
 
-								<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='617'}">
-									<table>
-										<td width="400px"><h4 style="margin-left: 3cm;">
-												<b>-> Validation du rapport CA :</b>
-											</h4></td>
-										<td><h4>Rapport validé par la conseil
-												d'administration</h4></td>
-									</table>
-								</p:outputPanel>
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='617'}">
+								<table>
+									<td width="400px"><h4 style="margin-left: 3cm;">
+											<b>-> Validation du rapport CA :</b>
+										</h4></td>
+									<td><h4>Rapport validé par la conseil
+											d'administration</h4></td>
+								</table>
+							</p:outputPanel>
 
-								<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='617'}">
-									<h4 style="margin-left: 3cm;">
-										<b>-> Recommandations :</b>
-									</h4>
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat>='617'}">
+								<h4 style="margin-left: 3cm;">
+									<b>-> Recommandations :</b>
+								</h4>
 
-<h:form id="form2">
+								<h:form id="form2">
 									<p:growl id="msgs" showDetail="true" />
 									<div align="center" style="margin-bottom: 0.6cm">
 										<p:dataTable var="aviss" value="#{analyseCtr.aviss}"
-											style="margin-top: 0.5cm; width: 800px;"
-											id="singleDT1" selectionMode="single"
-												selection="#{analyseCtr.selectedAvis}"
-												rowKey="#{aviss.idAvis}">
+											style="margin-top: 0.5cm; width: 800px;" id="singleDT1"
+											selectionMode="single" selection="#{analyseCtr.selectedAvis}"
+											rowKey="#{aviss.idAvis}">
 											<p:column headerText="Id Recommandation" style="width: 150px">
 												<h:outputText value="#{aviss.idAvis}" />
 											</p:column>
@@ -341,102 +592,100 @@
 												<h:outputText value="#{aviss.validRST}" />
 											</p:column>
 											<f:facet name="footer">
-													<p:outputPanel>
-														<p:outputPanel
-															rendered="#{'618'>=analyseCtr.projet.descEtat}">
-															<sec:authorize access="hasRole('PRAC')">
-																<p:commandButton icon="ui-icon-trash"
-																	validateClient="true" value="Ajouter"
-																	update=":form2:Avis"
-																	oncomplete="PF('avisDialog').show();" />
-															</sec:authorize>
-														</p:outputPanel>
-														<p:outputPanel
-															rendered="#{analyseCtr.projet.descEtat=='618'}">
-															<sec:authorize access="hasRole('PRDG')">
-																<p:commandButton icon="ui-icon-trash"
-																	validateClient="true" value="Valider"
-																	update=":form2:ValiderDG"
-																	oncomplete="PF('validerDGDialog').show();"
-																	process="singleDT1" />
-															</sec:authorize>
-															<sec:authorize access="hasRole('PRRST')">
-																<p:commandButton icon="ui-icon-trash"
-																	validateClient="true" value="Valider"
-																	update=":form2:ValiderRST"
-																	oncomplete="PF('validerRSTDialog').show();"
-																	process="singleDT1" />
-															</sec:authorize>
-														</p:outputPanel>
+												<p:outputPanel>
+													<p:outputPanel
+														rendered="#{'618'>=analyseCtr.projet.descEtat}">
+														<sec:authorize access="hasRole('PRAC')">
+															<p:commandButton icon="ui-icon-trash"
+																validateClient="true" value="Ajouter"
+																update=":form2:Avis"
+																oncomplete="PF('avisDialog').show();" />
+														</sec:authorize>
 													</p:outputPanel>
-												</f:facet>
+													<p:outputPanel
+														rendered="#{analyseCtr.projet.descEtat=='618'}">
+														<sec:authorize access="hasRole('PRDG')">
+															<p:commandButton icon="ui-icon-trash"
+																validateClient="true" value="Valider"
+																update=":form2:ValiderDG"
+																oncomplete="PF('validerDGDialog').show();"
+																process="singleDT1" />
+														</sec:authorize>
+														<sec:authorize access="hasRole('PRRST')">
+															<p:commandButton icon="ui-icon-trash"
+																validateClient="true" value="Valider"
+																update=":form2:ValiderRST"
+																oncomplete="PF('validerRSTDialog').show();"
+																process="singleDT1" />
+														</sec:authorize>
+													</p:outputPanel>
+												</p:outputPanel>
+											</f:facet>
 										</p:dataTable>
 									</div>
-									
+
 									<p:dialog header="Recommandation" widgetVar="avisDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
-											<p:outputPanel id="Avis" style="text-align:center;">
-												<p:panelGrid columns="2">
-													<h:outputText value="Description Recommandation :" />
-													<p:inputTextarea rows="5" cols="30" queryDelay="750"
-														placeholder="Recommandation" minQueryLength="4"
-														value="#{analyseCtr.avis.descAvis}" />
-												</p:panelGrid>
-											</p:outputPanel>
-											<div align="center">
-												<p:commandButton styleClass="btn btn-info btn-rounded"
-													value="ok" title="Valider"
-													action="#{analyseCtr.createRecommandation()}" ajax="false" />
-											</div>
-										</p:dialog>
-										
-										<p:dialog header="Validation" widgetVar="validerDGDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
-											<p:outputPanel id="ValiderDG" style="text-align:center;">
-												<p:panelGrid columns="2"
-													rendered="#{not empty analyseCtr.selectedAvis}">
-													<h:outputText value="Validation :" />
-													<p:selectOneRadio value="#{analyseCtr.selectedValid}">
-														<f:selectItem itemLabel="Oui" itemValue="Oui" />
-														<f:selectItem itemLabel="Non" itemValue="Non" />
-													</p:selectOneRadio>
-												</p:panelGrid>
-											</p:outputPanel>
-											<div align="center">
-												<p:commandButton styleClass="btn btn-info btn-rounded"
-													value="ok" title="Valider"
-													action="#{analyseCtr.updateAvisDG()}"
-													ajax="false" />
-											</div>
-										</p:dialog>
-										
-										<p:dialog header="Validation" widgetVar="validerRSTDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
-											<p:outputPanel id="ValiderRST" style="text-align:center;">
-												<p:panelGrid columns="2"
-													rendered="#{not empty analyseCtr.selectedAvis}">
-													<h:outputText value="Validation :" />
-													<p:selectOneRadio value="#{analyseCtr.selectedValid2}">
-														<f:selectItem itemLabel="Oui" itemValue="Oui" />
-														<f:selectItem itemLabel="Non" itemValue="Non" />
-													</p:selectOneRadio>
-												</p:panelGrid>
-											</p:outputPanel>
-											<div align="center">
-												<p:commandButton styleClass="btn btn-info btn-rounded"
-													value="ok" title="Valider"
-													action="#{analyseCtr.updateAvisRST()}"
-													ajax="false" />
-											</div>
-										</p:dialog>
-									
-									</h:form>
-									</p:outputPanel>
-									
-									<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='618'}">
+										modal="true" showEffect="fade" hideEffect="fade"
+										resizable="false">
+										<p:outputPanel id="Avis" style="text-align:center;">
+											<p:panelGrid columns="2">
+												<h:outputText value="Description Recommandation :" />
+												<p:inputTextarea rows="5" cols="30" queryDelay="750"
+													placeholder="Recommandation" minQueryLength="4"
+													value="#{analyseCtr.avis.descAvis}" />
+											</p:panelGrid>
+										</p:outputPanel>
+										<div align="center">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{analyseCtr.createRecommandation()}" ajax="false" />
+										</div>
+									</p:dialog>
+
+									<p:dialog header="Validation" widgetVar="validerDGDialog"
+										modal="true" showEffect="fade" hideEffect="fade"
+										resizable="false">
+										<p:outputPanel id="ValiderDG" style="text-align:center;">
+											<p:panelGrid columns="2"
+												rendered="#{not empty analyseCtr.selectedAvis}">
+												<h:outputText value="Validation :" />
+												<p:selectOneRadio value="#{analyseCtr.selectedValid}">
+													<f:selectItem itemLabel="Oui" itemValue="Oui" />
+													<f:selectItem itemLabel="Non" itemValue="Non" />
+												</p:selectOneRadio>
+											</p:panelGrid>
+										</p:outputPanel>
+										<div align="center">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{analyseCtr.updateAvisDG()}" ajax="false" />
+										</div>
+									</p:dialog>
+
+									<p:dialog header="Validation" widgetVar="validerRSTDialog"
+										modal="true" showEffect="fade" hideEffect="fade"
+										resizable="false">
+										<p:outputPanel id="ValiderRST" style="text-align:center;">
+											<p:panelGrid columns="2"
+												rendered="#{not empty analyseCtr.selectedAvis}">
+												<h:outputText value="Validation :" />
+												<p:selectOneRadio value="#{analyseCtr.selectedValid2}">
+													<f:selectItem itemLabel="Oui" itemValue="Oui" />
+													<f:selectItem itemLabel="Non" itemValue="Non" />
+												</p:selectOneRadio>
+											</p:panelGrid>
+										</p:outputPanel>
+										<div align="center">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{analyseCtr.updateAvisRST()}" ajax="false" />
+										</div>
+									</p:dialog>
+
+								</h:form>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{analyseCtr.projet.descEtat=='618'}">
 								<sec:authorize access="hasRole('PRDG')">
 									<h:form>
 										<table style="margin-top: 0.5cm">
@@ -449,19 +698,19 @@
 											</td>
 											<td><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Valider"
-													title="Valider"
-													action="#{analyseCtr.cloturerProjet()}" ajax="false"/></td>
+													title="Valider" action="#{analyseCtr.cloturerProjet()}"
+													ajax="false" /></td>
 										</table>
 									</h:form>
 								</sec:authorize>
 							</p:outputPanel>
-									
+
 						</div>
 					</div>
 				</div>
 			</div>
-			
-			
+
+
 		</ui:define>
 	</ui:composition>
 

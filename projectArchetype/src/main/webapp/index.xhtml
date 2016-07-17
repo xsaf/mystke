@@ -189,13 +189,10 @@
 							<h:form id="hformid" style="text-align: center">
 
 								<p:remoteCommand name="foldering"
-									actionListener="#{accueilCtr.goToDetails()}" />
-							
+									actionListener="#{accueilCtr.createFolder()}" />
+
 								<p:inputText id="idProjet" binding="#{idProj}"
-									styleClass="form-control"
-									placeholder="Nouveau Projet Immobilière"
-									value="#{accueilCtr.folder}"
-									style="margin-right: 14px; width: 5.5cm" />
+									value="#{accueilCtr.gedCtr.folder}" style="display:none" />
 
 
 								<table style="text-align: center">
@@ -214,6 +211,7 @@
 
 
 							</h:form>
+
 
 						</div>
 					</div>

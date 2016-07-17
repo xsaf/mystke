@@ -9,6 +9,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.AvantProjetDetailleBusiness;
 import com.arabsoft.mySTKE.business.AvantProjetSommaireBusiness;
 import com.arabsoft.mySTKE.business.EquipeBusiness;
@@ -17,8 +18,10 @@ import com.arabsoft.mySTKE.business.PlanningGlobalBusiness;
 import com.arabsoft.mySTKE.business.ProgrammeBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
 import com.arabsoft.mySTKE.business.ProjetValidationBusiness;
+import com.arabsoft.mySTKE.entity.AbsDoc;
 import com.arabsoft.mySTKE.entity.AvantProjetDetaille;
 import com.arabsoft.mySTKE.entity.AvantProjetSommaire;
+import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Equipe;
 import com.arabsoft.mySTKE.entity.Fonction;
 import com.arabsoft.mySTKE.entity.Modification;
@@ -48,6 +51,7 @@ public class PlanCtr {
 	private Modification modification = new Modification();
 	private ProjetValidation projetValidation = new ProjetValidation();
 	private PlanningActivite selectedActivite = new PlanningActivite();
+	private AbsDoc absDoc = new Dossier();
 
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -76,6 +80,12 @@ public class PlanCtr {
 	@ManagedProperty(value = "#{projetValidationBusiness}")
 	private ProjetValidationBusiness projetValidationBusiness;
 
+	@ManagedProperty(value = "#{absDocBusiness}")
+	private AbsDocBusiness absDocBusiness;
+
+	@ManagedProperty(value = "#{gedCtr}")
+	private GedCtr gedCtr;
+	
 	private int chef;
 	private Map<String, Integer> chefs = new HashMap<String, Integer>();
 
@@ -92,6 +102,8 @@ public class PlanCtr {
 
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 
+		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+		gedCtr.setFolder(absDoc.getNumAbsDoc());
 		
 		if (projet.getDescEtat() == 223) {
 			List<Utilisa> chefProj = equipeBusiness.selectAllUserByFonction("7");
@@ -131,6 +143,11 @@ public class PlanCtr {
 		}
 		
 
+	}
+
+	public void createFolder(){
+		gedCtr.setProjet(projet);
+		gedCtr.createFolder();
 	}
 
 	public void updateEquipe() {
@@ -528,6 +545,31 @@ public class PlanCtr {
 	public void setSelectedActivite(PlanningActivite selectedActivite) {
 		this.selectedActivite = selectedActivite;
 	}
+
+	public AbsDoc getAbsDoc() {
+		return absDoc;
+	}
+
+	public void setAbsDoc(AbsDoc absDoc) {
+		this.absDoc = absDoc;
+	}
+
+	public AbsDocBusiness getAbsDocBusiness() {
+		return absDocBusiness;
+	}
+
+	public void setAbsDocBusiness(AbsDocBusiness absDocBusiness) {
+		this.absDocBusiness = absDocBusiness;
+	}
+
+	public GedCtr getGedCtr() {
+		return gedCtr;
+	}
+
+	public void setGedCtr(GedCtr gedCtr) {
+		this.gedCtr = gedCtr;
+	}
+	
 
 
 }

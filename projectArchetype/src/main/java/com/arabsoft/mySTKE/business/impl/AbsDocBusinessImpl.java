@@ -43,6 +43,12 @@ public class AbsDocBusinessImpl implements AbsDocBusiness {
 		if(l.size()==0)
 			genericDao.save(absDoc);
 	}
+
+	@Override
+	public AbsDoc findAbsDocByIdProjet(int idProj) {
+		List<Dossier> l = genericDao.findByPropriety(AbsDoc.class.getName(), "PROJET_IDPROJ", ""+idProj);
+		return l.get(0);
+	}
 	
 	
 	

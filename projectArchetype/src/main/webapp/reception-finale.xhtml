@@ -40,6 +40,257 @@
 		<ui:define name="body">
 
 
+			<div id="idoszone" style="width: 1100px;">
+
+				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+				<div id="transparent-wrapper"></div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="login-box" class="hide">
+					<p>Please login on your google account.</p>
+					<button id="btnLogin" onclick="handleAuthClick(event)"
+						class="button">Login</button>
+				</div>
+
+				<div id="drive-box" class="hide">
+					<!-- This will be the google drive navigation-->
+					<div id="drive-breadcrumb">
+						<span class='breadcrumb-arrow'></span> <a data-id='root'
+							data-level='0'>Home</a> <span id="span-navigation"></span>
+					</div>
+
+					<!-- This popup panel will be used as user information panel-->
+					<div class="user-item">
+						<a id="link-logout" class="logout-link">Logout</a>
+					</div>
+
+					<!-- A list of menus available for user to use-->
+					<div id="drive-menu">
+						<div id="button-reload" title="Refresh"></div>
+						<div id="button-upload" title="Upload to Google Drive"
+							class="button-opt"></div>
+						<div id="button-addfolder" title="Add Folder" class="button-opt"></div>
+						<div id="button-share" title="Show shared files only"></div>
+					</div>
+					<div id="drive-content"></div>
+					<div id="error-message" class="flash hidden"></div>
+					<div id="status-message" class="flash hidden"></div>
+				</div>
+
+				<!-- This upload control is used for uploading file to google drive-->
+				<input type="file" id="fUpload" class="hide" style="display: none" />
+
+				<!-- This popup panel will be used to create folder-->
+				<div class="float-box" id="float-box">
+					<div class="folder-form">
+						<div class="close-x">
+							<img id="imgClose" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Add New Folder</h3>
+						<div>
+							<input type="text" id="txtFolder" class="text-input" />
+						</div>
+						<button id="btnAddFolder" value="Save" class="button">Add</button>
+						<button id="btnClose" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document/file information -->
+				<div id="float-box-info" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseInfo" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">File information</h3>
+						<table cellpadding="0" cellspacing="0" class="tbl-info">
+							<tr>
+								<td class="label">Created Date</td>
+								<td><span id="spanCreatedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Modified Date</td>
+								<td><span id="spanModifiedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Owner</td>
+								<td><span id="spanOwner"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Title</td>
+								<td><span id="spanTitle"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Size</td>
+								<td><span id="spanSize"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Extension</td>
+								<td><span id="spanExtension"></span></td>
+							</tr>
+						</table>
+						<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="float-box-text" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseText" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Text Content</h3>
+						<div id="text-content"></div>
+						<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+				<!-- This iframe is used for logout-->
+				<iframe id="frameLogout" class="hide"></iframe>
+			</div>
+
+
+			<p:dialog header="GED" widgetVar="gedDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="Detail" style="text-align:center;">
+					<p:panelGrid columns="2">
+
+						<div id="idoszone" style="width: 1100px;">
+
+							<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+							<div id="transparent-wrapper"></div>
+
+							<!-- This popup panel will be used to display the document text-->
+							<div id="login-box" class="hide">
+								<p>Please login on your google account.</p>
+								<button id="btnLogin" onclick="handleAuthClick(event)"
+									class="button">Login</button>
+							</div>
+
+							<div id="drive-box" class="hide">
+								<!-- This will be the google drive navigation-->
+								<div id="drive-breadcrumb">
+									<span class='breadcrumb-arrow'></span> <a data-id='root'
+										data-level='0'>Home</a> <span id="span-navigation"></span>
+								</div>
+
+								<!-- This popup panel will be used as user information panel-->
+								<div class="user-item">
+									<a id="link-logout" class="logout-link">Logout</a>
+								</div>
+
+								<!-- A list of menus available for user to use-->
+								<div id="drive-menu">
+									<div id="button-reload" title="Refresh"></div>
+									<div id="button-upload" title="Upload to Google Drive"
+										class="button-opt"></div>
+									<div id="button-addfolder" title="Add Folder"
+										class="button-opt"></div>
+									<div id="button-share" title="Show shared files only"></div>
+								</div>
+								<div id="drive-content"></div>
+								<div id="error-message" class="flash hidden"></div>
+								<div id="status-message" class="flash hidden"></div>
+							</div>
+
+							<!-- This upload control is used for uploading file to google drive-->
+							<input type="file" id="fUpload" class="hide"
+								style="display: none" />
+
+							<!-- This popup panel will be used to create folder-->
+							<div class="float-box" id="float-box">
+								<div class="folder-form">
+									<div class="close-x">
+										<img id="imgClose" class="imgClose"
+											src="google-drive/images/button_close.png" alt="close" />
+									</div>
+									<h3 class="clear">Add New Folder</h3>
+									<div>
+										<input type="text" id="txtFolder" class="text-input" />
+									</div>
+									<button id="btnAddFolder" value="Save" class="button">Add</button>
+									<button id="btnClose" value="Close" class="button btnClose">Close</button>
+								</div>
+							</div>
+
+							<!-- This popup panel will be used to display the document/file information -->
+							<div id="float-box-info" class="float-box">
+								<div class="info-form">
+									<div class="close-x">
+										<img id="imgCloseInfo" class="imgClose"
+											src="google-drive/images/button_close.png" alt="close" />
+									</div>
+									<h3 class="clear">File information</h3>
+									<table cellpadding="0" cellspacing="0" class="tbl-info">
+										<tr>
+											<td class="label">Created Date</td>
+											<td><span id="spanCreatedDate"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Modified Date</td>
+											<td><span id="spanModifiedDate"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Owner</td>
+											<td><span id="spanOwner"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Title</td>
+											<td><span id="spanTitle"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Size</td>
+											<td><span id="spanSize"></span></td>
+										</tr>
+										<tr>
+											<td class="label">Extension</td>
+											<td><span id="spanExtension"></span></td>
+										</tr>
+									</table>
+									<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
+								</div>
+							</div>
+
+							<!-- This popup panel will be used to display the document text-->
+							<div id="float-box-text" class="float-box">
+								<div class="info-form">
+									<div class="close-x">
+										<img id="imgCloseText" class="imgClose"
+											src="google-drive/images/button_close.png" alt="close" />
+									</div>
+									<h3 class="clear">Text Content</h3>
+									<div id="text-content"></div>
+									<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
+								</div>
+							</div>
+							<!-- This iframe is used for logout-->
+							<iframe id="frameLogout" class="hide"></iframe>
+						</div>
+
+					</p:panelGrid>
+				</p:outputPanel>
+				<div align="center">
+					<h:form>
+						<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
+							title="Valider" ajax="false" />
+					</h:form>
+				</div>
+
+			</p:dialog>
+
+			<h:form id="hformid" style="text-align: center">
+
+				<p:remoteCommand name="foldering"
+					actionListener="#{receptionCtr.createFolder()}" />
+
+				<p:inputText id="idProjet" binding="#{idProj}"
+					value="#{receptionCtr.gedCtr.folder}" style="display:none" />
+
+			</h:form>
+
+
+
 			<div class="panel panel-default"
 				style="margin-top: 2cm; margin-left: 0.3cm;">
 				<div class="container">
@@ -72,7 +323,8 @@
 										<td><h:form>
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="Valider" title="Valider"
-													action="#{receptionCtr.createVisite()}" ajax="false" />
+													action="#{receptionCtr.createVisite()}"
+													oncomplete="PF('gedDialog').show();" />
 											</h:form></td>
 									</table>
 								</sec:authorize>
@@ -308,7 +560,7 @@
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="Ajouter" title="Valider"
 														action="#{receptionCtr.createPlanRecollement()}"
-														ajax="false" />
+														oncomplete="PF('gedDialog').show();" />
 												</h:form></td>
 										</table>
 									</sec:authorize>
@@ -339,7 +591,7 @@
 														styleClass="btn btn-info btn-rounded" value="Valider"
 														title="Valider" style="margin-left: 50px"
 														action="#{receptionCtr.validerCorrespondanceTravauxPlans()}"
-														ajax="false" /></td>
+														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
 									</sec:authorize>
@@ -378,7 +630,7 @@
 														styleClass="btn btn-info btn-rounded" value="Ajouter"
 														title="Valider"
 														action="#{receptionCtr.createDemandeOccupation()}"
-														ajax="false" /></td>
+														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
 									</sec:authorize>
@@ -411,7 +663,7 @@
 														styleClass="btn btn-info btn-rounded" value="Ajouter"
 														title="Valider"
 														action="#{receptionCtr.createPermisOccupation()}"
-														ajax="false" /></td>
+														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
 									</sec:authorize>
@@ -448,7 +700,7 @@
 														styleClass="btn btn-info btn-rounded" value="Ajouter"
 														title="Valider"
 														action="#{receptionCtr.createDemandeImmatriculation()}"
-														ajax="false" /></td>
+														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
 									</sec:authorize>
@@ -479,7 +731,7 @@
 														styleClass="btn btn-info btn-rounded" value="Ajouter"
 														title="Valider"
 														action="#{receptionCtr.createPermisImmatriculation()}"
-														ajax="false" /></td>
+														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
 									</sec:authorize>
@@ -777,15 +1029,14 @@
 												</f:facet>
 											</p:dataTable>
 										</div>
-										
+
 										<p:dialog header="Syndicat" widgetVar="syndicatDialog"
 											modal="true" showEffect="fade" hideEffect="fade"
 											resizable="false">
 											<p:outputPanel id="syndicat" style="text-align:center;">
 												<p:panelGrid columns="2">
 													<h:outputText value="Id Client :" />
-													<p:inputText required="true"
-														placeholder="Id Client"
+													<p:inputText required="true" placeholder="Id Client"
 														value="#{receptionCtr.client.idCli}" />
 													<h:outputText value="Fonction :" />
 													<p:inputText required="true" placeholder="Fonction"
@@ -801,205 +1052,208 @@
 									</h:form>
 								</p:outputPanel>
 							</div>
-							
+
 
 							<p:outputPanel rendered="#{receptionCtr.projet.descEtat>='523'}">
-									<ul>
-										<h3>
-											<li><b>Défauts :</b></li>
-										</h3>
-									</ul>
+								<ul>
+									<h3>
+										<li><b>Défauts :</b></li>
+									</h3>
+								</ul>
 
-									<h:form id="form3">
-										<p:growl id="msgs" showDetail="true" />
-										<div align="center">
-											<p:dataTable id="singleDT" var="defauts"
-												value="#{receptionCtr.defauts}" selectionMode="single"
-												style="margin-top: 0.3cm; margin-bottom: 0.5cm; width: 1000px;"
-												selection="#{receptionCtr.selectedDefaut}"
-												rowKey="#{defauts.idDefaut}">
-												<p:column headerText="Id Défaut">
-													<h:outputText value="#{defauts.idDefaut}" />
-												</p:column>
-												<p:column headerText="Id Imm">
-													<h:outputText value="#{defauts.immeuble.idImm}" />
-												</p:column>
-												<p:column headerText="Id App">
-													<h:outputText value="#{defauts.appartement.idApp}" />
-												</p:column>
-												<p:column headerText="Id Bur">
-													<h:outputText value="#{defauts.bureau.idBur}" />
-												</p:column>
-												<p:column headerText="Déscription Défaut"
-													style="width: 300px">
-													<h:outputText value="#{defauts.descDefaut}" />
-												</p:column>
-												<p:column headerText="Déscription Travaux"
-													style="width: 300px">
-													<h:outputText value="#{defauts.travauxDefaut}" />
-												</p:column>
-												<p:column headerText="Validation Défaut">
-													<h:outputText value="#{defauts.validationDefaut}" />
-												</p:column>
-												<p:column headerText="Levée du réserve">
-													<h:outputText value="#{defauts.leveeReserve}" />
-												</p:column>
-												<f:facet name="footer">
-													<p:outputPanel>
-														<p:outputPanel
-															rendered="#{'524'>=receptionCtr.projet.descEtat}">
-															<sec:authorize access="hasRole('PRCP')">
-																<p:commandButton icon="ui-icon-trash"
-																	validateClient="true" value="Défauts"
-																	update=":form3:Detail6"
-																	oncomplete="PF('defautsDialog').show();" />
-															</sec:authorize>
-															<sec:authorize access="hasRole('PRRST')">
-																<p:commandButton icon="ui-icon-trash"
-																	validateClient="true" value="Validation Défaut"
-																	update=":form3:Detail7"
-																	oncomplete="PF('validationDefautDialog').show();"
-																	process="singleDT" />
-															</sec:authorize>
-														</p:outputPanel>
-														<p:outputPanel
-															rendered="#{receptionCtr.projet.descEtat=='525'}">
-															<sec:authorize access="hasRole('PRCP')">
-																<p:commandButton icon="ui-icon-trash"
-																	validateClient="true" value="Travaux"
-																	update=":form3:Detail8"
-																	oncomplete="PF('travauxDialog').show();"
-																	process="singleDT" />
-															</sec:authorize>
-															<sec:authorize access="hasRole('PRRST')">
-																<p:commandButton icon="ui-icon-trash"
-																	validateClient="true" value="Levée Reserve"
-																	update=":form3:Detail9"
-																	oncomplete="PF('reserveDialog').show();"
-																	process="singleDT" />
-															</sec:authorize>
-														</p:outputPanel>
+								<h:form id="form3">
+									<p:growl id="msgs" showDetail="true" />
+									<div align="center">
+										<p:dataTable id="singleDT" var="defauts"
+											value="#{receptionCtr.defauts}" selectionMode="single"
+											style="margin-top: 0.3cm; margin-bottom: 0.5cm; width: 1000px;"
+											selection="#{receptionCtr.selectedDefaut}"
+											rowKey="#{defauts.idDefaut}">
+											<p:column headerText="Id Défaut">
+												<h:outputText value="#{defauts.idDefaut}" />
+											</p:column>
+											<p:column headerText="Id Imm">
+												<h:outputText value="#{defauts.immeuble.idImm}" />
+											</p:column>
+											<p:column headerText="Id App">
+												<h:outputText value="#{defauts.appartement.idApp}" />
+											</p:column>
+											<p:column headerText="Id Bur">
+												<h:outputText value="#{defauts.bureau.idBur}" />
+											</p:column>
+											<p:column headerText="Déscription Défaut"
+												style="width: 300px">
+												<h:outputText value="#{defauts.descDefaut}" />
+											</p:column>
+											<p:column headerText="Déscription Travaux"
+												style="width: 300px">
+												<h:outputText value="#{defauts.travauxDefaut}" />
+											</p:column>
+											<p:column headerText="Validation Défaut">
+												<h:outputText value="#{defauts.validationDefaut}" />
+											</p:column>
+											<p:column headerText="Levée du réserve">
+												<h:outputText value="#{defauts.leveeReserve}" />
+											</p:column>
+											<f:facet name="footer">
+												<p:outputPanel>
+													<p:outputPanel
+														rendered="#{'524'>=receptionCtr.projet.descEtat}">
+														<sec:authorize access="hasRole('PRCP')">
+															<p:commandButton icon="ui-icon-trash"
+																validateClient="true" value="Défauts"
+																update=":form3:Detail6"
+																oncomplete="PF('defautsDialog').show();" />
+														</sec:authorize>
+														<sec:authorize access="hasRole('PRRST')">
+															<p:commandButton icon="ui-icon-trash"
+																validateClient="true" value="Validation Défaut"
+																update=":form3:Detail7"
+																oncomplete="PF('validationDefautDialog').show();"
+																process="singleDT" />
+														</sec:authorize>
 													</p:outputPanel>
-												</f:facet>
-											</p:dataTable>
+													<p:outputPanel
+														rendered="#{receptionCtr.projet.descEtat=='525'}">
+														<sec:authorize access="hasRole('PRCP')">
+															<p:commandButton icon="ui-icon-trash"
+																validateClient="true" value="Travaux"
+																update=":form3:Detail8"
+																oncomplete="PF('travauxDialog').show();"
+																process="singleDT" />
+														</sec:authorize>
+														<sec:authorize access="hasRole('PRRST')">
+															<p:commandButton icon="ui-icon-trash"
+																validateClient="true" value="Levée Reserve"
+																update=":form3:Detail9"
+																oncomplete="PF('reserveDialog').show();"
+																process="singleDT" />
+														</sec:authorize>
+													</p:outputPanel>
+												</p:outputPanel>
+											</f:facet>
+										</p:dataTable>
+									</div>
+
+									<p:dialog header="Travaux" widgetVar="travauxDialog"
+										modal="true" showEffect="fade" hideEffect="fade"
+										resizable="false">
+										<p:outputPanel id="Detail8" style="text-align:center;">
+											<p:panelGrid columns="2"
+												rendered="#{not empty receptionCtr.selectedDefaut}">
+												<h:outputText value="Description travaux :" />
+												<p:inputTextarea rows="5" cols="30" queryDelay="750"
+													placeholder="Description travaux" minQueryLength="4"
+													value="#{receptionCtr.selectedTravaux}" />
+											</p:panelGrid>
+										</p:outputPanel>
+										<div align="center">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{receptionCtr.updateDefautClientFinale()}"
+												ajax="false" />
 										</div>
+									</p:dialog>
 
-										<p:dialog header="Travaux" widgetVar="travauxDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
-											<p:outputPanel id="Detail8" style="text-align:center;">
+									<p:dialog header="Validation Défaut"
+										widgetVar="validationDefautDialog" modal="true"
+										showEffect="fade" hideEffect="fade" resizable="false">
+										<p:outputPanel id="Detail7" style="text-align:center;">
+											<p:panelGrid
+												rendered="#{not empty receptionCtr.selectedDefaut}">
 												<p:panelGrid columns="2"
-													rendered="#{not empty receptionCtr.selectedDefaut}">
-													<h:outputText value="Description travaux :" />
-													<p:inputTextarea rows="5" cols="30" queryDelay="750"
-														placeholder="Description travaux" minQueryLength="4"
-														value="#{receptionCtr.selectedTravaux}" />
-												</p:panelGrid>
-											</p:outputPanel>
-											<div align="center">
-												<p:commandButton styleClass="btn btn-info btn-rounded"
-													value="ok" title="Valider"
-													action="#{receptionCtr.updateDefautClientFinale()}" ajax="false" />
-											</div>
-										</p:dialog>
-
-										<p:dialog header="Validation Défaut"
-											widgetVar="validationDefautDialog" modal="true"
-											showEffect="fade" hideEffect="fade" resizable="false">
-											<p:outputPanel id="Detail7" style="text-align:center;">
-												<p:panelGrid
-													rendered="#{not empty receptionCtr.selectedDefaut}">
-													<p:panelGrid columns="2"
-														rendered="#{receptionCtr.selectedDefaut.validationDefaut == null}">
-														<h:outputText value="Valider ce défaut :" />
-														<p:commandButton styleClass="btn btn-info btn-rounded"
-															value="ok" title="Valider"
-															action="#{receptionCtr.updateDefautClientValidationFinale()}"
-															ajax="false" />
-													</p:panelGrid>
-												</p:panelGrid>
-												<div align="center">
+													rendered="#{receptionCtr.selectedDefaut.validationDefaut == null}">
+													<h:outputText value="Valider ce défaut :" />
 													<p:commandButton styleClass="btn btn-info btn-rounded"
-														value="Envoyer les réserves" title="ok"
-														action="#{receptionCtr.validerDefautsFinale()}" ajax="false" />
-												</div>
-											</p:outputPanel>
-										</p:dialog>
-
-										<p:dialog header="Réserve" widgetVar="reserveDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
-											<p:outputPanel id="Detail9" style="text-align:center;">
-												<p:panelGrid columns="2"
-													rendered="#{not empty receptionCtr.selectedDefaut}">
-													<h:outputText value="Levée du réserve :" />
-													<p:selectOneRadio value="#{receptionCtr.selectedReserve}">
-														<f:selectItem itemLabel="Oui" itemValue="Oui" />
-														<f:selectItem itemLabel="Non" itemValue="Non" />
-													</p:selectOneRadio>
+														value="ok" title="Valider"
+														action="#{receptionCtr.updateDefautClientValidationFinale()}"
+														ajax="false" />
 												</p:panelGrid>
-											</p:outputPanel>
+											</p:panelGrid>
 											<div align="center">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
-													value="ok" title="Valider"
-													action="#{receptionCtr.updateDefautLeveeReserveFinale()}"
+													value="Envoyer les réserves" title="ok"
+													action="#{receptionCtr.validerDefautsFinale()}"
 													ajax="false" />
 											</div>
-										</p:dialog>
+										</p:outputPanel>
+									</p:dialog>
 
-										<p:dialog header="Défauts" widgetVar="defautsDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
-											<p:outputPanel id="Detail6" style="text-align:center;">
-												<p:panelGrid columns="2">
-													<h:outputText value="Défaut à :" />
-													<p:selectOneRadio style="width: 300px"
-														value="#{receptionCtr.immAppBur}">
-														<f:selectItem itemLabel="Immeuble" itemValue="Immeuble" />
-														<f:selectItem itemLabel="Appartement"
-															itemValue="Appartement" />
-														<f:selectItem itemLabel="Bureau" itemValue="Bureau" />
-													</p:selectOneRadio>
-													<h:outputText value="Id Imm/App/Bur :" />
-													<p:inputText required="true"
-														value="#{receptionCtr.idImmAppBur}"
-														placeholder="Id Imm/App/Bur" />
-													<h:outputText value="Description défaut :" />
-													<p:inputTextarea rows="5" cols="30"
-														value="#{receptionCtr.defaut.descDefaut}" queryDelay="750"
-														placeholder="Description défaut" minQueryLength="4" />
-												</p:panelGrid>
-											</p:outputPanel>
-											<div align="center">
+									<p:dialog header="Réserve" widgetVar="reserveDialog"
+										modal="true" showEffect="fade" hideEffect="fade"
+										resizable="false">
+										<p:outputPanel id="Detail9" style="text-align:center;">
+											<p:panelGrid columns="2"
+												rendered="#{not empty receptionCtr.selectedDefaut}">
+												<h:outputText value="Levée du réserve :" />
+												<p:selectOneRadio value="#{receptionCtr.selectedReserve}">
+													<f:selectItem itemLabel="Oui" itemValue="Oui" />
+													<f:selectItem itemLabel="Non" itemValue="Non" />
+												</p:selectOneRadio>
+											</p:panelGrid>
+										</p:outputPanel>
+										<div align="center">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{receptionCtr.updateDefautLeveeReserveFinale()}"
+												ajax="false" />
+										</div>
+									</p:dialog>
+
+									<p:dialog header="Défauts" widgetVar="defautsDialog"
+										modal="true" showEffect="fade" hideEffect="fade"
+										resizable="false">
+										<p:outputPanel id="Detail6" style="text-align:center;">
+											<p:panelGrid columns="2">
+												<h:outputText value="Défaut à :" />
+												<p:selectOneRadio style="width: 300px"
+													value="#{receptionCtr.immAppBur}">
+													<f:selectItem itemLabel="Immeuble" itemValue="Immeuble" />
+													<f:selectItem itemLabel="Appartement"
+														itemValue="Appartement" />
+													<f:selectItem itemLabel="Bureau" itemValue="Bureau" />
+												</p:selectOneRadio>
+												<h:outputText value="Id Imm/App/Bur :" />
+												<p:inputText required="true"
+													value="#{receptionCtr.idImmAppBur}"
+													placeholder="Id Imm/App/Bur" />
+												<h:outputText value="Description défaut :" />
+												<p:inputTextarea rows="5" cols="30"
+													value="#{receptionCtr.defaut.descDefaut}" queryDelay="750"
+													placeholder="Description défaut" minQueryLength="4" />
+											</p:panelGrid>
+										</p:outputPanel>
+										<div align="center">
+											<p:commandButton styleClass="btn btn-info btn-rounded"
+												value="ok" title="Valider"
+												action="#{receptionCtr.createDefautClientFinale()}"
+												ajax="false" />
+										</div>
+									</p:dialog>
+
+								</h:form>
+							</p:outputPanel>
+
+							<p:outputPanel rendered="#{receptionCtr.projet.descEtat=='525'}">
+								<sec:authorize access="hasRole('PRRST')">
+									<table>
+										<td width="465px">
+											<ul>
+												<h3>
+													<li><b>Levée des réserves :</b></li>
+												</h3>
+											</ul>
+										</td>
+										<td><h:form>
 												<p:commandButton styleClass="btn btn-info btn-rounded"
-													value="ok" title="Valider"
-													action="#{receptionCtr.createDefautClientFinale()}" ajax="false" />
-											</div>
-										</p:dialog>
+													value="Valider" title="Valider"
+													action="#{receptionCtr.validerLeveeReservesFinale()}"
+													ajax="false" />
+											</h:form></td>
+									</table>
+								</sec:authorize>
+							</p:outputPanel>
 
-									</h:form>
-								</p:outputPanel>
-
-								<p:outputPanel rendered="#{receptionCtr.projet.descEtat=='525'}">
-									<sec:authorize access="hasRole('PRRST')">
-										<table>
-											<td width="465px">
-												<ul>
-													<h3>
-														<li><b>Levée des réserves :</b></li>
-													</h3>
-												</ul>
-											</td>
-											<td><h:form>
-													<p:commandButton styleClass="btn btn-info btn-rounded"
-														value="Valider" title="Valider"
-														action="#{receptionCtr.validerLeveeReservesFinale()}"
-														ajax="false" />
-												</h:form></td>
-										</table>
-									</sec:authorize>
-								</p:outputPanel>
-								
 
 						</div>
 					</div>

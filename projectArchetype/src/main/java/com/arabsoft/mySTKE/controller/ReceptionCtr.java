@@ -7,13 +7,16 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.ClientBusiness;
 import com.arabsoft.mySTKE.business.DefautBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
+import com.arabsoft.mySTKE.entity.AbsDoc;
 import com.arabsoft.mySTKE.entity.Appartement;
 import com.arabsoft.mySTKE.entity.Bureau;
 import com.arabsoft.mySTKE.entity.Client;
 import com.arabsoft.mySTKE.entity.Defaut;
+import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Fonction;
 import com.arabsoft.mySTKE.entity.Immeuble;
 import com.arabsoft.mySTKE.entity.Projet;
@@ -38,6 +41,8 @@ public class ReceptionCtr {
 	private Defaut selectedDefaut = new Defaut();
 	private String selectedReserve;
 	private String selectedTravaux;
+	private AbsDoc absDoc = new Dossier();
+
 	
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -47,6 +52,12 @@ public class ReceptionCtr {
 	
 	@ManagedProperty(value = "#{clientBusiness}")
 	private ClientBusiness clientBusiness;
+	
+	@ManagedProperty(value = "#{absDocBusiness}")
+	private AbsDocBusiness absDocBusiness;
+
+	@ManagedProperty(value = "#{gedCtr}")
+	private GedCtr gedCtr;
 
 	@PostConstruct
 	public void initialisation() {
@@ -57,6 +68,9 @@ public class ReceptionCtr {
 		// utilisa.setFonction(fonction);
 		//
 		projet = projetBusiness.findProjetById(projet.getIdProj());
+		
+		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+		gedCtr.setFolder(absDoc.getNumAbsDoc());
 
 		if (projet.getDescEtat() >= 511) {
 			defauts = defautBusiness.findDefautsByIdProjet(projet.getIdProj());
@@ -68,6 +82,11 @@ public class ReceptionCtr {
 		
 	
 
+	}
+	
+	public void createFolder(){
+		gedCtr.setProjet(projet);
+		gedCtr.createFolder();
 	}
 
 	public void createVisite() {
@@ -389,6 +408,30 @@ public class ReceptionCtr {
 
 	public void setSelectedTravaux(String selectedTravaux) {
 		this.selectedTravaux = selectedTravaux;
+	}
+
+	public AbsDoc getAbsDoc() {
+		return absDoc;
+	}
+
+	public void setAbsDoc(AbsDoc absDoc) {
+		this.absDoc = absDoc;
+	}
+
+	public AbsDocBusiness getAbsDocBusiness() {
+		return absDocBusiness;
+	}
+
+	public void setAbsDocBusiness(AbsDocBusiness absDocBusiness) {
+		this.absDocBusiness = absDocBusiness;
+	}
+
+	public GedCtr getGedCtr() {
+		return gedCtr;
+	}
+
+	public void setGedCtr(GedCtr gedCtr) {
+		this.gedCtr = gedCtr;
 	}
 
 	

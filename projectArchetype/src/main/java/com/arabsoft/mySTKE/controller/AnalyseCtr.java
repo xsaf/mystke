@@ -7,12 +7,15 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.AvisBusiness;
 import com.arabsoft.mySTKE.business.AxeAmeliorationBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
 import com.arabsoft.mySTKE.business.ProjetValidationBusiness;
+import com.arabsoft.mySTKE.entity.AbsDoc;
 import com.arabsoft.mySTKE.entity.Avis;
 import com.arabsoft.mySTKE.entity.AxeAmelioration;
+import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
 
@@ -24,6 +27,7 @@ public class AnalyseCtr {
 	private AxeAmelioration axeAmelioration = new AxeAmelioration();
 	private ProjetValidation projetValidation = new ProjetValidation();
 	private Avis avis = new Avis();
+	private AbsDoc absDoc = new Dossier();
 
 	private List<AxeAmelioration> axeAmeliorations;
 	private List<Avis> aviss;
@@ -44,6 +48,12 @@ public class AnalyseCtr {
 	@ManagedProperty(value = "#{avisBusiness}")
 	private AvisBusiness avisBusiness;
 	
+	@ManagedProperty(value = "#{absDocBusiness}")
+	private AbsDocBusiness absDocBusiness;
+
+	@ManagedProperty(value = "#{gedCtr}")
+	private GedCtr gedCtr;
+	
 	
 	@PostConstruct
 	public void initialisation(){
@@ -52,6 +62,9 @@ public class AnalyseCtr {
 		//projet.setDescEtat(611);
 		
 		projet = projetBusiness.findProjetById(projet.getIdProj());
+		
+		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+		gedCtr.setFolder(absDoc.getNumAbsDoc());
 		
 		if(projet.getDescEtat()>=612){
 			axeAmeliorations = axeAmeliorationBusiness.findAxeAmeliorationByIdProjet(projet.getIdProj());
@@ -64,6 +77,11 @@ public class AnalyseCtr {
 		}
 			
 		
+	}
+	
+	public void createFolder(){
+		gedCtr.setProjet(projet);
+		gedCtr.createFolder();
 	}
 	
 	public void createClotureProjet(){
@@ -237,9 +255,30 @@ public class AnalyseCtr {
 	public void setSelectedAvis2(Avis selectedAvis2) {
 		this.selectedAvis2 = selectedAvis2;
 	}
-	
-	
-	
+
+	public AbsDoc getAbsDoc() {
+		return absDoc;
+	}
+
+	public void setAbsDoc(AbsDoc absDoc) {
+		this.absDoc = absDoc;
+	}
+
+	public AbsDocBusiness getAbsDocBusiness() {
+		return absDocBusiness;
+	}
+
+	public void setAbsDocBusiness(AbsDocBusiness absDocBusiness) {
+		this.absDocBusiness = absDocBusiness;
+	}
+
+	public GedCtr getGedCtr() {
+		return gedCtr;
+	}
+
+	public void setGedCtr(GedCtr gedCtr) {
+		this.gedCtr = gedCtr;
+	}
 	
 	
 	

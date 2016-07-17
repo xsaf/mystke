@@ -17,4 +17,6 @@ public interface AbsDocBusiness {
 
 	public void createDocument(Document absDoc);
 
+	public AbsDoc findAbsDocByIdProjet(int idProj);
+
 }

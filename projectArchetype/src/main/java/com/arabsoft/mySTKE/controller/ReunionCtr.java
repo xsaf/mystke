@@ -9,11 +9,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.PlanningActiviteBusiness;
 import com.arabsoft.mySTKE.business.PlanningGlobalBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
 import com.arabsoft.mySTKE.business.ProjetValidationBusiness;
 import com.arabsoft.mySTKE.business.ReunionChantierBusiness;
+import com.arabsoft.mySTKE.entity.AbsDoc;
+import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Fonction;
 import com.arabsoft.mySTKE.entity.PlanningActivite;
 import com.arabsoft.mySTKE.entity.PlanningGlobal;
@@ -34,6 +37,7 @@ public class ReunionCtr {
 	private PlanningActivite planningActivite = new PlanningActivite();
 	private ProjetValidation projetValidation = new ProjetValidation();
 	private PlanningActivite selectedActivite = new PlanningActivite();
+	private AbsDoc absDoc = new Dossier();
 
 
 	@ManagedProperty(value = "#{projetBusiness}")
@@ -50,6 +54,12 @@ public class ReunionCtr {
 	
 	@ManagedProperty(value = "#{projetValidationBusiness}")
 	private ProjetValidationBusiness projetValidationBusiness;
+	
+	@ManagedProperty(value = "#{absDocBusiness}")
+	private AbsDocBusiness absDocBusiness;
+
+	@ManagedProperty(value = "#{gedCtr}")
+	private GedCtr gedCtr;
 
 	private List<ReunionChantier> reunionChantiers;
 
@@ -65,6 +75,8 @@ public class ReunionCtr {
 
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 
+		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+		gedCtr.setFolder(absDoc.getNumAbsDoc());
 
 		if (projet.getDescEtat() >= 339) {
 			reunionChantiers = reunionChantierBusiness.findReunionChantierByIdProjet(projet.getIdProj());
@@ -75,6 +87,11 @@ public class ReunionCtr {
 			}
 		}
 
+	}
+	
+	public void createFolder(){
+		gedCtr.setProjet(projet);
+		gedCtr.createFolder();
 	}
 
 	public void createReunionChantier() {
@@ -234,6 +251,30 @@ public class ReunionCtr {
 
 	public void setSelectedActivite(PlanningActivite selectedActivite) {
 		this.selectedActivite = selectedActivite;
+	}
+
+	public AbsDoc getAbsDoc() {
+		return absDoc;
+	}
+
+	public void setAbsDoc(AbsDoc absDoc) {
+		this.absDoc = absDoc;
+	}
+
+	public AbsDocBusiness getAbsDocBusiness() {
+		return absDocBusiness;
+	}
+
+	public void setAbsDocBusiness(AbsDocBusiness absDocBusiness) {
+		this.absDocBusiness = absDocBusiness;
+	}
+
+	public GedCtr getGedCtr() {
+		return gedCtr;
+	}
+
+	public void setGedCtr(GedCtr gedCtr) {
+		this.gedCtr = gedCtr;
 	}
 	
 
