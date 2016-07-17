@@ -1,11 +1,12 @@
 package com.arabsoft.mySTKE.controller;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.utils.FacesUtil;
@@ -15,20 +16,24 @@ import com.arabsoft.utils.FacesUtil;
 public class AccueilCtr {
 
 	private Projet projet = new Projet();
-
+	private List<Projet> projets;
+	private Projet selectedProjet = new Projet();
 
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
 
 	@ManagedProperty(value = "#{gedCtr}")
 	private GedCtr gedCtr;
-
+	
+	@ManagedProperty(value = "#{loginCtr}")
+	private LoginCtr loginCtr;
 	
 
 	@PostConstruct
 	public void initialisation() {
-		// "0B_KzijCYeJPvalRhMFVpYjl2bTA";
-		gedCtr.setFolder("0B_KzijCYeJPveXkyNzJDTDQ0NEk");
+		gedCtr.setFolder("0B_KzijCYeJPvalRhMFVpYjl2bTA");
+		
+		projets = projetBusiness.findAllProjetByUser(loginCtr.getUtilisateur().getIdUti());
 
 	}
 
@@ -36,7 +41,6 @@ public class AccueilCtr {
 		projet.setNomProj(nomProj);
 		projet.setDescEtat(11);
 		projet = projetBusiness.createProjet(projet);
-		FacesUtil.setSessionMapValue("AccueilCtr.idprojet", projet.getIdProj());
 	}
 	
 	public void createFolder(){
@@ -44,15 +48,17 @@ public class AccueilCtr {
 		gedCtr.createFolder();
 	}
 
-	public String test123() {
+	public String toProjetImmobiliere() {
 
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(3000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+		
+		FacesUtil.setSessionMapValue("AccueilCtr.idprojet", selectedProjet.getIdProj());
 
-		return "test";
+		return "projet-immobiliere";
 	}
 
 	public Projet getProjet() {
@@ -77,6 +83,22 @@ public class AccueilCtr {
 
 	public void setGedCtr(GedCtr gedCtr) {
 		this.gedCtr = gedCtr;
+	}
+
+	public List<Projet> getProjets() {
+		return projets;
+	}
+
+	public void setProjets(List<Projet> projets) {
+		this.projets = projets;
+	}
+
+	public Projet getSelectedProjet() {
+		return selectedProjet;
+	}
+
+	public void setSelectedProjet(Projet selectedProjet) {
+		this.selectedProjet = selectedProjet;
 	}
 
 

@@ -1,11 +1,14 @@
 package com.arabsoft.mySTKE.entity;
 
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 @Entity
 public class ReunionChantier {
@@ -22,7 +25,7 @@ public class ReunionChantier {
 	@ManyToOne
 	private PlanningActivite planningActivite;
 	@ManyToOne
-	private Utilisa utilisa;
+	private Utilisateur utilisateur;
 
 	public ReunionChantier() {
 	}
@@ -67,12 +70,12 @@ public class ReunionChantier {
 		this.projet = projet;
 	}
 
-	public Utilisa getUtilisateur() {
-		return utilisa;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setUtilisateur(Utilisa utilisa) {
-		this.utilisa = utilisa;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	public String getEtatTravaux() {
@@ -81,14 +84,6 @@ public class ReunionChantier {
 
 	public void setEtatTravaux(String etatTravaux) {
 		this.etatTravaux = etatTravaux;
-	}
-
-	public Utilisa getUtilisa() {
-		return utilisa;
-	}
-
-	public void setUtilisa(Utilisa utilisa) {
-		this.utilisa = utilisa;
 	}
 
 	public PlanningActivite getPlanningActivite() {

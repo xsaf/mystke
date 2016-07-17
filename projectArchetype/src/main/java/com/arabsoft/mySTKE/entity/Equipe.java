@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+
 @Entity
 public class Equipe {
 	
@@ -15,7 +17,7 @@ public class Equipe {
 	@ManyToOne
 	private Projet projet;
 	@ManyToOne
-	private Utilisa utilisa;
+	private Utilisateur utilisateur;
 	
 	public Equipe() {
 	}
@@ -36,13 +38,15 @@ public class Equipe {
 		this.projet = projet;
 	}
 
-	public Utilisa getUtilisa() {
-		return utilisa;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setUtilisa(Utilisa utilisa) {
-		this.utilisa = utilisa;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
+
+	
 	
 	
 	

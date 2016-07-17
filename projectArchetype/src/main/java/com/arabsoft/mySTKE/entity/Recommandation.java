@@ -1,11 +1,14 @@
 package com.arabsoft.mySTKE.entity;
 
 import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 @Entity
 public class Recommandation {
@@ -18,7 +21,7 @@ public class Recommandation {
 	@ManyToOne
 	public EtudeRentabillite etudeRentabillite;
 	@ManyToOne
-	public Utilisa utilisa;
+	public Utilisateur utilisateur;
 	@ManyToOne
 	public Projet projet;
 
@@ -57,12 +60,12 @@ public class Recommandation {
 		this.etudeRentabillite = etudeRentabillite;
 	}
 
-	public Utilisa getUtilisa() {
-		return utilisa;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setUtilisa(Utilisa utilisa) {
-		this.utilisa = utilisa;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	public Projet getProjet() {

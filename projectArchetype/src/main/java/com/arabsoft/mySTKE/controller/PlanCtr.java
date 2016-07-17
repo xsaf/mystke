@@ -30,7 +30,7 @@ import com.arabsoft.mySTKE.entity.PlanningGlobal;
 import com.arabsoft.mySTKE.entity.Programme;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
-import com.arabsoft.mySTKE.entity.Utilisa;
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 import com.arabsoft.utils.Theme;
 import com.arabsoft.utils.ThemeService;
 
@@ -38,11 +38,11 @@ import com.arabsoft.utils.ThemeService;
 @ViewScoped
 public class PlanCtr {
 
-	private Utilisa utilisa = new Utilisa();
+	private Utilisateur utilisateur = new Utilisateur();
 	private Fonction fonction = new Fonction();
 	private Projet projet = new Projet();
 	private Equipe equipe = new Equipe();
-	private Utilisa ch = new Utilisa();
+	private Utilisateur ch = new Utilisateur();
 	private Programme programme = new Programme();
 	private AvantProjetSommaire avantProjetSommaire = new AvantProjetSommaire();
 	private AvantProjetDetaille avantProjetDetaille = new AvantProjetDetaille();
@@ -106,7 +106,7 @@ public class PlanCtr {
 		gedCtr.setFolder(absDoc.getNumAbsDoc());
 		
 		if (projet.getDescEtat() == 223) {
-			List<Utilisa> chefProj = equipeBusiness.selectAllUserByFonction("7");
+			List<Utilisateur> chefProj = equipeBusiness.selectAllUserByFonction("7");
 			chefs = new HashMap<String, Integer>();
 			for (int i = 0; i < chefProj.size(); i++) {
 				chefs.put("" + chefProj.get(i).getPrenomUti() + " " + chefProj.get(i).getNomUti(),
@@ -115,7 +115,7 @@ public class PlanCtr {
 			themes = service.getThemes();
 		}
 		if (projet.getDescEtat() >= 312) {
-			List<Utilisa> utiList = equipeBusiness.selectAllUserByEquipe(projet.getIdProj());
+			List<Utilisateur> utiList = equipeBusiness.selectAllUserByEquipe(projet.getIdProj());
 			if (utiList.size() > 0) {
 				for (int i = 0; i < utiList.size(); i++) {
 					if (utiList.get(i).getFonction().getIdFon() == 7)
@@ -155,7 +155,7 @@ public class PlanCtr {
 		projet = projetBusiness.updateProjet(projet);
 		equipe.setProjet(projet);
 		ch.setIdUti(chef);
-		equipe.setUtilisa(ch);
+		equipe.setUtilisateur(ch);
 		equipeBusiness.createEquipe(equipe);
 	}
 
@@ -386,12 +386,12 @@ public class PlanCtr {
 		this.themes = themes;
 	}
 
-	public Utilisa getUtilisa() {
-		return utilisa;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setUtilisa(Utilisa utilisa) {
-		this.utilisa = utilisa;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	public Fonction getFonction() {
@@ -418,11 +418,11 @@ public class PlanCtr {
 		this.equipe = equipe;
 	}
 
-	public Utilisa getCh() {
+	public Utilisateur getCh() {
 		return ch;
 	}
 
-	public void setCh(Utilisa ch) {
+	public void setCh(Utilisateur ch) {
 		this.ch = ch;
 	}
 

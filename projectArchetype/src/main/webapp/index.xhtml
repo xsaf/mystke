@@ -211,6 +211,33 @@
 
 
 							</h:form>
+							
+							<h:form id="form">
+									<p:growl id="msgs" showDetail="true" />
+									<div align="center">
+										<p:dataTable id="singleDT" var="projets"
+											value="#{accueilCtr.projets}" selectionMode="single"
+											style="margin-top: 0.3cm; margin-bottom: 0.5cm; width: 1000px;"
+											selection="#{accueilCtr.selectedProjet}"
+											rowKey="#{projets.idProj}">
+											<p:column headerText="Id Projet">
+												<h:outputText value="#{projets.idProj}" />
+											</p:column>
+											<p:column headerText="Nom Projet">
+												<h:outputText value="#{projets.nomProj}" />
+											</p:column>
+											<p:column headerText="Date Création">
+												<h:outputText value="#{projets.dateProj}" />
+											</p:column>
+											<f:facet name="footer">
+														<p:commandButton icon="ui-icon-trash"
+															validateClient="true" value="Défauts"
+															action="#{accueilCtr.toProjetImmobiliere()}" />
+											</f:facet>
+										</p:dataTable>
+									</div>
+									
+									</h:form>
 
 
 						</div>

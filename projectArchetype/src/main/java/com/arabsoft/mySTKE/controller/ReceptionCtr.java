@@ -21,13 +21,13 @@ import com.arabsoft.mySTKE.entity.Fonction;
 import com.arabsoft.mySTKE.entity.Immeuble;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
-import com.arabsoft.mySTKE.entity.Utilisa;
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 @ManagedBean(name = "receptionCtr")
 @ViewScoped
 public class ReceptionCtr {
 
-	private Utilisa utilisa = new Utilisa();
+	private Utilisateur utilisateur = new Utilisateur();
 	private Fonction fonction = new Fonction();
 	private Projet projet = new Projet();
 	private Client client = new Client();
@@ -65,7 +65,7 @@ public class ReceptionCtr {
 		projet.setIdProj(11810);
 		//projet.setDescEtat(513);
 		// fonction.setIdFon(7);
-		// utilisa.setFonction(fonction);
+		// Utilisateur.setFonction(fonction);
 		//
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 		
@@ -272,14 +272,13 @@ public class ReceptionCtr {
 		projet.setDescEtat(526);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	
-	public Utilisa getUtilisa() {
-		return utilisa;
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setUtilisa(Utilisa utilisa) {
-		this.utilisa = utilisa;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	public Fonction getFonction() {

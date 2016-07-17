@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+
 @Entity
 public class EtudeRentabillite {
 
@@ -24,7 +26,7 @@ public class EtudeRentabillite {
 	@OneToMany(mappedBy = "etudeRentabillite")
 	private Set<Analyse> analyses;
 	@ManyToOne
-	private Utilisa utilisa;
+	private Utilisateur utilisateur;
 
 	public EtudeRentabillite() {
 	}
@@ -85,13 +87,15 @@ public class EtudeRentabillite {
 		this.analyses = analyses;
 	}
 
-	public Utilisa getUtilisa() {
-		return utilisa;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setUtilisa(Utilisa utilisa) {
-		this.utilisa = utilisa;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
+
+	
 	
 	
 

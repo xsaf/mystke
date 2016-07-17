@@ -23,7 +23,8 @@ import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Equipe;
 import com.arabsoft.mySTKE.entity.Planning;
 import com.arabsoft.mySTKE.entity.Projet;
-import com.arabsoft.mySTKE.entity.Utilisa;
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+import com.arabsoft.utils.FacesUtil;
 import com.arabsoft.utils.Theme;
 import com.arabsoft.utils.ThemeService;
 
@@ -35,7 +36,7 @@ public class DetailsCtr {
 	private Planning planning = new Planning();
 	private Equipe equipe = new Equipe();
 	private AbsDoc absDoc = new Dossier();
-	private Utilisa utilisa = new Utilisa();
+	private Utilisateur utilisateur = new Utilisateur();
 
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -92,16 +93,10 @@ public class DetailsCtr {
 	@PostConstruct
 	public void initialisation() {
 		
-//        int idprojet = (int) FacesUtil.getSessionMapValue("AccueilCtr.idprojet");
-//        String n = (String) FacesUtil.getSessionMapValue("AccueilCtr.newfolder");
-//		System.out.println("réponse 11 + " + n);
-//		System.out.println("safweeen + " + idprojet);
+        int idprojet = (int) FacesUtil.getSessionMapValue("AccueilCtr.idprojet");
+		System.out.println("id Projettt + " + idprojet);
 
-		
-			
-		// test
-		projet.setIdProj(15170);
-		// Projet
+		projet.setIdProj(idprojet);
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 			
 		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
@@ -111,13 +106,13 @@ public class DetailsCtr {
 		if (projet.getDescEtat() == 111) {
 
 			// Equipe
-			List<Utilisa> direc = equipeBusiness.selectAllUserByFonction("1");
-			List<Utilisa> agentConseil = equipeBusiness.selectAllUserByFonction("2");
-			List<Utilisa> repM = equipeBusiness.selectAllUserByFonction("3");
-			List<Utilisa> repT = equipeBusiness.selectAllUserByFonction("4");
-			List<Utilisa> archi = equipeBusiness.selectAllUserByFonction("5");
-			List<Utilisa> contr = equipeBusiness.selectAllUserByFonction("6");
-			List<Utilisa> chefProj = equipeBusiness.selectAllUserByFonction("7");
+			List<Utilisateur> direc = equipeBusiness.selectAllUserByFonction("1");
+			List<Utilisateur> agentConseil = equipeBusiness.selectAllUserByFonction("2");
+			List<Utilisateur> repM = equipeBusiness.selectAllUserByFonction("3");
+			List<Utilisateur> repT = equipeBusiness.selectAllUserByFonction("4");
+			List<Utilisateur> archi = equipeBusiness.selectAllUserByFonction("5");
+			List<Utilisateur> contr = equipeBusiness.selectAllUserByFonction("6");
+			List<Utilisateur> chefProj = equipeBusiness.selectAllUserByFonction("7");
 			
 			
 			directeurs = new HashMap<String, Integer>();
@@ -176,7 +171,7 @@ public class DetailsCtr {
 			planning = planningBusiness.SelectPlanningByProjet(projet.getIdProj());
 
 			// Equipe
-			List<Utilisa> utiList = equipeBusiness.selectAllUserByEquipe(projet.getIdProj());
+			List<Utilisateur> utiList = equipeBusiness.selectAllUserByEquipe(projet.getIdProj());
 			if (utiList.size() > 0) {
 				for (int i = 0; i < utiList.size(); i++) {
 					if (utiList.get(i).getFonction().getIdFon() == 1)
@@ -222,39 +217,39 @@ public class DetailsCtr {
 	public void createEquipe() {
 		equipe.setProjet(projet);
 
-		utilisa = new Utilisa();
-		utilisa.setIdUti(directeur);
-		equipe.setUtilisa(utilisa);
+		utilisateur = new Utilisateur();
+		utilisateur.setIdUti(directeur);
+		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
-		utilisa = new Utilisa();
-		utilisa.setIdUti(agent);
-		equipe.setUtilisa(utilisa);
+		utilisateur = new Utilisateur();
+		utilisateur.setIdUti(agent);
+		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
-		utilisa = new Utilisa();
-		utilisa.setIdUti(respMark);
-		equipe.setUtilisa(utilisa);
+		utilisateur = new Utilisateur();
+		utilisateur.setIdUti(respMark);
+		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
-		utilisa = new Utilisa();
-		utilisa.setIdUti(respTec);
-		equipe.setUtilisa(utilisa);
+		utilisateur = new Utilisateur();
+		utilisateur.setIdUti(respTec);
+		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
-		utilisa = new Utilisa();
-		utilisa.setIdUti(architecte);
-		equipe.setUtilisa(utilisa);
+		utilisateur = new Utilisateur();
+		utilisateur.setIdUti(architecte);
+		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
-		utilisa = new Utilisa();
-		utilisa.setIdUti(controleur);
-		equipe.setUtilisa(utilisa);
+		utilisateur = new Utilisateur();
+		utilisateur.setIdUti(controleur);
+		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
-		utilisa = new Utilisa();
-		utilisa.setIdUti(chef);
-		equipe.setUtilisa(utilisa);
+		utilisateur = new Utilisateur();
+		utilisateur.setIdUti(chef);
+		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 	}
 
@@ -453,12 +448,12 @@ public class DetailsCtr {
 		this.service = service;
 	}
 
-	public Utilisa getUtilisa() {
-		return utilisa;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setUtilisa(Utilisa utilisa) {
-		this.utilisa = utilisa;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	public String getDir() {

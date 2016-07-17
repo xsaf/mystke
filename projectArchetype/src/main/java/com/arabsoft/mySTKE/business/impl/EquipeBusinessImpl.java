@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.arabsoft.mySTKE.business.EquipeBusiness;
 import com.arabsoft.mySTKE.dao.IDao;
 import com.arabsoft.mySTKE.entity.Equipe;
-import com.arabsoft.mySTKE.entity.Utilisa;
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 @Service("equipeBusiness")
 public class EquipeBusinessImpl implements EquipeBusiness {
@@ -31,8 +31,8 @@ public class EquipeBusinessImpl implements EquipeBusiness {
 
 
 	@Override
-	public List<Utilisa> selectAllUserByFonction(String value) {
-		return genericDao.findByPropriety("Utilisa", "FONCTION_IDFON", value);
+	public List<Utilisateur> selectAllUserByFonction(String value) {
+		return genericDao.findByPropriety("Utilisateur", "FONCTION_IDFON", value);
 	}
 
 	@Override
@@ -41,22 +41,22 @@ public class EquipeBusinessImpl implements EquipeBusiness {
 	}
 
 	@Override
-	public List<Utilisa> selectAllUserByEquipe(int idProj) {
+	public List<Utilisateur> selectAllUserByEquipe(int idProj) {
 		List<Equipe> eqList = genericDao.findByPropriety("Equipe", "PROJET_IDPROJ", "" + idProj);
-		List<Utilisa> utiList = new ArrayList<Utilisa>();
+		List<Utilisateur> utiList = new ArrayList<Utilisateur>();
 		for (int i = 0; i < eqList.size(); i++) {
-			utiList.add((Utilisa) genericDao.findById(Utilisa.class, eqList.get(i).getUtilisa().getIdUti()));
+			utiList.add((Utilisateur) genericDao.findById(Utilisateur.class, eqList.get(i).getUtilisateur().getIdUti()));
 		}
 		return utiList;
 	}
 
 	@Override
-	public Utilisa selectArchitecteByEquipe(int idProj) {
+	public Utilisateur selectArchitecteByEquipe(int idProj) {
 		List<Equipe> eqList = genericDao.findByPropriety("Equipe", "PROJET_IDPROJ", "" + idProj);
-		List<Utilisa> utiList = new ArrayList<Utilisa>();
+		List<Utilisateur> utiList = new ArrayList<Utilisateur>();
 		for (int i = 0; i < eqList.size(); i++) {
-			if (eqList.get(i).getUtilisa().getIdUti() == 5) {
-				utiList.add((Utilisa) genericDao.findById(Utilisa.class, eqList.get(i).getUtilisa().getIdUti()));
+			if (eqList.get(i).getUtilisateur().getIdUti() == 5) {
+				utiList.add((Utilisateur) genericDao.findById(Utilisateur.class, eqList.get(i).getUtilisateur().getIdUti()));
 			}
 		}
 		return utiList.get(0);

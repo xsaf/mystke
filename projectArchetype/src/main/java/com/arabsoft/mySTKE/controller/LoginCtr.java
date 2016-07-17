@@ -33,6 +33,7 @@ public class LoginCtr implements PhaseListener {
 	private static final long serialVersionUID = 1L;
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	private Utilisateur utilisateur = new Utilisateur();
 	private String username;
 	private String password;
 	@ManagedProperty(value = "#{loginBusiness}")
@@ -61,7 +62,7 @@ public class LoginCtr implements PhaseListener {
 				(ServletResponse) context.getResponse());
 
 		FacesContext.getCurrentInstance().responseComplete();
-		Utilisateur p = loginBusiness.findUser(username);
+		utilisateur = loginBusiness.findUser(username);
 
 		return null;
 	}
@@ -168,5 +169,14 @@ public class LoginCtr implements PhaseListener {
 	public void setLoginBusiness(LoginBusiness loginBusiness) {
 		this.loginBusiness = loginBusiness;
 	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	
 
 }

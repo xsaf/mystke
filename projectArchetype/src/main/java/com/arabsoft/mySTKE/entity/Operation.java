@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+
 @Entity
 public class Operation {
 
@@ -16,7 +18,7 @@ public class Operation {
 	private int idOp;
 	private String libelleOp;
 	@ManyToMany(mappedBy = "operations")
-	private Set<Utilisa> utilisas;
+	private Set<Utilisateur> utilisateurs;
 
 	public Operation() {
 	}
@@ -37,12 +39,13 @@ public class Operation {
 		this.libelleOp = libelleOp;
 	}
 
-	public Set<Utilisa> getUtilisas() {
-		return utilisas;
+	public Set<Utilisateur> getUtilisateurs() {
+		return utilisateurs;
 	}
 
-	public void setUtilisateurs(Set<Utilisa> utilisas) {
-		this.utilisas = utilisas;
+	public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+		this.utilisateurs = utilisateurs;
 	}
 
+	
 }

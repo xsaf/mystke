@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+
 @Entity
 public class Departement {
 
@@ -16,7 +18,7 @@ public class Departement {
 	private int idDep;
 	private String libelleDepartement;
 	@OneToMany(mappedBy = "departement")
-	public Set<Utilisa> utilisas;
+	public Set<Utilisateur> utilisateurs;
 
 	public Departement() {
 	}
@@ -37,12 +39,14 @@ public class Departement {
 		this.libelleDepartement = libelleDepartement;
 	}
 
-	public Set<Utilisa> getUtilisas() {
-		return utilisas;
+	public Set<Utilisateur> getUtilisateurs() {
+		return utilisateurs;
 	}
 
-	public void setUtilisateurs(Set<Utilisa> utilisas) {
-		this.utilisas = utilisas;
+	public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+		this.utilisateurs = utilisateurs;
 	}
+
+	
 
 }

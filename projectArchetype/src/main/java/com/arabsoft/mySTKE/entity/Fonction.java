@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+
 @Entity
 public class Fonction {
 
@@ -16,7 +18,7 @@ public class Fonction {
 	private int idFon;
 	private String libelleFonction;
 	@OneToMany(mappedBy = "fonction")
-	public Set<Utilisa> utilisas;
+	public Set<Utilisateur> utilisateurs;
 
 	public Fonction() {
 	}
@@ -37,12 +39,13 @@ public class Fonction {
 		this.libelleFonction = libelleFonction;
 	}
 
-	public Set<Utilisa> getUtilisas() {
-		return utilisas;
+	public Set<Utilisateur> getUtilisateurs() {
+		return utilisateurs;
 	}
 
-	public void setUtilisateurs(Set<Utilisa> utilisas) {
-		this.utilisas = utilisas;
+	public void setUtilisateurs(Set<Utilisateur> utilisateurs) {
+		this.utilisateurs = utilisateurs;
 	}
+
 
 }

@@ -23,13 +23,13 @@ import com.arabsoft.mySTKE.entity.PlanningGlobal;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
 import com.arabsoft.mySTKE.entity.ReunionChantier;
-import com.arabsoft.mySTKE.entity.Utilisa;
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 @ManagedBean(name = "reunionCtr")
 @ViewScoped
 public class ReunionCtr {
 
-	private Utilisa utilisa = new Utilisa();
+	private Utilisateur utilisateur = new Utilisateur();
 	private Fonction fonction = new Fonction();
 	private Projet projet = new Projet();
 	private ReunionChantier reunionChantier = new ReunionChantier();
@@ -125,12 +125,12 @@ public class ReunionCtr {
 		this.reunionChantier = reunionChantier;
 	}
 
-	public Utilisa getUtilisa() {
-		return utilisa;
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
 	}
 
-	public void setUtilisa(Utilisa utilisa) {
-		this.utilisa = utilisa;
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
 	}
 
 	public Fonction getFonction() {

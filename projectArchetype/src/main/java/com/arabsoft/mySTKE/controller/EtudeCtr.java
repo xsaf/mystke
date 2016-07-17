@@ -35,19 +35,19 @@ import com.arabsoft.mySTKE.entity.Fonction;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
 import com.arabsoft.mySTKE.entity.Terrain;
-import com.arabsoft.mySTKE.entity.Utilisa;
 import com.arabsoft.mySTKE.entity.Zone;
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 @ManagedBean(name = "etudeCtr")
 @ViewScoped
 public class EtudeCtr {
 
-	private Utilisa utilisa = new Utilisa();
+	private Utilisateur utilisateur = new Utilisateur();
 	private Fonction fonction = new Fonction();
 	private Projet projet = new Projet();
 	private Zone zone = new Zone();
 	private Terrain terrain = new Terrain();
-	private Utilisa ar = new Utilisa();
+	private Utilisateur ar = new Utilisateur();
 	private Equipe equipe = new Equipe();
 	private EtudeRentabillite etude = new EtudeRentabillite();
 	private AnalyseCout analyseCout = new AnalyseCout();
@@ -118,7 +118,7 @@ public class EtudeCtr {
 	        simpleModel1.addOverlay(new Marker(coord1, "Terrain de projet"));
 		}
 		if(projet.getDescEtat()==214){
-			List<Utilisa> archi = equipeBusiness.selectAllUserByFonction("5");
+			List<Utilisateur> archi = equipeBusiness.selectAllUserByFonction("5");
 			architectes = new HashMap<String, Integer>();
 			for (int i = 0; i < archi.size(); i++) {
 				architectes.put("" + archi.get(i).getPrenomUti() + " " + archi.get(i).getNomUti(),
@@ -178,7 +178,7 @@ public class EtudeCtr {
 		projet = projetBusiness.updateProjet(projet);
 		equipe.setProjet(projet);
 		ar.setIdUti(architecte);
-		equipe.setUtilisa(ar);
+		equipe.setUtilisateur(ar);
 		equipeBusiness.createEquipe(equipe);
 	}
 	
@@ -237,13 +237,6 @@ public class EtudeCtr {
 		terrainBusiness.updateTerrain(terrain);
 	}
 	
-	public Utilisa getUtilisa() {
-		return utilisa;
-	}
-
-	public void setUtilisa(Utilisa utilisa) {
-		this.utilisa = utilisa;
-	}
 	
 	public Fonction getFonction() {
 		return fonction;
@@ -277,16 +270,24 @@ public class EtudeCtr {
 		this.terrain = terrain;
 	}
 
-	public Utilisa getAr() {
+	public Equipe getEquipe() {
+		return equipe;
+	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+	public Utilisateur getAr() {
 		return ar;
 	}
 
-	public void setAr(Utilisa ar) {
+	public void setAr(Utilisateur ar) {
 		this.ar = ar;
-	}
-
-	public Equipe getEquipe() {
-		return equipe;
 	}
 
 	public void setEquipe(Equipe equipe) {
