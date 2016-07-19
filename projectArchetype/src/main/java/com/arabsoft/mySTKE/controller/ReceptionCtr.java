@@ -22,6 +22,7 @@ import com.arabsoft.mySTKE.entity.Immeuble;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+import com.arabsoft.utils.FacesUtil;
 
 @ManagedBean(name = "receptionCtr")
 @ViewScoped
@@ -62,11 +63,9 @@ public class ReceptionCtr {
 	@PostConstruct
 	public void initialisation() {
 
-		projet.setIdProj(11810);
-		//projet.setDescEtat(513);
-		// fonction.setIdFon(7);
-		// Utilisateur.setFonction(fonction);
-		//
+		int idprojet = (int) FacesUtil.getSessionMapValue("idprojet");
+		projet.setIdProj(idprojet);
+		
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 		
 		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());

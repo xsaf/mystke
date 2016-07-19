@@ -31,6 +31,7 @@ import com.arabsoft.mySTKE.entity.Programme;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+import com.arabsoft.utils.FacesUtil;
 import com.arabsoft.utils.Theme;
 import com.arabsoft.utils.ThemeService;
 
@@ -98,7 +99,8 @@ public class PlanCtr {
 	@PostConstruct
 	public void initialisation() {
 
-		projet.setIdProj(11810);
+		int idprojet = (int) FacesUtil.getSessionMapValue("idprojet");
+		projet.setIdProj(idprojet);
 
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 

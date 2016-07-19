@@ -13,6 +13,7 @@ import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.EquipeBusiness;
@@ -37,6 +38,7 @@ public class DetailsCtr {
 	private Equipe equipe = new Equipe();
 	private AbsDoc absDoc = new Dossier();
 	private Utilisateur utilisateur = new Utilisateur();
+	private Utilisateur user = new Utilisateur();
 
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -46,36 +48,36 @@ public class DetailsCtr {
 
 	@ManagedProperty(value = "#{equipeBusiness}")
 	private EquipeBusiness equipeBusiness;
-	
+
 	@ManagedProperty(value = "#{absDocBusiness}")
 	private AbsDocBusiness absDocBusiness;
 
 	@ManagedProperty(value = "#{gedCtr}")
 	private GedCtr gedCtr;
-	
+
 	@ManagedProperty("#{themeService}")
 	private ThemeService service;
 
-	private int directeur;
+	private String directeur;
 	private Map<String, Integer> directeurs = new HashMap<String, Integer>();
 
-	private int agent;
-	private Map<String, Integer> agents = new HashMap<String, Integer>();
+	private String agent;
+	private Map<String, String> agents = new HashMap<String, String>();
 
-	private int respMark;
-	private Map<String, Integer> respMarks = new HashMap<String, Integer>();
+	private String respMark;
+	private Map<String, String> respMarks = new HashMap<String, String>();
 
-	private int respTec;
-	private Map<String, Integer> respTecs = new HashMap<String, Integer>();
+	private String respTec;
+	private Map<String, String> respTecs = new HashMap<String, String>();
 
-	private int architecte;
-	private Map<String, Integer> architectes = new HashMap<String, Integer>();
+	private String architecte;
+	private Map<String, String> architectes = new HashMap<String, String>();
 
-	private int controleur;
-	private Map<String, Integer> controleurs = new HashMap<String, Integer>();
+	private String controleur;
+	private Map<String, String> controleurs = new HashMap<String, String>();
 
-	private int chef;
-	private Map<String, Integer> chefs = new HashMap<String, Integer>();
+	private String chef;
+	private Map<String, String> chefs = new HashMap<String, String>();
 
 	private Theme theme;
 	private List<Theme> themes;
@@ -92,74 +94,49 @@ public class DetailsCtr {
 
 	@PostConstruct
 	public void initialisation() {
-		
-        int idprojet = (int) FacesUtil.getSessionMapValue("AccueilCtr.idprojet");
-		System.out.println("id Projettt + " + idprojet);
 
-		projet.setIdProj(idprojet);
-		projet = projetBusiness.findProjetById(projet.getIdProj());
-			
+		user = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+		int idprojet = (int) FacesUtil.getSessionMapValue("idprojet");
+		projet = projetBusiness.findProjetById(idprojet);
+
 		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
 		gedCtr.setFolder(absDoc.getNumAbsDoc());
-				
 
 		if (projet.getDescEtat() == 111) {
 
 			// Equipe
-			List<Utilisateur> direc = equipeBusiness.selectAllUserByFonction("1");
 			List<Utilisateur> agentConseil = equipeBusiness.selectAllUserByFonction("2");
 			List<Utilisateur> repM = equipeBusiness.selectAllUserByFonction("3");
 			List<Utilisateur> repT = equipeBusiness.selectAllUserByFonction("4");
-			List<Utilisateur> archi = equipeBusiness.selectAllUserByFonction("5");
 			List<Utilisateur> contr = equipeBusiness.selectAllUserByFonction("6");
-			List<Utilisateur> chefProj = equipeBusiness.selectAllUserByFonction("7");
-			
-			
-			directeurs = new HashMap<String, Integer>();
 
-			for (int i = 0; i < direc.size(); i++) {
-				directeurs.put("" + direc.get(i).getPrenomUti() + " " + direc.get(i).getNomUti(),
-						direc.get(i).getIdUti());
-			}
-
-			agents = new HashMap<String, Integer>();
+			agents = new HashMap<String, String>();
 
 			for (int i = 0; i < agentConseil.size(); i++) {
 				agents.put("" + agentConseil.get(i).getPrenomUti() + " " + agentConseil.get(i).getNomUti(),
-						agentConseil.get(i).getIdUti());
+						agentConseil.get(i).getNumMatrUser());
 			}
 
-			respMarks = new HashMap<String, Integer>();
+			respMarks = new HashMap<String, String>();
 
 			for (int i = 0; i < repM.size(); i++) {
-				respMarks.put("" + repM.get(i).getPrenomUti() + " " + repM.get(i).getNomUti(), repM.get(i).getIdUti());
+				respMarks.put("" + repM.get(i).getPrenomUti() + " " + repM.get(i).getNomUti(),
+						repM.get(i).getNumMatrUser());
 			}
 
-			respTecs = new HashMap<String, Integer>();
+			respTecs = new HashMap<String, String>();
 
 			for (int i = 0; i < repT.size(); i++) {
-				respTecs.put("" + repT.get(i).getPrenomUti() + " " + repT.get(i).getNomUti(), repT.get(i).getIdUti());
+				respTecs.put("" + repT.get(i).getPrenomUti() + " " + repT.get(i).getNomUti(),
+						repT.get(i).getNumMatrUser());
 			}
 
-			architectes = new HashMap<String, Integer>();
-
-			for (int i = 0; i < archi.size(); i++) {
-				architectes.put("" + archi.get(i).getPrenomUti() + " " + archi.get(i).getNomUti(),
-						archi.get(i).getIdUti());
-			}
-
-			controleurs = new HashMap<String, Integer>();
+			controleurs = new HashMap<String, String>();
 
 			for (int i = 0; i < contr.size(); i++) {
 				controleurs.put("" + contr.get(i).getPrenomUti() + " " + contr.get(i).getNomUti(),
-						contr.get(i).getIdUti());
-			}
-
-			chefs = new HashMap<String, Integer>();
-
-			for (int i = 0; i < chefProj.size(); i++) {
-				chefs.put("" + chefProj.get(i).getPrenomUti() + " " + chefProj.get(i).getNomUti(),
-						chefProj.get(i).getIdUti());
+						contr.get(i).getNumMatrUser());
 			}
 
 			themes = service.getThemes();
@@ -195,11 +172,9 @@ public class DetailsCtr {
 
 		createAnimatedModels();
 
-		
 	}
-	
-	
-	public void createFolder(){
+
+	public void createFolder() {
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
@@ -217,40 +192,29 @@ public class DetailsCtr {
 	public void createEquipe() {
 		equipe.setProjet(projet);
 
+		equipe.setUtilisateur(user);
+		equipeBusiness.createEquipe(equipe);
+
 		utilisateur = new Utilisateur();
-		utilisateur.setIdUti(directeur);
+		utilisateur.setNumMatrUser(agent);
 		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
 		utilisateur = new Utilisateur();
-		utilisateur.setIdUti(agent);
+		utilisateur.setNumMatrUser(respMark);
 		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
 		utilisateur = new Utilisateur();
-		utilisateur.setIdUti(respMark);
+		utilisateur.setNumMatrUser(respTec);
 		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
 		utilisateur = new Utilisateur();
-		utilisateur.setIdUti(respTec);
+		utilisateur.setNumMatrUser(controleur);
 		equipe.setUtilisateur(utilisateur);
 		equipeBusiness.createEquipe(equipe);
 
-		utilisateur = new Utilisateur();
-		utilisateur.setIdUti(architecte);
-		equipe.setUtilisateur(utilisateur);
-		equipeBusiness.createEquipe(equipe);
-
-		utilisateur = new Utilisateur();
-		utilisateur.setIdUti(controleur);
-		equipe.setUtilisateur(utilisateur);
-		equipeBusiness.createEquipe(equipe);
-
-		utilisateur = new Utilisateur();
-		utilisateur.setIdUti(chef);
-		equipe.setUtilisateur(utilisateur);
-		equipeBusiness.createEquipe(equipe);
 	}
 
 	private void createAnimatedModels() {
@@ -320,14 +284,6 @@ public class DetailsCtr {
 		this.equipeBusiness = equipeBusiness;
 	}
 
-	public int getdirecteur() {
-		return directeur;
-	}
-
-	public void setdirecteur(int directeur) {
-		this.directeur = directeur;
-	}
-
 	public Theme getTheme() {
 		return theme;
 	}
@@ -344,100 +300,112 @@ public class DetailsCtr {
 		return directeurs;
 	}
 
-	public int getAgent() {
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public void setUser(Utilisateur user) {
+		this.user = user;
+	}
+
+	public String getAgent() {
 		return agent;
 	}
 
-	public void setAgent(int agent) {
+	public void setAgent(String agent) {
 		this.agent = agent;
 	}
 
-	public Map<String, Integer> getAgents() {
+	public Map<String, String> getAgents() {
 		return agents;
 	}
 
-	public void setAgents(Map<String, Integer> agents) {
+	public void setAgents(Map<String, String> agents) {
 		this.agents = agents;
 	}
 
-	public int getRespMark() {
+	public String getRespMark() {
 		return respMark;
 	}
 
-	public void setRespMark(int respMark) {
+	public void setRespMark(String respMark) {
 		this.respMark = respMark;
 	}
 
-	public Map<String, Integer> getRespMarks() {
+	public Map<String, String> getRespMarks() {
 		return respMarks;
 	}
 
-	public void setRespMarks(Map<String, Integer> respMarks) {
+	public void setRespMarks(Map<String, String> respMarks) {
 		this.respMarks = respMarks;
 	}
 
-	public int getRespTec() {
+	public String getRespTec() {
 		return respTec;
 	}
 
-	public void setRespTec(int respTec) {
+	public void setRespTec(String respTec) {
 		this.respTec = respTec;
 	}
 
-	public Map<String, Integer> getRespTecs() {
+	public Map<String, String> getRespTecs() {
 		return respTecs;
 	}
 
-	public void setRespTecs(Map<String, Integer> respTecs) {
+	public void setRespTecs(Map<String, String> respTecs) {
 		this.respTecs = respTecs;
 	}
 
-	public int getArchitecte() {
+	public String getArchitecte() {
 		return architecte;
 	}
 
-	public void setArchitecte(int architecte) {
+	public void setArchitecte(String architecte) {
 		this.architecte = architecte;
 	}
 
-	public Map<String, Integer> getArchitectes() {
+	public Map<String, String> getArchitectes() {
 		return architectes;
 	}
 
-	public void setArchitectes(Map<String, Integer> architectes) {
+	public void setArchitectes(Map<String, String> architectes) {
 		this.architectes = architectes;
 	}
 
-	public int getControleur() {
+	public String getControleur() {
 		return controleur;
 	}
 
-	public void setControleur(int controleur) {
+	public void setControleur(String controleur) {
 		this.controleur = controleur;
 	}
 
-	public Map<String, Integer> getControleurs() {
+	public Map<String, String> getControleurs() {
 		return controleurs;
 	}
 
-	public void setControleurs(Map<String, Integer> controleurs) {
+	public void setControleurs(Map<String, String> controleurs) {
 		this.controleurs = controleurs;
 	}
 
-	public int getChef() {
+	public String getChef() {
 		return chef;
 	}
 
-	public void setChef(int chef) {
+	public void setChef(String chef) {
 		this.chef = chef;
 	}
 
-	public Map<String, Integer> getChefs() {
+	public Map<String, String> getChefs() {
 		return chefs;
 	}
 
-	public void setChefs(Map<String, Integer> chefs) {
+	public void setChefs(Map<String, String> chefs) {
 		this.chefs = chefs;
+	}
+
+	public void setDirecteur(String directeur) {
+		this.directeur = directeur;
 	}
 
 	public List<Theme> getThemes() {
@@ -532,12 +500,8 @@ public class DetailsCtr {
 		return animatedModel;
 	}
 
-	public int getDirecteur() {
+	public String getDirecteur() {
 		return directeur;
-	}
-
-	public void setDirecteur(int directeur) {
-		this.directeur = directeur;
 	}
 
 	public Map<String, Integer> getDirecteurs() {

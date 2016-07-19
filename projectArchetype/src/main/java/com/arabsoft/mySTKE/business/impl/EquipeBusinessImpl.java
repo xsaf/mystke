@@ -23,12 +23,11 @@ public class EquipeBusinessImpl implements EquipeBusiness {
 	public void createEquipe(Equipe equipe) {
 		genericDao.save(equipe);
 	}
-	
+
 	@Override
 	public void updateEquipe(Equipe equipe) {
 		genericDao.update(equipe);
 	}
-
 
 	@Override
 	public List<Utilisateur> selectAllUserByFonction(String value) {
@@ -45,7 +44,8 @@ public class EquipeBusinessImpl implements EquipeBusiness {
 		List<Equipe> eqList = genericDao.findByPropriety("Equipe", "PROJET_IDPROJ", "" + idProj);
 		List<Utilisateur> utiList = new ArrayList<Utilisateur>();
 		for (int i = 0; i < eqList.size(); i++) {
-			utiList.add((Utilisateur) genericDao.findById(Utilisateur.class, eqList.get(i).getUtilisateur().getIdUti()));
+			utiList.add((Utilisateur) genericDao.findById(Utilisateur.class,
+					eqList.get(i).getUtilisateur().getNumMatrUser()));
 		}
 		return utiList;
 	}
@@ -56,7 +56,8 @@ public class EquipeBusinessImpl implements EquipeBusiness {
 		List<Utilisateur> utiList = new ArrayList<Utilisateur>();
 		for (int i = 0; i < eqList.size(); i++) {
 			if (eqList.get(i).getUtilisateur().getIdUti() == 5) {
-				utiList.add((Utilisateur) genericDao.findById(Utilisateur.class, eqList.get(i).getUtilisateur().getIdUti()));
+				utiList.add((Utilisateur) genericDao.findById(Utilisateur.class,
+						eqList.get(i).getUtilisateur().getNumMatrUser()));
 			}
 		}
 		return utiList.get(0);

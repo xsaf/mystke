@@ -18,6 +18,7 @@ import com.arabsoft.mySTKE.entity.AxeAmelioration;
 import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
+import com.arabsoft.utils.FacesUtil;
 
 @ManagedBean(name = "analyseCtr")
 @ViewScoped
@@ -58,8 +59,8 @@ public class AnalyseCtr {
 	@PostConstruct
 	public void initialisation(){
 		
-		projet.setIdProj(11810);
-		//projet.setDescEtat(611);
+		int idprojet = (int) FacesUtil.getSessionMapValue("idprojet");
+		projet.setIdProj(idprojet);
 		
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 		

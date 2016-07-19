@@ -37,6 +37,7 @@ import com.arabsoft.mySTKE.entity.ProjetValidation;
 import com.arabsoft.mySTKE.entity.Terrain;
 import com.arabsoft.mySTKE.entity.Zone;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+import com.arabsoft.utils.FacesUtil;
 
 @ManagedBean(name = "etudeCtr")
 @ViewScoped
@@ -99,7 +100,8 @@ public class EtudeCtr {
 	@PostConstruct
 	public void initialisation() {
 		// test
-		projet.setIdProj(15830);
+		int idprojet = (int) FacesUtil.getSessionMapValue("idprojet");
+		projet.setIdProj(idprojet);
 
 		// Projet
 		projet = projetBusiness.findProjetById(projet.getIdProj());

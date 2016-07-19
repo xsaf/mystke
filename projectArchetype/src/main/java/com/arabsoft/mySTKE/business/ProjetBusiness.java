@@ -13,6 +13,6 @@ public interface ProjetBusiness {
 	Projet findProjetById(int idProj);
 	Projet updateProjet(Projet projet);
 	Projet findProjetByName(String nomProj);
-	List<Projet> findAllProjetByUser(int idUti); 
+	List<Projet> findAllProjetByUser(String string); 
 
 }

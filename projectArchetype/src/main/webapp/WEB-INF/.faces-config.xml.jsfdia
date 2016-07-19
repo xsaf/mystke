@@ -4,12 +4,11 @@
   SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
   <PROCESS-ITEM ID="rules:#index.xhtml:0" NAME="item"
    PATH="/index.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT
-    ID="projet-immobiliere::#projet-immobiliere.xhtml" NAME="output"
-    PATH="/projet-immobiliere.xhtml"
-    TARGET="rules:#projet-immobiliere.xhtml" TITLE="projet-immobiliere" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="projet-immobiliere::#details.xhtml"
+    NAME="output" PATH="/details.xhtml" TARGET="rules:#details.xhtml"
+    TITLE="projet-immobiliere" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#projet-immobiliere.xhtml"
-  PATH="/projet-immobiliere.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#details.xhtml" PATH="/details.xhtml"
+  SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>

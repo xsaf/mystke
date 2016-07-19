@@ -7,8 +7,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.arabsoft.mySTKE.business.ProjetBusiness;
 import com.arabsoft.mySTKE.entity.Projet;
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 import com.arabsoft.utils.FacesUtil;
 
 @ManagedBean(name = "accueilCtr")
@@ -18,6 +21,7 @@ public class AccueilCtr {
 	private Projet projet = new Projet();
 	private List<Projet> projets;
 	private Projet selectedProjet = new Projet();
+	private Utilisateur user = new Utilisateur();
 
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -27,34 +31,38 @@ public class AccueilCtr {
 
 	@PostConstruct
 	public void initialisation() {
+		// test
+		FacesUtil.setSessionMapValue("idprojet", 16410);
+
 		gedCtr.setFolder("0B_KzijCYeJPvalRhMFVpYjl2bTA");
 		
-		//projets = projetBusiness.findAllProjetByUser(loginCtr.getUtilisateur().getIdUti());
+		user = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		projetBusiness.findAllProjetByUser(user.getNumMatrUser());
 
 	}
 
 	public void createProjet(String nomProj) {
 		projet.setNomProj(nomProj);
-		projet.setDescEtat(11);
+		projet.setDescEtat(111);
 		projet = projetBusiness.createProjet(projet);
 	}
-	
-	public void createFolder(){
+
+	public void createFolder() {
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
 
 	public String toProjetImmobiliere() {
 
-//		try {
-//			Thread.sleep(3000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-		
+		// try {
+		// Thread.sleep(3000);
+		// } catch (InterruptedException e) {
+		// e.printStackTrace();
+		// }
+
 		FacesUtil.setSessionMapValue("AccueilCtr.idprojet", selectedProjet.getIdProj());
 
-		return "projet-immobiliere";
+		return "details";
 	}
 
 	public Projet getProjet() {
@@ -97,7 +105,14 @@ public class AccueilCtr {
 		this.selectedProjet = selectedProjet;
 	}
 
-	
-	
+	public Utilisateur getUser() {
+		return user;
+	}
+
+	public void setUser(Utilisateur user) {
+		this.user = user;
+	}
+
+
 
 }

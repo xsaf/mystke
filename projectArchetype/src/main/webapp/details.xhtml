@@ -41,7 +41,124 @@
 		<ui:define name="body">
 
 
-						<div id="idoszone" style="width: 1100px;">
+			<div id="idoszone" style="width: 1100px;">
+
+				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+				<div id="transparent-wrapper"></div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="login-box" class="hide">
+					<p>Please login on your google account.</p>
+					<button id="btnLogin" onclick="handleAuthClick(event)"
+						class="button">Login</button>
+				</div>
+
+				<div id="drive-box" class="hide">
+					<!-- This will be the google drive navigation-->
+					<div id="drive-breadcrumb">
+						<span class='breadcrumb-arrow'></span> <a data-id='root'
+							data-level='0'>Home</a> <span id="span-navigation"></span>
+					</div>
+
+					<!-- This popup panel will be used as user information panel-->
+					<div class="user-item">
+						<a id="link-logout" class="logout-link">Logout</a>
+					</div>
+
+					<!-- A list of menus available for user to use-->
+					<div id="drive-menu">
+						<div id="button-reload" title="Refresh"></div>
+						<div id="button-upload" title="Upload to Google Drive"
+							class="button-opt"></div>
+						<div id="button-addfolder" title="Add Folder" class="button-opt"></div>
+						<div id="button-share" title="Show shared files only"></div>
+					</div>
+					<div id="drive-content"></div>
+					<div id="error-message" class="flash hidden"></div>
+					<div id="status-message" class="flash hidden"></div>
+				</div>
+
+				<!-- This upload control is used for uploading file to google drive-->
+				<input type="file" id="fUpload" class="hide" style="display: none" />
+
+				<!-- This popup panel will be used to create folder-->
+				<div class="float-box" id="float-box">
+					<div class="folder-form">
+						<div class="close-x">
+							<img id="imgClose" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Add New Folder</h3>
+						<div>
+							<input type="text" id="txtFolder" class="text-input" />
+						</div>
+						<button id="btnAddFolder" value="Save" class="button">Add</button>
+						<button id="btnClose" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document/file information -->
+				<div id="float-box-info" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseInfo" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">File information</h3>
+						<table cellpadding="0" cellspacing="0" class="tbl-info">
+							<tr>
+								<td class="label">Created Date</td>
+								<td><span id="spanCreatedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Modified Date</td>
+								<td><span id="spanModifiedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Owner</td>
+								<td><span id="spanOwner"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Title</td>
+								<td><span id="spanTitle"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Size</td>
+								<td><span id="spanSize"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Extension</td>
+								<td><span id="spanExtension"></span></td>
+							</tr>
+						</table>
+						<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="float-box-text" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseText" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">Text Content</h3>
+						<div id="text-content"></div>
+						<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+				<!-- This iframe is used for logout-->
+				<iframe id="frameLogout" class="hide"></iframe>
+			</div>
+
+
+
+			<p:dialog header="GED" widgetVar="gedDialog" modal="true"
+				showEffect="fade" hideEffect="fade" resizable="false">
+				<p:outputPanel id="Detail" style="text-align:center;">
+					<p:panelGrid columns="2">
+
+						<div style="width: 1100px;">
 
 							<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
 							<div id="transparent-wrapper"></div>
@@ -153,20 +270,40 @@
 							<iframe id="frameLogout" class="hide"></iframe>
 						</div>
 
+					</p:panelGrid>
+				</p:outputPanel>
+				<div align="center">
+					<h:form>
+						<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
+							title="Valider" ajax="false" />
+					</h:form>
+				</div>
 
-							<h:form id="hformid" style="text-align: center">
-
-								<p:remoteCommand name="foldering"
-									actionListener="#{detailsCtr.createFolder()}" />
-
-								<p:inputText id="idProjet" binding="#{idProj}"
-									value="#{detailsCtr.gedCtr.folder}" style="display:none" />
-
-							</h:form>
-
-
+			</p:dialog>
 
 
+
+
+
+
+			<h:form id="hformid" style="text-align: center">
+
+				<p:remoteCommand name="foldering"
+					actionListener="#{detailsCtr.createFolder()}" />
+
+				<p:inputText id="idProjet" binding="#{idProj}"
+					value="#{detailsCtr.gedCtr.folder}" style="display:none" />
+
+			</h:form>
+
+
+
+			<h:form>
+				<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
+					title="Valider" validateClient="true"
+					oncomplete="PF('gedDialog').show();">
+				</p:commandButton>
+			</h:form>
 
 			<div class="panel panel-default"
 				style="margin-top: 0.3cm; margin-left: 0.3cm;">
@@ -174,127 +311,116 @@
 
 					<div class="tab-content">
 
-						<div class="tab-pane fade in active"> 
-
-							<div style="margin-top: 0.5cm">
-								<ul>
-									<h3>
-										<li><b>Projet :</b></li>
-									</h3>
-								</ul>
-							</div>
+						<div class="tab-pane fade in active">
 
 							<p:outputPanel rendered="#{detailsCtr.projet.descEtat=='111'}">
 								<h:form>
+									<div style="margin-top: 0.5cm">
+										<ul>
+											<h3>
+												<li><b>Projet :</b></li>
+											</h3>
+										</ul>
+									</div>
+
 									<div style="margin-left: 3cm;">
 										<h4>
 											<b>-> Description du projet :</b>
 										</h4>
+										<h:panelGrid align="center" columns="2"
+											style="margin-left: 3cm" cellpadding="20">
+											<p:outputLabel
+												style="margin-right: 7.3cm; margin-bottom: 0.5cm">Titre projet :</p:outputLabel>
+											<p:inputTextarea placeholder="Titre projet" rows="1"
+												cols="30" value="#{detailsCtr.projet.nomProj}" />
+											<p:outputLabel
+												style="margin-right: 7.3cm; margin-bottom: 0.5cm">Description projet :</p:outputLabel>
+											<p:inputTextarea rows="5" cols="30" queryDelay="750"
+												placeholder="Description projet" minQueryLength="4"
+												value="#{detailsCtr.projet.libelleProj}" />
+										</h:panelGrid>
 
-
-										<div align="center"
-											style="margin-bottom: 0.2cm; margin-top: 0.2cm">
-											<p:inputText id="ititreproj" placeholder="Titre projet"
-												value="#{detailsCtr.projet.nomProj}" />
-										</div>
-
-										<div align="center">
-											<p:inputTextarea id="idescproj" rows="5" cols="30"
-												queryDelay="750" placeholder="Description projet"
-												minQueryLength="4" value="#{detailsCtr.projet.libelleProj}" />
-										</div>
-										<div style="margin-left: 3cm; margin-top: 0.3cm">
+										<div style="margin-top: 0.3cm">
 											<h4>
 												<b>-> Equipe :</b>
 											</h4>
 										</div>
-
-										<table align="center">
-											<tr>
-												<td><p:selectOneMenu value="#{detailsCtr.directeur}"
-														style="width:180px">
-														<f:selectItem itemLabel="Directeur Général" itemValue="" />
-														<f:selectItems value="#{detailsCtr.directeurs}" />
-													</p:selectOneMenu></td>
-												<td><p:selectOneMenu value="#{detailsCtr.agent}"
-														style="width:180px; margin-left: 0.5cm">
-														<f:selectItem itemLabel="Agent Conseil d'administartion"
-															itemValue="" />
-														<f:selectItems value="#{detailsCtr.agents}" />
-													</p:selectOneMenu></td>
-											</tr>
-											<tr>
-												<td><p:selectOneMenu value="#{detailsCtr.respMark}"
-														style="width:180px">
-														<f:selectItem itemLabel="Responsable Service Marketing"
-															itemValue="" />
-														<f:selectItems value="#{detailsCtr.respMarks}" />
-													</p:selectOneMenu></td>
-												<td><p:selectOneMenu value="#{detailsCtr.respTec}"
-														style="width:180px; margin-left: 0.5cm">
-														<f:selectItem itemLabel="Responsable Service Technique"
-															itemValue="" />
-														<f:selectItems value="#{detailsCtr.respTecs}" />
-													</p:selectOneMenu></td>
-											</tr>
-											<tr>
-												<td><p:selectOneMenu value="#{detailsCtr.architecte}"
-														style="width:180px">
-														<f:selectItem itemLabel="Architecte" itemValue="" />
-														<f:selectItems value="#{detailsCtr.architectes}" />
-													</p:selectOneMenu></td>
-												<td><p:selectOneMenu value="#{detailsCtr.controleur}"
-														style="width:180px; margin-left: 0.5cm">
-														<f:selectItem itemLabel="Controleur de Gestion"
-															itemValue="" />
-														<f:selectItems value="#{detailsCtr.controleurs}" />
-													</p:selectOneMenu></td>
-											</tr>
-										</table>
-										<div align="center">
-											<p:selectOneMenu value="#{detailsCtr.chef}"
-												style="width:180px">
-												<f:selectItem itemLabel="Chef de Projet" itemValue="" />
-												<f:selectItems value="#{detailsCtr.chefs}" />
+										<h:panelGrid align="center" columns="2"
+											style="margin-left: 3cm" cellpadding="20">
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Responsable Service Marketing :</p:outputLabel>
+											<p:selectOneMenu value="#{detailsCtr.respMark}"
+												style="width:180px; margin-left: 0.5cm">
+												<f:selectItem itemLabel="Responsable Service Marketing"
+													itemValue="" />
+												<f:selectItems value="#{detailsCtr.respMarks}" />
 											</p:selectOneMenu>
-										</div>
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Responsable Service Technique :</p:outputLabel>
+											<p:selectOneMenu value="#{detailsCtr.respTec}"
+												style="width:180px; margin-left: 0.5cm">
+												<f:selectItem itemLabel="Responsable Service Technique"
+													itemValue="" />
+												<f:selectItems value="#{detailsCtr.respTecs}" />
+											</p:selectOneMenu>
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Controleur de Gestion :</p:outputLabel>
+											<p:selectOneMenu value="#{detailsCtr.controleur}"
+												style="width:180px; margin-left: 0.5cm">
+												<f:selectItem itemLabel="Controleur de Gestion" itemValue="" />
+												<f:selectItems value="#{detailsCtr.controleurs}" />
+											</p:selectOneMenu>
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Agent Conseil d'administartion :</p:outputLabel>
+											<p:selectOneMenu value="#{detailsCtr.agent}"
+												style="width:180px; margin-left: 0.5cm">
+												<f:selectItem itemLabel="Agent Conseil d'administartion"
+													itemValue="" />
+												<f:selectItems value="#{detailsCtr.agents}" />
+											</p:selectOneMenu>
+										</h:panelGrid>
 
-										<div style="margin-left: 3cm; margin-top: 0.3cm">
+										<div style="margin-top: 0.3cm">
 											<h4>
 												<b>-> Planning :</b>
 											</h4>
 										</div>
-										<table align="center">
-											<tr>
-												<td><p:inputText id="ietudeestime" required="true"
-														style="margin-bottom: 0.2cm; margin-right:0.6cm"
-														placeholder="Nbr semaine Etude"
-														value="#{detailsCtr.planning.etudeSemaine}" /></td>
-												<td><p:inputText id="iplanificationestime"
-														required="true"
-														style="margin-bottom: 0.2cm; margin-right:0.6cm"
-														placeholder="Nbr semaine Planification"
-														value="#{detailsCtr.planning.planificationSemaine}" /></td>
-											</tr>
-											<tr>
-												<td><p:inputText id="ireunionestime" required="true"
-														style="margin-bottom: 0.2cm; margin-right:0.6cm"
-														placeholder="Nbr semaine Reunion"
-														value="#{detailsCtr.planning.reunionSemaine}" /></td>
-												<td><p:inputText id="iclotureestime" required="true"
-														style="margin-bottom: 0.2cm; margin-right:0.6cm"
-														placeholder="Nbr semaine Cloture"
-														value="#{detailsCtr.planning.clotureSemaine}" /></td>
-											</tr>
-										</table>
-										<div align="center">
-											<p:inputText style="margin-bottom: 0.6cm"
-												placeholder="Nbr semaine Analyse"
+										<h:panelGrid align="center" columns="2"
+											style="margin-left: 3cm" cellpadding="20">
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Nombre des semaines de l'etude :</p:outputLabel>
+											<p:inputMask required="true" mask="99"
+												style="margin-bottom: 0.2cm; margin-right:0.6cm"
+												placeholder="Nbr semaine Etude"
+												value="#{detailsCtr.planning.etudeSemaine}" />
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Nombre des semaines de planification :</p:outputLabel>
+											<p:inputMask required="true" mask="99"
+												style="margin-bottom: 0.2cm; margin-right:0.6cm"
+												placeholder="Nbr semaine Planification"
+												value="#{detailsCtr.planning.planificationSemaine}" />
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Nombre des semaines des réunions :</p:outputLabel>
+											<p:inputMask required="true" mask="99"
+												style="margin-bottom: 0.2cm; margin-right:0.6cm"
+												placeholder="Nbr semaine Reunion"
+												value="#{detailsCtr.planning.reunionSemaine}" />
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Nombre des semaines de cloture :</p:outputLabel>
+											<p:inputMask required="true" mask="99"
+												style="margin-bottom: 0.2cm; margin-right:0.6cm"
+												placeholder="Nbr semaine Cloture"
+												value="#{detailsCtr.planning.clotureSemaine}" />
+											<p:outputLabel
+												style="margin-right: 5cm; margin-bottom: 0.5cm">Nombre des semaines d'analyse :</p:outputLabel>
+											<p:inputMask style="margin-bottom: 0.6cm"
+												placeholder="Nbr semaine Analyse" mask="99"
 												value="#{detailsCtr.planning.analyseSemaine}" />
-										</div>
+										</h:panelGrid>
+
 										<div align="center" style="margin-bottom: 0.6cm">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
-												value="ok" title="Valider"
+												value="ok" title="Valider" ajax="false"
 												action="#{detailsCtr.createProjet()}">
 												<f:actionListener binding="#{detailsCtr.createEquipe()}" />
 												<f:actionListener binding="#{detailsCtr.createPlanning()}" />
@@ -307,7 +433,15 @@
 
 
 
-							<p:outputPanel rendered="#{detailsCtr.projet.descEtat=='112'}">
+							<p:outputPanel rendered="#{detailsCtr.projet.descEtat>='112'}">
+								<div style="margin-top: 0.5cm">
+									<ul>
+										<h3>
+											<li><b>Projet :</b></li>
+										</h3>
+									</ul>
+								</div>
+
 								<div style="margin-left: 3cm; margin-bottom: 0.5cm;">
 									<h4>
 										<b>-> Description du projet :</b>
@@ -363,7 +497,7 @@
 											</td>
 										</tr>
 									</table>
-									<div style="margin-left: 3cm; margin-top: 0.3cm">
+									<div style="margin-top: 0.3cm">
 										<h4>
 											<b>-> Equipe :</b>
 										</h4>
@@ -482,7 +616,7 @@
 											</td>
 										</tr>
 									</table>
-									<div style="margin-left: 3cm; margin-top: 0.3cm">
+									<div style="margin-top: 0.3cm">
 										<h4>
 											<b>-> Planning :</b>
 										</h4>
@@ -498,8 +632,6 @@
 					</div>
 				</div>
 			</div>
-
-
 		</ui:define>
 	</ui:composition>
 

@@ -24,6 +24,7 @@ import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
 import com.arabsoft.mySTKE.entity.ReunionChantier;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
+import com.arabsoft.utils.FacesUtil;
 
 @ManagedBean(name = "reunionCtr")
 @ViewScoped
@@ -70,8 +71,8 @@ public class ReunionCtr {
 	@PostConstruct
 	public void initialisation() {
 
-		projet.setIdProj(11810);
-//		projet.setDescEtat(411);
+		int idprojet = (int) FacesUtil.getSessionMapValue("idprojet");
+		projet.setIdProj(idprojet);
 
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 

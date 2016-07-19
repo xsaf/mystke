@@ -9,46 +9,51 @@
 
 <h:body>
 
-<ui:composition>
-	<!-- START PAGE SIDEBAR -->
-	<div class="page-sidebar">
-		<!-- START X-NAVIGATION -->
-		<ul class="x-navigation">
-			<li class="xn-logo"><a href="index.html">MySTKE</a> <a href="#"
-				class="x-navigation-control"></a></li>
-			<li class="xn-profile"><a href="#" class="profile-mini"> <img
-					src="assets/images/users/avatar.jpg" alt="John Doe" />
-			</a>
-				<div class="profile">
-					<div class="profile-image">
-						<img src="assets/images/users/avatar.jpg" alt="John Doe" />
-					</div>
-					<div class="profile-data">
-						<div class="profile-data-name">Utilisateur</div>
-						<div class="profile-data-title">Fonction</div>
-					</div>
-				</div></li>
-			<li class="xn-title">Projets</li>
-			<li class="xn-openable"><a href="#"><span
-					class="fa fa-files-o"></span> <span class="xn-text">Projets
-						Immobilieres</span></a>
-				<ul>
-					<li><a href="projet-immobiliere.xhtml"><span
-							class="fa fa-image"></span> Projet 1</a></li>
+	<ui:composition>
 
-				</ul></li>
-			<li class="xn-openable"><a href="#"><span
-					class="fa fa-file-text-o"></span> <span class="xn-text">Projets
-						Commercials</span></a>
-				<ul>
-					<li><a href="layout-boxed.html"><span class="fa fa-image"></span>
-							Projet 1</a></li>
-				</ul></li>
-		</ul>
-		<!-- END X-NAVIGATION -->
-	</div>
-	<!-- END PAGE SIDEBAR -->
-</ui:composition>
+		<div class="page-sidebar">
+			<ul class="x-navigation">
+				<li class="xn-logo"><a href="index.xhtml">MySTKE</a> <a href="#"
+					class="x-navigation-control"></a></li>
+				<li class="xn-profile"><a href="#" class="profile-mini"> <img
+						src="assets/images/users/avatar.jpg" alt="John Doe" />
+				</a>
+					<div class="profile">
+						<div class="profile-image">
+							<img src="assets/images/users/avatar.jpg" alt="John Doe" />
+						</div>
+						<div class="profile-data">
+							<div class="profile-data-name">#{templateCtr.user.prenomUti} #{templateCtr.user.nomUti}</div>
+							<div class="profile-data-title">#{templateCtr.user.fonction.libelleFonction}</div>
+						</div>
+					</div></li>
+				<li class="xn-title">Projet</li>
+				<li><a href="details.xhtml"><span
+						class="fa fa-desktop"></span> <span class="xn-text">Details</span></a>
+				</li>
+				<li><a href="etude-rentabilite.xhtml"><span
+						class="fa fa-pencil-square-o"></span> <span class="xn-text">Etude de
+									rentabilité</span></a>
+				</li>
+				<li><a href="planification-du-projet.xhtml"><span
+						class="fa fa-file-text-o"></span> <span class="xn-text">Planification
+									de projet</span></a>
+				</li>
+				<li><a href="suivi-reunion-chantier.xhtml"><span
+						class="fa fa-cogs"></span> <span class="xn-text">Suivi réunion chantier</span></a>
+				</li>
+				<li><a href="reception-finale.xhtml"><span
+						class="fa fa-th"></span> <span class="xn-text">Réception finale</span></a>
+				</li>
+				<li><a href="analyse-cloture-de-projet.xhtml"><span
+						class="fa fa-files-o"></span> <span class="xn-text">Analyse
+									cloture de projet</span></a>
+				</li>
+
+			</ul>
+		</div>
+
+	</ui:composition>
 
 </h:body>
 </html>

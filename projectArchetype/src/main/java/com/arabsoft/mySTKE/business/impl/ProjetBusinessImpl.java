@@ -41,9 +41,9 @@ public class ProjetBusinessImpl implements ProjetBusiness {
 	}
 
 	@Override
-	public List<Projet> findAllProjetByUser(int idUti) {
+	public List<Projet> findAllProjetByUser(String numMatrUser) {
 		List<Projet> projList = new ArrayList<Projet>();
-		List<Equipe> eqList = genericDao.findByPropriety("Equipe", "UTILISATEUR_IDUTI", "" + idUti);
+		List<Equipe> eqList = genericDao.findByPropriety("Equipe", "UTILISATEUR_NUMMATRUSER", "" + numMatrUser);
 		for (int i = 0; i < eqList.size(); i++) {
 			List<Projet> prList = genericDao.findByPropriety("Projet", "IDPROJ", "" + eqList.get(i).getProjet().getIdProj());
 			projList.addAll(prList);
