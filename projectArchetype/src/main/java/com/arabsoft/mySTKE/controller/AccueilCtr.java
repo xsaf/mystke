@@ -24,16 +24,12 @@ public class AccueilCtr {
 
 	@ManagedProperty(value = "#{gedCtr}")
 	private GedCtr gedCtr;
-	
-	@ManagedProperty(value = "#{loginCtr}")
-	private LoginCtr loginCtr;
-	
 
 	@PostConstruct
 	public void initialisation() {
 		gedCtr.setFolder("0B_KzijCYeJPvalRhMFVpYjl2bTA");
 		
-		projets = projetBusiness.findAllProjetByUser(loginCtr.getUtilisateur().getIdUti());
+		//projets = projetBusiness.findAllProjetByUser(loginCtr.getUtilisateur().getIdUti());
 
 	}
 
@@ -100,7 +96,6 @@ public class AccueilCtr {
 	public void setSelectedProjet(Projet selectedProjet) {
 		this.selectedProjet = selectedProjet;
 	}
-
 
 	
 	

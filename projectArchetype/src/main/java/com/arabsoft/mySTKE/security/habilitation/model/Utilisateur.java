@@ -3,32 +3,26 @@ package com.arabsoft.mySTKE.security.habilitation.model;
 // Generated 25 janv. 2013 15:44:07 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.arabsoft.mySTKE.entity.Departement;
 import com.arabsoft.mySTKE.entity.Equipe;
 import com.arabsoft.mySTKE.entity.EtudeRentabillite;
 import com.arabsoft.mySTKE.entity.Fonction;
@@ -44,20 +38,22 @@ import com.arabsoft.mySTKE.entity.ReunionChantier;
 public class Utilisateur implements java.io.Serializable, UserDetails {
 
 	@Id
+	private String numMatrUser;
 	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int idUti;
-	private String numMatrUser;
 	protected String username;
 	protected String userLastname;
 	protected Integer userStatus;
+	@Column(name = "COD_STAT_USER", nullable = false, precision = 1, scale = 0)
 	private boolean codStatUser;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "utilisateur")
 	private Set<UserRole> userRoles = new HashSet<UserRole>(0);
 	private String password;
 	private String nomUti;
 	private String prenomUti;
 	private String adresseUti;
 	private String villeUti;
-	private int telephoneUti;
+	private String telephoneUti;
 	private String mailUti;
 	@OneToMany(mappedBy = "utilisateur")
 	private Set<ReunionChantier> reunionChantiers;
@@ -67,8 +63,6 @@ public class Utilisateur implements java.io.Serializable, UserDetails {
 	private Set<EtudeRentabillite> etudeRentabillites;
 	@ManyToOne
 	private Fonction fonction;
-	@ManyToOne
-	private Departement departement;
 	@OneToMany(mappedBy = "utilisateur")
 	private Set<Notification> notifications;
 	@OneToMany(mappedBy = "utilisateur")
@@ -76,6 +70,14 @@ public class Utilisateur implements java.io.Serializable, UserDetails {
 
 	public Utilisateur() {
 
+	}
+
+	public Integer getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(Integer userStatus) {
+		this.userStatus = userStatus;
 	}
 
 	public Utilisateur(String numMatrUser) {
@@ -90,8 +92,6 @@ public class Utilisateur implements java.io.Serializable, UserDetails {
 
 	}
 
-	@Id
-	@Column(name = "NUM_MATR_USER", length = 10)
 	public String getNumMatrUser() {
 		return this.numMatrUser;
 	}
@@ -100,7 +100,6 @@ public class Utilisateur implements java.io.Serializable, UserDetails {
 		this.numMatrUser = numMatrUser;
 	}
 
-	@Column(name = "COD_STAT_USER", nullable = false, precision = 1, scale = 0)
 	public boolean isCodStatUser() {
 		return this.codStatUser;
 	}
@@ -109,7 +108,6 @@ public class Utilisateur implements java.io.Serializable, UserDetails {
 		this.codStatUser = codStatUser;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "utilisateur")
 	public Set<UserRole> getUserRoles() {
 		return this.userRoles;
 	}
@@ -221,11 +219,11 @@ public class Utilisateur implements java.io.Serializable, UserDetails {
 		this.villeUti = villeUti;
 	}
 
-	public int getTelephoneUti() {
+	public String getTelephoneUti() {
 		return telephoneUti;
 	}
 
-	public void setTelephoneUti(int telephoneUti) {
+	public void setTelephoneUti(String telephoneUti) {
 		this.telephoneUti = telephoneUti;
 	}
 
@@ -267,14 +265,6 @@ public class Utilisateur implements java.io.Serializable, UserDetails {
 
 	public void setFonction(Fonction fonction) {
 		this.fonction = fonction;
-	}
-
-	public Departement getDepartement() {
-		return departement;
-	}
-
-	public void setDepartement(Departement departement) {
-		this.departement = departement;
 	}
 
 	public Set<Notification> getNotifications() {
