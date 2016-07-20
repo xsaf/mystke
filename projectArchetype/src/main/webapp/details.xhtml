@@ -57,16 +57,16 @@
 			<div id="idoszone1" style="width: 1100px;">
 
 				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
-				<div id="transparent-wrapper1"></div>
+				<div id="transparent-wrapper"></div>
 
 				<!-- This popup panel will be used to display the document text-->
-				<div id="login-box1" class="hide1">
+				<div id="login-box" class="hide">
 					<p>Please login on your google account.</p>
-					<button id="btnLogin1" onclick="handleAuthClick1(event)"
+					<button id="btnLogin1" onclick="handleAuthClick(event)"
 						class="button">Login</button>
 				</div>
 
-				<div id="drive-box1" class="hide1">
+				<div id="drive-box1">
 					<!-- This will be the google drive navigation-->
 					<div id="drive-breadcrumb1">
 						<span class='breadcrumb-arrow1'></span> <a data-id='root'
@@ -78,15 +78,26 @@
 						<a id="link-logout1" class="logout-link1">Logout</a>
 					</div>
 
-					<div id="drive-content1"></div>
+					<div id="drive-content"></div>
 					<div id="error-message1" class="flash1 hidden"></div>
 					<div id="status-message1" class="flash1 hidden"></div>
 				</div>
 
+				<!-- This popup panel will be used to display the document text-->
+				<div id="float-box-text1" class="float-box1">
+					<div class="info-form1">
+						<div class="close-x1">
+							<img id="imgCloseText1" class="imgClose1"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear1">Text Content</h3>
+						<div id="text-content1"></div>
+						<button id="btnCloseText1" value="Close" class="button btnClose1">Close</button>
+					</div>
+				</div>
 				<!-- This iframe is used for logout-->
 				<iframe id="frameLogout1" class="hide1"></iframe>
 				
-					<script src="google-drive/google-drive1.js"></script>
 				
 			</div>
 
@@ -94,7 +105,7 @@
 
 
 <p:dialog header="GED" widgetVar="gedDialog" modal="true"
-				showEffect="fade" hide1Effect="fade" resizable="false">
+				showEffect="fade" hideEffect="fade" resizable="false">
 				<p:outputPanel id="Detail" style="text-align:center;">
 					<p:panelGrid columns="2">
 
