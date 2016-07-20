@@ -25,8 +25,9 @@
 	<link rel="stylesheet" type="text/css" id="theme"
 		href="css/theme-default.css" />
 	<link href="google-drive/lightbox.css" rel="stylesheet" />
-	<link href="google-drive/google-drive.css" rel="stylesheet"
-		type="text/css" />
+
+	
+		
 	<!-- EOF CSS INCLUDE -->
 
 	<script
@@ -39,9 +40,66 @@
 	<ui:composition template="/template.xhtml">
 
 		<ui:define name="body">
+		
+		
+			<h:form id="hformid" style="text-align: center">
+
+				<p:remoteCommand name="foldering"
+					actionListener="#{detailsCtr.createFolder()}" />
+
+				<p:inputText id="idProjet" binding="#{idProj}"
+					value="#{detailsCtr.gedCtr.folder}" style="display:none" />
+
+			</h:form>
 
 
-			<div id="idoszone" style="width: 1100px;">
+
+			<div id="idoszone1" style="width: 1100px;">
+
+				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+				<div id="transparent-wrapper1"></div>
+
+				<!-- This popup panel will be used to display the document text-->
+				<div id="login-box1" class="hide1">
+					<p>Please login on your google account.</p>
+					<button id="btnLogin1" onclick="handleAuthClick1(event)"
+						class="button">Login</button>
+				</div>
+
+				<div id="drive-box1" class="hide1">
+					<!-- This will be the google drive navigation-->
+					<div id="drive-breadcrumb1">
+						<span class='breadcrumb-arrow1'></span> <a data-id='root'
+							data-level='0'>Home</a> <span id="span-navigation1"></span>
+					</div>
+
+					<!-- This popup panel will be used as user information panel-->
+					<div class="user-item1">
+						<a id="link-logout1" class="logout-link1">Logout</a>
+					</div>
+
+					<div id="drive-content1"></div>
+					<div id="error-message1" class="flash1 hidden"></div>
+					<div id="status-message1" class="flash1 hidden"></div>
+				</div>
+
+				<!-- This iframe is used for logout-->
+				<iframe id="frameLogout1" class="hide1"></iframe>
+				
+					<script src="google-drive/google-drive1.js"></script>
+				
+			</div>
+
+
+
+
+<p:dialog header="GED" widgetVar="gedDialog" modal="true"
+				showEffect="fade" hide1Effect="fade" resizable="false">
+				<p:outputPanel id="Detail" style="text-align:center;">
+					<p:panelGrid columns="2">
+
+<div id="idoszone" style="width: 1100px;">
+
 
 				<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
 				<div id="transparent-wrapper"></div>
@@ -149,126 +207,9 @@
 				</div>
 				<!-- This iframe is used for logout-->
 				<iframe id="frameLogout" class="hide"></iframe>
+				
+				
 			</div>
-
-
-
-			<p:dialog header="GED" widgetVar="gedDialog" modal="true"
-				showEffect="fade" hideEffect="fade" resizable="false">
-				<p:outputPanel id="Detail" style="text-align:center;">
-					<p:panelGrid columns="2">
-
-						<div style="width: 1100px;">
-
-							<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
-							<div id="transparent-wrapper"></div>
-
-							<!-- This popup panel will be used to display the document text-->
-							<div id="login-box" class="hide">
-								<p>Please login on your google account.</p>
-								<button id="btnLogin" onclick="handleAuthClick(event)"
-									class="button">Login</button>
-							</div>
-
-							<div id="drive-box" class="hide">
-								<!-- This will be the google drive navigation-->
-								<div id="drive-breadcrumb">
-									<span class='breadcrumb-arrow'></span> <a data-id='root'
-										data-level='0'>Home</a> <span id="span-navigation"></span>
-								</div>
-
-								<!-- This popup panel will be used as user information panel-->
-								<div class="user-item">
-									<a id="link-logout" class="logout-link">Logout</a>
-								</div>
-
-								<!-- A list of menus available for user to use-->
-								<div id="drive-menu">
-									<div id="button-reload" title="Refresh"></div>
-									<div id="button-upload" title="Upload to Google Drive"
-										class="button-opt"></div>
-									<div id="button-addfolder" title="Add Folder"
-										class="button-opt"></div>
-									<div id="button-share" title="Show shared files only"></div>
-								</div>
-								<div id="drive-content"></div>
-								<div id="error-message" class="flash hidden"></div>
-								<div id="status-message" class="flash hidden"></div>
-							</div>
-
-							<!-- This upload control is used for uploading file to google drive-->
-							<input type="file" id="fUpload" class="hide"
-								style="display: none" />
-
-							<!-- This popup panel will be used to create folder-->
-							<div class="float-box" id="float-box">
-								<div class="folder-form">
-									<div class="close-x">
-										<img id="imgClose" class="imgClose"
-											src="google-drive/images/button_close.png" alt="close" />
-									</div>
-									<h3 class="clear">Add New Folder</h3>
-									<div>
-										<input type="text" id="txtFolder" class="text-input" />
-									</div>
-									<button id="btnAddFolder" value="Save" class="button">Add</button>
-									<button id="btnClose" value="Close" class="button btnClose">Close</button>
-								</div>
-							</div>
-
-							<!-- This popup panel will be used to display the document/file information -->
-							<div id="float-box-info" class="float-box">
-								<div class="info-form">
-									<div class="close-x">
-										<img id="imgCloseInfo" class="imgClose"
-											src="google-drive/images/button_close.png" alt="close" />
-									</div>
-									<h3 class="clear">File information</h3>
-									<table cellpadding="0" cellspacing="0" class="tbl-info">
-										<tr>
-											<td class="label">Created Date</td>
-											<td><span id="spanCreatedDate"></span></td>
-										</tr>
-										<tr>
-											<td class="label">Modified Date</td>
-											<td><span id="spanModifiedDate"></span></td>
-										</tr>
-										<tr>
-											<td class="label">Owner</td>
-											<td><span id="spanOwner"></span></td>
-										</tr>
-										<tr>
-											<td class="label">Title</td>
-											<td><span id="spanTitle"></span></td>
-										</tr>
-										<tr>
-											<td class="label">Size</td>
-											<td><span id="spanSize"></span></td>
-										</tr>
-										<tr>
-											<td class="label">Extension</td>
-											<td><span id="spanExtension"></span></td>
-										</tr>
-									</table>
-									<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
-								</div>
-							</div>
-
-							<!-- This popup panel will be used to display the document text-->
-							<div id="float-box-text" class="float-box">
-								<div class="info-form">
-									<div class="close-x">
-										<img id="imgCloseText" class="imgClose"
-											src="google-drive/images/button_close.png" alt="close" />
-									</div>
-									<h3 class="clear">Text Content</h3>
-									<div id="text-content"></div>
-									<button id="btnCloseText" value="Close" class="button btnClose">Close</button>
-								</div>
-							</div>
-							<!-- This iframe is used for logout-->
-							<iframe id="frameLogout" class="hide"></iframe>
-						</div>
 
 					</p:panelGrid>
 				</p:outputPanel>
@@ -280,22 +221,6 @@
 				</div>
 
 			</p:dialog>
-
-
-
-
-
-
-			<h:form id="hformid" style="text-align: center">
-
-				<p:remoteCommand name="foldering"
-					actionListener="#{detailsCtr.createFolder()}" />
-
-				<p:inputText id="idProjet" binding="#{idProj}"
-					value="#{detailsCtr.gedCtr.folder}" style="display:none" />
-
-			</h:form>
-
 
 
 			<h:form>
@@ -351,7 +276,7 @@
 												style="margin-right: 5cm; margin-bottom: 0.5cm">Responsable Service Marketing :</p:outputLabel>
 											<p:selectOneMenu value="#{detailsCtr.respMark}"
 												style="width:180px; margin-left: 0.5cm">
-												<f:selectItem itemLabel="Responsable Service Marketing"
+												<f:selectItem itemlabel="Responsable Service Marketing"
 													itemValue="" />
 												<f:selectItems value="#{detailsCtr.respMarks}" />
 											</p:selectOneMenu>
@@ -359,7 +284,7 @@
 												style="margin-right: 5cm; margin-bottom: 0.5cm">Responsable Service Technique :</p:outputLabel>
 											<p:selectOneMenu value="#{detailsCtr.respTec}"
 												style="width:180px; margin-left: 0.5cm">
-												<f:selectItem itemLabel="Responsable Service Technique"
+												<f:selectItem itemlabel="Responsable Service Technique"
 													itemValue="" />
 												<f:selectItems value="#{detailsCtr.respTecs}" />
 											</p:selectOneMenu>
@@ -367,14 +292,14 @@
 												style="margin-right: 5cm; margin-bottom: 0.5cm">Controleur de Gestion :</p:outputLabel>
 											<p:selectOneMenu value="#{detailsCtr.controleur}"
 												style="width:180px; margin-left: 0.5cm">
-												<f:selectItem itemLabel="Controleur de Gestion" itemValue="" />
+												<f:selectItem itemlabel="Controleur de Gestion" itemValue="" />
 												<f:selectItems value="#{detailsCtr.controleurs}" />
 											</p:selectOneMenu>
 											<p:outputLabel
 												style="margin-right: 5cm; margin-bottom: 0.5cm">Agent Conseil d'administartion :</p:outputLabel>
 											<p:selectOneMenu value="#{detailsCtr.agent}"
 												style="width:180px; margin-left: 0.5cm">
-												<f:selectItem itemLabel="Agent Conseil d'administartion"
+												<f:selectItem itemlabel="Agent Conseil d'administartion"
 													itemValue="" />
 												<f:selectItems value="#{detailsCtr.agents}" />
 											</p:selectOneMenu>
