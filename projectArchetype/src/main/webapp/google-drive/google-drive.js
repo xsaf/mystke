@@ -39,10 +39,12 @@ function handleAuthResult(authResult) {
         $("#drive-box").css("display", "inline-block");
         $("#drive-box1").css("display", "inline-block");
         $("#login-box").hide();
+        $("#login-box1").hide();
         showLoading();
         getDriveFiles();
     } else {
         $("#login-box").show();
+        $("#login-box1").show();
         $("#drive-box").hide();
         $("#drive-box1").hide();
     }
@@ -53,11 +55,19 @@ function handleAuthResult(authResult) {
 /** ****************** PAGE LOAD ******************* */
 $(function(){
 	// initiate to reload the google drive files
+	$("#button-reload1").click(function () {
+        showLoading();
+        showStatus("Loading Google Drive files...");
+        getDriveFiles();
+    });
+	
 	$("#button-reload").click(function () {
         showLoading();
         showStatus("Loading Google Drive files...");
         getDriveFiles();
     });
+	
+
 	
 	// Initiate the upload button.
 	$("#button-upload").click(function () {
@@ -128,6 +138,7 @@ $(function(){
         FOLDER_LEVEL = 0;
         FOLDER_ARRAY = [];
         $("#span-navigation").html("");
+        $("#span-navigation1").html("");
         $(this).toggleClass("flash");
 		if($(this).attr("class").indexOf("flash") >= 0){
 			$("#span-sharemode").html("ON");
@@ -143,6 +154,7 @@ $(function(){
 	// user to enter the folder name.
 	$("#button-addfolder").click(function () {
         $("#transparent-wrapper").show();
+        $("#transparent-wrapper1").show();
         $("#float-box").show();
         $("#txtFolder").val("");
     });
@@ -154,6 +166,7 @@ $(function(){
             alert("Please enter the folder name");
         } else {
             $("#transparent-wrapper").hide();
+            $("#transparent-wrapper1").hide();
             $("#float-box").hide();
             showLoading();
             showStatus("Creating folder in progress...");
@@ -192,6 +205,7 @@ $(function(){
 	// wrapper
 	$(".btnClose, .imgClose").click(function () {
         $("#transparent-wrapper").hide();
+        $("#transparent-wrapper1").hide();
         $(".float-box").hide();
     });
 	
@@ -201,6 +215,19 @@ $(function(){
         var c = confirm("Are you sure you want to logout from your Google Drive account?");
         if (c) {
             $('#frameLogout').attr("src","https://accounts.google.com/logout");
+            $('#frameLogout1').attr("src","https://accounts.google.com/logout");
+            showLoading();
+            setTimeout(function () {
+                $("#login-panel").show();
+                $("#drive-ouput").hide();
+            }, 1000);
+        }
+    });
+	$("#link-logout1").click(function () {
+        var c = confirm("Are you sure you want to logout from your Google Drive account?");
+        if (c) {
+            $('#frameLogout').attr("src","https://accounts.google.com/logout");
+            $('#frameLogout1').attr("src","https://accounts.google.com/logout");
             showLoading();
             setTimeout(function () {
                 $("#login-panel").show();
@@ -388,6 +415,7 @@ function initDriveButtons(){
     $(".button-info").click(function () {
 		FILE_COUNTER = $(this).attr("data-file-counter");
         $("#transparent-wrapper").show();
+        $("#transparent-wrapper1").show();
         $("#float-box-info").show();
         if (DRIVE_FILES[FILE_COUNTER] != null) {
             var createdDate = new Date(DRIVE_FILES[FILE_COUNTER].createdDate);
@@ -428,7 +456,11 @@ function initDriveButtons(){
 
 	// Initiate the breadcrumb navigation link click
     $("#drive-breadcrumb a").unbind("click");
+    $("#drive-breadcrumb1 a").unbind("click");
     $("#drive-breadcrumb a").click(function () {
+        browseFolder($(this));
+    });
+    $("#drive-breadcrumb1 a").click(function () {
         browseFolder($(this));
     });
 }
@@ -475,6 +507,7 @@ function browseFolder(obj) {
         sbNav +="<span class='folder-name'><a data-id='" + FOLDER_ARRAY[i].ID + "' data-level='" + FOLDER_ARRAY[i].Level + "' data-name='" + FOLDER_ARRAY[i].Name + "' data-has-permission='" + FOLDER_PERMISSION + "'>" + FOLDER_ARRAY[i].Name + "</a></span>";
     }
     $("#span-navigation").html(sbNav.toString());
+    $("#span-navigation1").html(sbNav.toString());
 
     showLoading();
     showStatus("Loading Google Drive files...");
@@ -489,6 +522,7 @@ function callBackGetText(response){
         hideLoading();
         hideStatus();
         $("#transparent-wrapper").show();
+        $("#transparent-wrapper1").show();
         $("#float-box-text").show();
         $("#text-content").html(response.replace(/(\r\n|\n|\r)/gm, "<br>"));
     }
@@ -541,13 +575,17 @@ function hideLoading() {
 // show status message
 function showStatus(text) {
     $("#status-message").show();
+    $("#status-message1").show();
     $("#status-message").html(text);
+    $("#status-message1").html(text);
 }
 
 // hide status message
 function hideStatus() {
     $("#status-message").hide();
+    $("#status-message1").hide();
     $("#status-message").html("");
+    $("#status-message1").html("");
 }
 
 // show upload progress
@@ -565,9 +603,12 @@ function showProgressPercentage(percentageValue) {
 // show error message
 function showErrorMessage(errorMessage) {
     $("#error-message").html(errorMessage);
+    $("#error-message1").html(errorMessage);
     $("#error-message").show(100);
+    $("#error-message1").show(100);
     setTimeout(function () {
         $("#error-message").hide(100);
+        $("#error-message1").hide(100);
     }, 3000);
 }
 
@@ -577,6 +618,7 @@ function showErrorMessage(errorMessage) {
 function createFolder() {
 		var titre = document.getElementById("hformid:nomProjet").value;
         $("#transparent-wrapper").hide();
+        $("#transparent-wrapper1").hide();
         $("#float-box").hide();
         showLoading();
         showStatus("Creating folder in progress...");
