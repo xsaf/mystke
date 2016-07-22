@@ -37,12 +37,14 @@ function handleAuthClick(event) {
 function handleAuthResult(authResult) {
     if (authResult && !authResult.error) {
         $("#drive-box").css("display", "inline-block");
+        $("#drive-box1").css("display", "inline-block");
         $("#login-box").hide();
         showLoading();
         getDriveFiles();
     } else {
         $("#login-box").show();
         $("#drive-box").hide();
+        $("#drive-box1").hide();
     }
 }
 /** ****************** END AUTHENTICATION ******************* */
@@ -331,7 +333,11 @@ function buildFiles(){
         fText = 'No files found.';
     }
     hideStatus();
+  
     $("#drive-content").html(fText);
+    $("#drive-content1").html(fText);
+   
+    
     initDriveButtons();
     hideLoading();
 }
@@ -522,6 +528,7 @@ function formatBytes(bytes) {
 function showLoading() {
     if ($("#drive-box-loading").length === 0) {
         $("#drive-box").prepend("<div id='drive-box-loading'></div>");
+        $("#drive-box1").prepend("<div id='drive-box-loading'></div>");
     }
     $("#drive-box-loading").html("<div id='loading-wrapper'><div id='loading'></div></div>");
 }
@@ -547,6 +554,7 @@ function hideStatus() {
 function showProgressPercentage(percentageValue) {
     if ($("#upload-percentage").length == 0) {
         $("#drive-box").prepend("<div id='upload-percentage' class='flash'></div>");
+        $("#drive-box1").prepend("<div id='upload-percentage' class='flash'></div>");
     }
     if (!$("#upload-percentage").is(":visible")) {
         $("#upload-percentage").show(1000);
