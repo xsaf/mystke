@@ -42,6 +42,7 @@ public class GedCtr {
 	private String nameFolder;
 	private String dateFolder;
 	private String levelFolder;
+	private String projetFolder;
 	
 	private String folder;
 
@@ -55,7 +56,6 @@ public class GedCtr {
 		typeFolder = (String) map.get("typeFolder");
 		levelFolder = (String) map.get("levelFolder");
 		parentFolder = (String) map.get("parentFolder");
-
 		dossierParent = absDocBusiness.findFolderByNum(parentFolder);
 
 		String day = dateFolder.substring(0, 10);
@@ -134,4 +134,13 @@ public class GedCtr {
 		this.folder = folder;
 	}
 
+	public String getProjetFolder() {
+		return projetFolder;
+	}
+
+	public void setProjetFolder(String projetFolder) {
+		this.projetFolder = projetFolder;
+	}
+
+	
 }

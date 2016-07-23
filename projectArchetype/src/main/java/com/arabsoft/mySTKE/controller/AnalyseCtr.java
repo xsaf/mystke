@@ -23,7 +23,7 @@ import com.arabsoft.utils.FacesUtil;
 @ManagedBean(name = "analyseCtr")
 @ViewScoped
 public class AnalyseCtr {
-	
+
 	private Projet projet = new Projet();
 	private AxeAmelioration axeAmelioration = new AxeAmelioration();
 	private ProjetValidation projetValidation = new ProjetValidation();
@@ -36,114 +36,115 @@ public class AnalyseCtr {
 	private Avis selectedAvis2 = new Avis();
 	private String selectedValid;
 	private String selectedValid2;
-	
+
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
-	
+
 	@ManagedProperty(value = "#{axeAmeliorationBusiness}")
 	private AxeAmeliorationBusiness axeAmeliorationBusiness;
-	
+
 	@ManagedProperty(value = "#{projetValidationBusiness}")
 	private ProjetValidationBusiness projetValidationBusiness;
-	
+
 	@ManagedProperty(value = "#{avisBusiness}")
 	private AvisBusiness avisBusiness;
-	
+
 	@ManagedProperty(value = "#{absDocBusiness}")
 	private AbsDocBusiness absDocBusiness;
 
 	@ManagedProperty(value = "#{gedCtr}")
 	private GedCtr gedCtr;
-	
-	
+
 	@PostConstruct
-	public void initialisation(){
-		
+	public void initialisation() {
+
 		int idprojet = (int) FacesUtil.getSessionMapValue("idprojet");
 		projet.setIdProj(idprojet);
-		
+
 		projet = projetBusiness.findProjetById(projet.getIdProj());
-		
-		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
-		gedCtr.setFolder(absDoc.getNumAbsDoc());
-		
-		if(projet.getDescEtat()>=612){
+
+		if (projet.getDescEtat() >= 526) {
+			absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+			gedCtr.setProjetFolder(absDoc.getNumAbsDoc());
+			absDoc = absDocBusiness.findAbsDocByEtapeProjet(projet.getIdProj(), "Analyse du projet");
+			gedCtr.setFolder(absDoc.getNumAbsDoc());
+		}
+		if (projet.getDescEtat() >= 612) {
 			axeAmeliorations = axeAmeliorationBusiness.findAxeAmeliorationByIdProjet(projet.getIdProj());
 		}
-		if(projet.getDescEtat()>=614){
-			projetValidation = projetValidationBusiness.findProjetValidationByIdProjet(projet.getIdProj(),614);
+		if (projet.getDescEtat() >= 614) {
+			projetValidation = projetValidationBusiness.findProjetValidationByIdProjet(projet.getIdProj(), 614);
 		}
-		if(projet.getDescEtat()>=618){
+		if (projet.getDescEtat() >= 618) {
 			aviss = avisBusiness.findAvisByIdProjet(projet.getIdProj());
 		}
-			
-		
+
 	}
-	
-	public void createFolder(){
+
+	public void createFolder() {
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
-	
-	public void createClotureProjet(){
+
+	public void createClotureProjet() {
 		projet.setDescEtat(611);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createRapportClotureProjet(){
+
+	public void createRapportClotureProjet() {
 		projet.setDescEtat(612);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createAxeAmelioration(){
+
+	public void createAxeAmelioration() {
 		axeAmelioration.setProjet(projet);
 		axeAmeliorationBusiness.createAxeAmelioration(axeAmelioration);
 		projet.setDescEtat(613);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createProjetValid(){
+
+	public void createProjetValid() {
 		projet.setDescEtat(614);
 		projet = projetBusiness.updateProjet(projet);
 		projetValidation.setEtatValid(614);
 		projetValidation.setProjet(projet);
 		projetValidationBusiness.createProjetValid(projetValidation);
 	}
-	
-	public void createPVReunion(){
+
+	public void createPVReunion() {
 		projet.setDescEtat(615);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createValiderRapport(){
-		if(projet.getDescEtat()==615)
+
+	public void createValiderRapport() {
+		if (projet.getDescEtat() == 615)
 			projet.setDescEtat(616);
-		else projet.setDescEtat(617);
+		else
+			projet.setDescEtat(617);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createRecommandation(){
+
+	public void createRecommandation() {
 		projet.setDescEtat(618);
 		projet = projetBusiness.updateProjet(projet);
 		avis.setProjet(projet);
 		avisBusiness.createAvis(avis);
 	}
-	
-	public void updateAvisDG(){
+
+	public void updateAvisDG() {
 		selectedAvis.setValidDG(selectedValid);
 		avisBusiness.updateAvis(selectedAvis);
 	}
 
-	public void updateAvisRST(){
+	public void updateAvisRST() {
 		selectedAvis.setValidRST(selectedValid2);
 		avisBusiness.updateAvis(selectedAvis);
 	}
-	
-	public void cloturerProjet(){
+
+	public void cloturerProjet() {
 		projet.setDescEtat(619);
 		projet = projetBusiness.updateProjet(projet);
 	}
-
 
 	public Projet getProjet() {
 		return projet;
@@ -280,9 +281,5 @@ public class AnalyseCtr {
 	public void setGedCtr(GedCtr gedCtr) {
 		this.gedCtr = gedCtr;
 	}
-	
-	
-	
-	
 
 }

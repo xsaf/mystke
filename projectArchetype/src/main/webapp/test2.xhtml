@@ -471,5 +471,26 @@
 	<script src="dist/js/pages/dashboard.js"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="dist/js/demo.js"></script>
+
+
+<script>            
+            document.getElementById('links').onclick = function (event) {
+                event = event || window.event;
+                var target = event.target || event.srcElement;
+                var link = target.src ? target.parentNode : target;
+                var options = {index: link, event: event,onclosed: function(){
+                        setTimeout(function(){
+                            $("body").css("overflow","");
+                        },200);                        
+                    }};
+                var links = this.getElementsByTagName('a');
+                blueimp.Gallery(links, options);
+            };
+        </script>
+
+
+
 </h:body>
 </html>
+
+

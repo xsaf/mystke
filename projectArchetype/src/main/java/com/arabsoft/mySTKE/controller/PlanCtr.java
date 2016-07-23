@@ -103,11 +103,14 @@ public class PlanCtr {
 		projet.setIdProj(idprojet);
 
 		projet = projetBusiness.findProjetById(projet.getIdProj());
-
-		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
-		gedCtr.setFolder(absDoc.getNumAbsDoc());
+		
 		
 		if (projet.getDescEtat() == 223) {
+			absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+			gedCtr.setProjetFolder(absDoc.getNumAbsDoc());
+			absDoc = absDocBusiness.findAbsDocByEtapeProjet(projet.getIdProj(),"Planification du projet");
+			gedCtr.setFolder(absDoc.getNumAbsDoc());
+			
 			List<Utilisateur> chefProj = equipeBusiness.selectAllUserByFonction("7");
 			chefs = new HashMap<String, Integer>();
 			for (int i = 0; i < chefProj.size(); i++) {

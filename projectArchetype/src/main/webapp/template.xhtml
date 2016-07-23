@@ -21,54 +21,51 @@
 		href="css/theme-default.css" />
 	<link href="google-drive/lightbox.css" rel="stylesheet" />
 	
+	<link href="google-drive/google-drive.css" rel="stylesheet"
+		type="text/css" />
 
-		
-		<link href="google-drive1/google-drive1.css" rel="stylesheet"
-		type="text/css" />
-		<link href="google-drive/google-drive.css" rel="stylesheet"
-		type="text/css" />
-		
 	<!-- EOF CSS INCLUDE -->
 
 	<script
 		src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js"></script>
-		
+
+
 </h:head>
 
 <h:body>
 
-			<div class="page-container">
+	<div class="page-container">
 
-				<div id="menu">
-					<ui:insert name="menuPrincipal">
-						<ui:include src="/facelets/menuPrincipal.xhtml" />
-					</ui:insert>
-				</div>
+		<div id="menu">
+			<ui:insert name="menuPrincipal">
+				<ui:include src="/facelets/menuPrincipal.xhtml" />
+			</ui:insert>
+		</div>
 
-				<div class="page-content">
+		<div class="page-content">
 
-					<div id="header">
-						<ui:insert name="header">
-							<ui:include src="/facelets/header.xhtml" />
-						</ui:insert>
-					</div>
-
-					<div id="body">
-						<ui:insert name="body">
-							<ui:include src="/facelets/body.xhtml" />
-						</ui:insert>
-					</div>
-
-				</div>
-			</div>
-
-			<div id="footer">
-				<ui:insert name="footer">
-					<ui:include src="/facelets/footer.xhtml" />
+			<div id="header">
+				<ui:insert name="header">
+					<ui:include src="/facelets/header.xhtml" />
 				</ui:insert>
 			</div>
-			
+
+			<div id="body">
+				<ui:insert name="body">
+					<ui:include src="/facelets/body.xhtml" />
+				</ui:insert>
+			</div>
+
+		</div>
+	</div>
+
+	<div id="footer">
+		<ui:insert name="footer">
+			<ui:include src="/facelets/footer.xhtml" />
+		</ui:insert>
+	</div>
+
 
 </h:body>
 </html>

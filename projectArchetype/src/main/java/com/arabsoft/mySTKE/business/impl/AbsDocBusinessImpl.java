@@ -18,7 +18,7 @@ public class AbsDocBusinessImpl implements AbsDocBusiness {
 	@Autowired
 	@Qualifier("genericDao")
 	IDao genericDao;
-	
+
 	@Override
 	public void createAbsDoc(AbsDoc absDoc) {
 		genericDao.save(absDoc);
@@ -26,30 +26,36 @@ public class AbsDocBusinessImpl implements AbsDocBusiness {
 
 	@Override
 	public Dossier findFolderByNum(String parentFolder) {
-		List<Dossier> l = genericDao.findByPropriety(AbsDoc.class.getName(), "NUMABSDOC", "'"+parentFolder+"'");
+		List<Dossier> l = genericDao.findByPropriety(AbsDoc.class.getName(), "NUMABSDOC", "'" + parentFolder + "'");
 		return l.get(0);
 	}
 
 	@Override
 	public void createDossier(Dossier absDoc) {
-		List<Dossier> l = genericDao.findByPropriety(AbsDoc.class.getName(), "NUMABSDOC", "'"+absDoc.getNumAbsDoc()+"'");
-		if(l.size()==0)
+		List<Dossier> l = genericDao.findByPropriety(AbsDoc.class.getName(), "NUMABSDOC",
+				"'" + absDoc.getNumAbsDoc() + "'");
+		if (l.size() == 0)
 			genericDao.save(absDoc);
 	}
-	
+
 	@Override
 	public void createDocument(Document absDoc) {
-		List<Document> l = genericDao.findByPropriety(AbsDoc.class.getName(), "NUMABSDOC", "'"+absDoc.getNumAbsDoc()+"'");
-		if(l.size()==0)
+		List<Document> l = genericDao.findByPropriety(AbsDoc.class.getName(), "NUMABSDOC",
+				"'" + absDoc.getNumAbsDoc() + "'");
+		if (l.size() == 0)
 			genericDao.save(absDoc);
 	}
 
 	@Override
 	public AbsDoc findAbsDocByIdProjet(int idProj) {
-		List<Dossier> l = genericDao.findByPropriety(AbsDoc.class.getName(), "PROJET_IDPROJ", ""+idProj);
+		List<Dossier> l = genericDao.findByPropriety(AbsDoc.class.getName(), "PROJET_IDPROJ", "" + idProj);
 		return l.get(0);
 	}
-	
-	
-	
+
+	@Override
+	public AbsDoc findAbsDocByEtapeProjet(int idProj, String s) {
+		List<Dossier> l = genericDao.findByPropriety(AbsDoc.class.getName(), "PROJET_IDPROJ", "" + idProj, "NOMABSDOC", "'"+s+"'");
+		return l.get(0);
+	}
+
 }

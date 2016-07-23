@@ -32,7 +32,7 @@ public class AccueilCtr {
 	@PostConstruct
 	public void initialisation() {
 		// test
-		FacesUtil.setSessionMapValue("idprojet", 16410);
+		FacesUtil.setSessionMapValue("idprojet", 16211);
 
 		gedCtr.setFolder("0B_KzijCYeJPvalRhMFVpYjl2bTA");
 		

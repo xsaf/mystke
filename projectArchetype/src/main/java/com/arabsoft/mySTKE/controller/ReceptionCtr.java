@@ -44,16 +44,15 @@ public class ReceptionCtr {
 	private String selectedTravaux;
 	private AbsDoc absDoc = new Dossier();
 
-	
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
 
 	@ManagedProperty(value = "#{defautBusiness}")
 	private DefautBusiness defautBusiness;
-	
+
 	@ManagedProperty(value = "#{clientBusiness}")
 	private ClientBusiness clientBusiness;
-	
+
 	@ManagedProperty(value = "#{absDocBusiness}")
 	private AbsDocBusiness absDocBusiness;
 
@@ -65,25 +64,25 @@ public class ReceptionCtr {
 
 		int idprojet = (int) FacesUtil.getSessionMapValue("idprojet");
 		projet.setIdProj(idprojet);
-		
-		projet = projetBusiness.findProjetById(projet.getIdProj());
-		
-		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
-		gedCtr.setFolder(absDoc.getNumAbsDoc());
 
+		projet = projetBusiness.findProjetById(projet.getIdProj());
+
+		if (projet.getDescEtat() >= 412) {
+			absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+			gedCtr.setProjetFolder(absDoc.getNumAbsDoc());
+			absDoc = absDocBusiness.findAbsDocByEtapeProjet(projet.getIdProj(), "Cloture du projet");
+			gedCtr.setFolder(absDoc.getNumAbsDoc());
+		}
 		if (projet.getDescEtat() >= 511) {
 			defauts = defautBusiness.findDefautsByIdProjet(projet.getIdProj());
 		}
-		
 		if (projet.getDescEtat() >= 523) {
 			clients = clientBusiness.findClientsByIdProjet(projet.getIdProj());
 		}
-		
-	
 
 	}
-	
-	public void createFolder(){
+
+	public void createFolder() {
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
@@ -115,57 +114,57 @@ public class ReceptionCtr {
 		defautBusiness.createDefaut(defaut);
 	}
 
-	public void updateDefautTravaux(){
+	public void updateDefautTravaux() {
 		selectedDefaut.setTravauxDefaut(selectedTravaux);
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
-	
-	public void updateDefautReserve(){
+
+	public void updateDefautReserve() {
 		selectedDefaut.setLeveeReserve(selectedReserve);
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
-	
-	public void createReceptionProvisoire(){
+
+	public void createReceptionProvisoire() {
 		projet.setDescEtat(512);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createReceptionFinale(){
+
+	public void createReceptionFinale() {
 		projet.setDescEtat(513);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createPlanRecollement(){
+
+	public void createPlanRecollement() {
 		projet.setDescEtat(514);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void validerCorrespondanceTravauxPlans(){
+
+	public void validerCorrespondanceTravauxPlans() {
 		projet.setDescEtat(515);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createDemandeOccupation(){
+
+	public void createDemandeOccupation() {
 		projet.setDescEtat(516);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createPermisOccupation(){
+
+	public void createPermisOccupation() {
 		projet.setDescEtat(517);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createDemandeImmatriculation(){
+
+	public void createDemandeImmatriculation() {
 		projet.setDescEtat(518);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createPermisImmatriculation(){
+
+	public void createPermisImmatriculation() {
 		projet.setDescEtat(519);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createDefautClient(){
+
+	public void createDefautClient() {
 		switch (immAppBur) {
 		case "Immeuble":
 			Immeuble immeuble = new Immeuble();
@@ -188,42 +187,42 @@ public class ReceptionCtr {
 		projet.setDescEtat(520);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void updateDefautClientValidation(){
+
+	public void updateDefautClientValidation() {
 		selectedDefaut.setValidationDefaut("validé");
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
-	
-	public void validerDefauts(){
+
+	public void validerDefauts() {
 		projet.setDescEtat(521);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void updateDefautClient(){
+
+	public void updateDefautClient() {
 		selectedDefaut.setTravauxDefaut(selectedTravaux);
 		defautBusiness.updateDefaut(selectedDefaut);
-	}	
-	
-	public void updateDefautLeveeReserve(){
+	}
+
+	public void updateDefautLeveeReserve() {
 		selectedDefaut.setLeveeReserve(selectedReserve);
 		defautBusiness.updateDefaut(selectedDefaut);
-	}	
-	
-	public void validerLeveeReserves(){
+	}
+
+	public void validerLeveeReserves() {
 		projet.setDescEtat(522);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createReceptionDefinitive(){
+
+	public void createReceptionDefinitive() {
 		projet.setDescEtat(523);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void createSyndicat(){
+
+	public void createSyndicat() {
 		clientBusiness.updateClient(client);
 	}
-	
-	public void createDefautClientFinale(){
+
+	public void createDefautClientFinale() {
 		switch (immAppBur) {
 		case "Immeuble":
 			Immeuble immeuble = new Immeuble();
@@ -246,28 +245,28 @@ public class ReceptionCtr {
 		projet.setDescEtat(524);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void updateDefautClientValidationFinale(){
+
+	public void updateDefautClientValidationFinale() {
 		selectedDefaut.setValidationDefaut("validé");
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
-	
-	public void validerDefautsFinale(){
+
+	public void validerDefautsFinale() {
 		projet.setDescEtat(525);
 		projet = projetBusiness.updateProjet(projet);
 	}
-	
-	public void updateDefautClientFinale(){
+
+	public void updateDefautClientFinale() {
 		selectedDefaut.setTravauxDefaut(selectedTravaux);
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
-	
-	public void updateDefautLeveeReserveFinale(){
+
+	public void updateDefautLeveeReserveFinale() {
 		selectedDefaut.setLeveeReserve(selectedReserve);
 		defautBusiness.updateDefaut(selectedDefaut);
-	}	
-	
-	public void validerLeveeReservesFinale(){
+	}
+
+	public void validerLeveeReservesFinale() {
 		projet.setDescEtat(526);
 		projet = projetBusiness.updateProjet(projet);
 	}
@@ -431,12 +430,5 @@ public class ReceptionCtr {
 	public void setGedCtr(GedCtr gedCtr) {
 		this.gedCtr = gedCtr;
 	}
-
-	
-	
-	
-	
-	
-	
 
 }

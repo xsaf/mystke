@@ -43,115 +43,83 @@
 
 
 			<h:form id="hformid" style="text-align: center">
-
 				<p:remoteCommand name="foldering"
 					actionListener="#{detailsCtr.createFolder()}" />
-
 				<p:inputText id="idProjet" binding="#{idProj}"
 					value="#{detailsCtr.gedCtr.folder}" style="display:none" />
-
 			</h:form>
 
-
-			<div>
-
-
-				<div style="width: 1100px;">
-
-
-					<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
-					<div id="transparent-wrapper1"></div>
-
-					<!-- This popup panel will be used to display the document text-->
-					<div id="login-box1" class="hide">
-						<p>Please login on your google account.</p>
-						<button id="btnLogin1" onclick="handleAuthClick(event)"
-							class="button">Login</button>
-					</div>
-
-					<div id="drive-box1" class="hide">
-						<!-- This will be the google drive navigation-->
-						<div id="drive-breadcrumb1">
-							<span class='breadcrumb-arrow'></span> <a data-id='root'
-								data-level='0'>Home</a> <span id="span-navigation1"></span>
-						</div>
-
-						<!-- This popup panel will be used as user information panel-->
-						<div class="user-item">
-							<a id="link-logout1" class="logout-link">Logout</a>
-						</div>
-
-						<!-- A list of menus available for user to use-->
-						<div id="drive-menu1">
-							<div id="button-reload1" title="Refresh"></div>
-						</div>
-						<div id="drive-content1"></div>
-						<div id="error-message1" class="flash hidden"></div>
-						<div id="status-message1" class="flash hidden"></div>
-					</div>
-
-
-					<!-- This popup panel will be used to display the document/file information -->
-					<div id="float-box-info" class="float-box">
-						<div class="info-form">
-							<div class="close-x">
-								<img id="imgCloseInfo" class="imgClose"
-									src="google-drive/images/button_close.png" alt="close" />
-							</div>
-							<h3 class="clear">File information</h3>
-							<table cellpadding="0" cellspacing="0" class="tbl-info">
-								<tr>
-									<td class="label">Created Date</td>
-									<td><span id="spanCreatedDate"></span></td>
-								</tr>
-								<tr>
-									<td class="label">Modified Date</td>
-									<td><span id="spanModifiedDate"></span></td>
-								</tr>
-								<tr>
-									<td class="label">Owner</td>
-									<td><span id="spanOwner"></span></td>
-								</tr>
-								<tr>
-									<td class="label">Title</td>
-									<td><span id="spanTitle"></span></td>
-								</tr>
-								<tr>
-									<td class="label">Size</td>
-									<td><span id="spanSize"></span></td>
-								</tr>
-								<tr>
-									<td class="label">Extension</td>
-									<td><span id="spanExtension"></span></td>
-								</tr>
-							</table>
-							<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
-						</div>
-					</div>
-
-					<!-- This iframe is used for logout-->
-					<iframe id="frameLogout1" class="hide"></iframe>
-
+			<div style="width: 1100px;">
+				<div id="transparent-wrapper1"></div>
+				<div id="login-box1" class="hide">
+					<p>Please login on your google account.</p>
+					<button id="btnLogin1" onclick="handleAuthClick(event)"
+						class="button">Login</button>
 				</div>
 
+				<div id="drive-box1" class="hide">
+					<div id="drive-breadcrumb1">
+						<span class='breadcrumb-arrow'></span> <a data-id='root'
+							data-level='0'>Home</a> <span id="span-navigation1"></span>
+					</div>
+					<div class="user-item">
+						<a id="link-logout1" class="logout-link">Logout</a>
+					</div>
+					<div id="drive-menu1">
+						<div id="button-reload1" title="Refresh"></div>
+					</div>
+					<div id="drive-content1"></div>
+					<div id="error-message1" class="flash hidden"></div>
+					<div id="status-message1" class="flash hidden"></div>
+				</div>
 
+				<div id="float-box-info" class="float-box">
+					<div class="info-form">
+						<div class="close-x">
+							<img id="imgCloseInfo" class="imgClose"
+								src="google-drive/images/button_close.png" alt="close" />
+						</div>
+						<h3 class="clear">File information</h3>
+						<table cellpadding="0" cellspacing="0" class="tbl-info">
+							<tr>
+								<td class="label">Created Date</td>
+								<td><span id="spanCreatedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Modified Date</td>
+								<td><span id="spanModifiedDate"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Owner</td>
+								<td><span id="spanOwner"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Title</td>
+								<td><span id="spanTitle"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Size</td>
+								<td><span id="spanSize"></span></td>
+							</tr>
+							<tr>
+								<td class="label">Extension</td>
+								<td><span id="spanExtension"></span></td>
+							</tr>
+						</table>
+						<button id="btnCloseInfo" value="Close" class="button btnClose">Close</button>
+					</div>
+				</div>
+
+				<iframe id="frameLogout1" class="hide"></iframe>
 			</div>
-
-
-
 
 			<p:dialog header="GED" widgetVar="gedDialog" modal="true"
 				showEffect="fade" hideEffect="fade" resizable="false">
 				<p:outputPanel id="Detail" style="text-align:center;">
 					<p:panelGrid columns="2">
 
-						<div id="idoszone" style="width: 1100px;">
-
-
-							<!-- This will be the transparent wrapper used as a gradient light black screen to show the screen is on progress -->
+						<div style="width: 1100px;">
 							<div id="transparent-wrapper"></div>
-
-							<!-- This popup panel will be used to display the document text-->
 							<div id="login-box" class="hide">
 								<p>Please login on your google account.</p>
 								<button id="btnLogin" onclick="handleAuthClick(event)"
@@ -159,18 +127,13 @@
 							</div>
 
 							<div id="drive-box" class="hide">
-								<!-- This will be the google drive navigation-->
 								<div id="drive-breadcrumb">
 									<span class='breadcrumb-arrow'></span> <a data-id='root'
 										data-level='0'>Home</a> <span id="span-navigation"></span>
 								</div>
-
-								<!-- This popup panel will be used as user information panel-->
 								<div class="user-item">
 									<a id="link-logout" class="logout-link">Logout</a>
 								</div>
-
-								<!-- A list of menus available for user to use-->
 								<div id="drive-menu">
 									<div id="button-reload" title="Refresh"></div>
 									<div id="button-upload" title="Upload to Google Drive"
@@ -184,11 +147,9 @@
 								<div id="status-message" class="flash hidden"></div>
 							</div>
 
-							<!-- This upload control is used for uploading file to google drive-->
 							<input type="file" id="fUpload" class="hide"
 								style="display: none" />
 
-							<!-- This popup panel will be used to create folder-->
 							<div class="float-box" id="float-box">
 								<div class="folder-form">
 									<div class="close-x">
@@ -204,8 +165,6 @@
 								</div>
 							</div>
 
-
-							<!-- This iframe is used for logout-->
 							<iframe id="frameLogout" class="hide"></iframe>
 
 							<script src="google-drive/google-drive.js"></script>
@@ -227,12 +186,6 @@
 			</p:dialog>
 
 
-			<h:form>
-				<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
-					title="Valider" validateClient="true"
-					oncomplete="PF('gedDialog').show();">
-				</p:commandButton>
-			</h:form>
 
 			<div class="panel panel-default"
 				style="margin-top: 0.3cm; margin-left: 0.3cm;">
@@ -281,7 +234,7 @@
 											<p:selectOneMenu value="#{detailsCtr.respMark}"
 												style="width:180px; margin-left: 0.5cm">
 												<f:selectItem itemlabel="Responsable Service Marketing"
-													itemValue="" />
+													itemValue="Responsable Service Marketing" />
 												<f:selectItems value="#{detailsCtr.respMarks}" />
 											</p:selectOneMenu>
 											<p:outputLabel
@@ -289,14 +242,15 @@
 											<p:selectOneMenu value="#{detailsCtr.respTec}"
 												style="width:180px; margin-left: 0.5cm">
 												<f:selectItem itemlabel="Responsable Service Technique"
-													itemValue="" />
+													itemValue="Responsable Service Technique" />
 												<f:selectItems value="#{detailsCtr.respTecs}" />
 											</p:selectOneMenu>
 											<p:outputLabel
 												style="margin-right: 5cm; margin-bottom: 0.5cm">Controleur de Gestion :</p:outputLabel>
 											<p:selectOneMenu value="#{detailsCtr.controleur}"
 												style="width:180px; margin-left: 0.5cm">
-												<f:selectItem itemlabel="Controleur de Gestion" itemValue="" />
+												<f:selectItem itemlabel="Controleur de Gestion"
+													itemValue="Controleur de Gestion" />
 												<f:selectItems value="#{detailsCtr.controleurs}" />
 											</p:selectOneMenu>
 											<p:outputLabel
@@ -304,7 +258,7 @@
 											<p:selectOneMenu value="#{detailsCtr.agent}"
 												style="width:180px; margin-left: 0.5cm">
 												<f:selectItem itemlabel="Agent Conseil d'administartion"
-													itemValue="" />
+													itemValue="Agent Conseil d'administartion" />
 												<f:selectItems value="#{detailsCtr.agents}" />
 											</p:selectOneMenu>
 										</h:panelGrid>
@@ -350,7 +304,8 @@
 										<div align="center" style="margin-bottom: 0.6cm">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider" ajax="false"
-												action="#{detailsCtr.createProjet()}">
+												onclick="createFolder('Etude de rentabilité');">
+												<f:actionListener binding="#{detailsCtr.createProjet()}" />
 												<f:actionListener binding="#{detailsCtr.createEquipe()}" />
 												<f:actionListener binding="#{detailsCtr.createPlanning()}" />
 											</p:commandButton>

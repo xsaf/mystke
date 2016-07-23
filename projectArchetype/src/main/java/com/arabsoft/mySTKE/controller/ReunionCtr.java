@@ -76,10 +76,13 @@ public class ReunionCtr {
 
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 
-		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
-		gedCtr.setFolder(absDoc.getNumAbsDoc());
 
 		if (projet.getDescEtat() >= 339) {
+			absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+			gedCtr.setProjetFolder(absDoc.getNumAbsDoc());
+			absDoc = absDocBusiness.findAbsDocByEtapeProjet(projet.getIdProj(),"Suivi des réunions");
+			gedCtr.setFolder(absDoc.getNumAbsDoc());
+			
 			reunionChantiers = reunionChantierBusiness.findReunionChantierByIdProjet(projet.getIdProj());
 			planningGlobal = planningGlobalBusiness.findplanningGlobalByIdProjet(projet.getIdProj());
 			planningActivites = planningActiviteBusiness.findPlanningActiviteByIdPlanningGlobal(planningGlobal.getIdPlanning());

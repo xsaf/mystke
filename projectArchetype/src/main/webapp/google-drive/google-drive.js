@@ -615,9 +615,10 @@ function showErrorMessage(errorMessage) {
 /** ****************** END NOTIFICATION ******************* */
 
 // Create folder
-function createFolder() {
+function createProjet() {
 		var titre = document.getElementById("hformid:nomProjet").value;
-        $("#transparent-wrapper").hide();
+        
+		$("#transparent-wrapper").hide();
         $("#transparent-wrapper1").hide();
         $("#float-box").hide();
         showLoading();
@@ -635,7 +636,7 @@ function createFolder() {
 			   "mimeType" : "application/vnd.google-apps.folder",
 			   "parents": [{
 					"kind": "drive#file",
-					"id": FOLDER_ID
+					"id": "0B_KzijCYeJPvalRhMFVpYjl2bTA"
 				}]
 		   }
 		});
@@ -652,6 +653,47 @@ function createFolder() {
 				showErrorMessage("Error: " + resp.error.message);
 		   }
 		});
+}
+
+function createFolder(t) {
+	var titre = t;
+	var projetFOLDER = document.getElementById("hformid:projetFolder").value;
+
+	$("#transparent-wrapper").hide();
+    $("#transparent-wrapper1").hide();
+    $("#float-box").hide();
+    showLoading();
+    showStatus("Creating folder in progress...");
+	var access_token =  gapi.auth.getToken().access_token;
+	var request = gapi.client.request({
+	   'path': '/drive/v2/files/',
+	   'method': 'POST',
+	   'headers': {
+		   'Content-Type': 'application/json',
+		   'Authorization': 'Bearer ' + access_token,             
+	   },
+	   'body':{
+		   "title" : titre ,
+		   "mimeType" : "application/vnd.google-apps.folder",
+		   "parents": [{
+				"kind": "drive#file",
+				"id": projetFOLDER
+			}]
+	   }
+	});
+	
+	request.execute(function(resp) { 
+	   if (!resp.error) {
+			showStatus("Loading Google Drive files...");
+			getDriveFiles();	
+	    	IDNewFolder = DRIVE_FILES[0].id;
+			
+	   }else{
+			hideStatus();
+			hideLoading();
+			showErrorMessage("Error: " + resp.error.message);
+	   }
+	});
 }
 
 //Get ID Folder

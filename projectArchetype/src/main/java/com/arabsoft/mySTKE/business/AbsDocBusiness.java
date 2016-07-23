@@ -19,4 +19,6 @@ public interface AbsDocBusiness {
 
 	public AbsDoc findAbsDocByIdProjet(int idProj);
 
+	public AbsDoc findAbsDocByEtapeProjet(int idProj, String s);
+
 }
