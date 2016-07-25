@@ -40,7 +40,7 @@
 		<ui:define name="body">
 
 
-			
+
 			<h:form id="hformid" style="text-align: center">
 
 				<p:remoteCommand name="foldering"
@@ -48,8 +48,8 @@
 
 				<p:inputText id="idProjet" binding="#{idProj}"
 					value="#{receptionCtr.gedCtr.folder}" style="display:none" />
-					
-					<p:inputText id="projetFolder" binding="#{projetFolder}"
+
+				<p:inputText id="projetFolder" binding="#{projetFolder}"
 					value="#{receptionCtr.gedCtr.projetFolder}" style="display:none" />
 
 			</h:form>
@@ -390,11 +390,12 @@
 												</h3>
 											</ul>
 										</td>
-										<td><p:commandButton
-												styleClass="btn btn-info btn-rounded" value="ok"
-												title="Valider"
-												action="#{receptionCtr.createReceptionProvisoire()}"
-												ajax="false" /></td>
+										<td><h:form>
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{receptionCtr.createReceptionProvisoire()}"
+													ajax="false" />
+											</h:form></td>
 									</table>
 								</sec:authorize>
 							</p:outputPanel>
@@ -421,11 +422,11 @@
 												</h3>
 											</ul>
 										</td>
-										<td><p:commandButton
+										<td><h:form><p:commandButton
 												styleClass="btn btn-info btn-rounded" value="ok"
 												title="Valider"
 												action="#{receptionCtr.createReceptionFinale()}"
-												ajax="false" /></td>
+												ajax="false" /></h:form></td>
 									</table>
 								</sec:authorize>
 							</p:outputPanel>

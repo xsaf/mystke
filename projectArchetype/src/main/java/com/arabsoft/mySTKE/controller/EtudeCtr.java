@@ -92,8 +92,8 @@ public class EtudeCtr {
 
 	private MapModel simpleModel1;
 
-	private int architecte;
-	private Map<String, Integer> architectes = new HashMap<String, Integer>();
+	private String architecte;
+	private Map<String, String> architectes = new HashMap<String, String>();
 
 	@PostConstruct
 	public void initialisation() {
@@ -122,10 +122,10 @@ public class EtudeCtr {
 		}
 		if (projet.getDescEtat() == 214) {
 			List<Utilisateur> archi = equipeBusiness.selectAllUserByFonction("5");
-			architectes = new HashMap<String, Integer>();
+			architectes = new HashMap<String, String>();
 			for (int i = 0; i < archi.size(); i++) {
 				architectes.put("" + archi.get(i).getPrenomUti() + " " + archi.get(i).getNomUti(),
-						archi.get(i).getIdUti());
+						archi.get(i).getNumMatrUser());
 			}
 		}
 		if (projet.getDescEtat() >= 215) {
@@ -180,7 +180,7 @@ public class EtudeCtr {
 		projet.setDescEtat(215);
 		projet = projetBusiness.updateProjet(projet);
 		equipe.setProjet(projet);
-		ar.setIdUti(architecte);
+		ar.setNumMatrUser(architecte);
 		equipe.setUtilisateur(ar);
 		equipeBusiness.createEquipe(equipe);
 	}
@@ -408,19 +408,19 @@ public class EtudeCtr {
 		this.simpleModel1 = simpleModel1;
 	}
 
-	public int getArchitecte() {
+	public String getArchitecte() {
 		return architecte;
 	}
 
-	public void setArchitecte(int architecte) {
+	public void setArchitecte(String architecte) {
 		this.architecte = architecte;
 	}
 
-	public Map<String, Integer> getArchitectes() {
+	public Map<String, String> getArchitectes() {
 		return architectes;
 	}
 
-	public void setArchitectes(Map<String, Integer> architectes) {
+	public void setArchitectes(Map<String, String> architectes) {
 		this.architectes = architectes;
 	}
 

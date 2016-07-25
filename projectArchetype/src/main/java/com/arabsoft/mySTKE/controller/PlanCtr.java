@@ -87,8 +87,8 @@ public class PlanCtr {
 	@ManagedProperty(value = "#{gedCtr}")
 	private GedCtr gedCtr;
 	
-	private int chef;
-	private Map<String, Integer> chefs = new HashMap<String, Integer>();
+	private String chef;
+	private Map<String, String> chefs = new HashMap<String, String>();
 
 	private Theme theme;
 	private List<Theme> themes;
@@ -105,17 +105,17 @@ public class PlanCtr {
 		projet = projetBusiness.findProjetById(projet.getIdProj());
 		
 		
-		if (projet.getDescEtat() == 223) {
+		if (projet.getDescEtat() >= 223) {
 			absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
 			gedCtr.setProjetFolder(absDoc.getNumAbsDoc());
 			absDoc = absDocBusiness.findAbsDocByEtapeProjet(projet.getIdProj(),"Planification du projet");
 			gedCtr.setFolder(absDoc.getNumAbsDoc());
 			
 			List<Utilisateur> chefProj = equipeBusiness.selectAllUserByFonction("7");
-			chefs = new HashMap<String, Integer>();
+			chefs = new HashMap<String, String>();
 			for (int i = 0; i < chefProj.size(); i++) {
 				chefs.put("" + chefProj.get(i).getPrenomUti() + " " + chefProj.get(i).getNomUti(),
-						chefProj.get(i).getIdUti());
+						chefProj.get(i).getNumMatrUser());
 			}
 			themes = service.getThemes();
 		}
@@ -159,7 +159,7 @@ public class PlanCtr {
 		projet.setDescEtat(312);
 		projet = projetBusiness.updateProjet(projet);
 		equipe.setProjet(projet);
-		ch.setIdUti(chef);
+		ch.setNumMatrUser(chef);
 		equipe.setUtilisateur(ch);
 		equipeBusiness.createEquipe(equipe);
 	}
@@ -359,19 +359,19 @@ public class PlanCtr {
 		this.service = service;
 	}
 
-	public int getChef() {
+	public String getChef() {
 		return chef;
 	}
 
-	public void setChef(int chef) {
+	public void setChef(String chef) {
 		this.chef = chef;
 	}
 
-	public Map<String, Integer> getChefs() {
+	public Map<String, String> getChefs() {
 		return chefs;
 	}
 
-	public void setChefs(Map<String, Integer> chefs) {
+	public void setChefs(Map<String, String> chefs) {
 		this.chefs = chefs;
 	}
 
