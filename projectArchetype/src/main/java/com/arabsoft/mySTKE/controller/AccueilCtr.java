@@ -32,13 +32,13 @@ public class AccueilCtr {
 	@PostConstruct
 	public void initialisation() {
 		// test
-		FacesUtil.setSessionMapValue("idprojet", 16211);
+		FacesUtil.setSessionMapValue("idprojet", 18260);
 
 		gedCtr.setFolder("0B_KzijCYeJPvalRhMFVpYjl2bTA");
 		
 		user = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		projetBusiness.findAllProjetByUser(user.getNumMatrUser());
-
+		
 	}
 
 	public void createProjet(String nomProj) {
@@ -64,7 +64,7 @@ public class AccueilCtr {
 
 		return "details";
 	}
-
+	
 	public Projet getProjet() {
 		return projet;
 	}

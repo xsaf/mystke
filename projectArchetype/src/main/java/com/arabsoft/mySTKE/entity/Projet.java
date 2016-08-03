@@ -22,6 +22,7 @@ public class Projet {
 	private String libelleProj;
 	private Date dateProj;
 	private int descEtat;
+	private String etapeProj;
 	private String budgetFinal;
 	@OneToMany(mappedBy = "projetI", cascade = CascadeType.ALL)
 	private Set<Immeuble> immeubles = new HashSet<Immeuble>();
@@ -235,6 +236,14 @@ public class Projet {
 
 	public void setClients(Set<Client> clients) {
 		this.clients = clients;
+	}
+
+	public String getEtapeProj() {
+		return etapeProj;
+	}
+
+	public void setEtapeProj(String etapeProj) {
+		this.etapeProj = etapeProj;
 	}
 	
 	

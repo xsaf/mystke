@@ -101,11 +101,13 @@ public class DetailsCtr {
 		projet = projetBusiness.findProjetById(idprojet);
 
 		absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
+		gedCtr.setProjetFolder(absDoc.getNumAbsDoc());
 		gedCtr.setFolder(absDoc.getNumAbsDoc());
 
-		if (projet.getDescEtat() == 111) {
+		
+		notification(projet,user);
 
-			// Equipe
+		if (projet.getDescEtat() == 111) {
 			List<Utilisateur> agentConseil = equipeBusiness.selectAllUserByFonction("2");
 			List<Utilisateur> repM = equipeBusiness.selectAllUserByFonction("3");
 			List<Utilisateur> repT = equipeBusiness.selectAllUserByFonction("4");
@@ -143,11 +145,8 @@ public class DetailsCtr {
 		}
 
 		if (projet.getDescEtat() >= 112) {
-
-			// Planning
 			planning = planningBusiness.SelectPlanningByProjet(projet.getIdProj());
 
-			// Equipe
 			List<Utilisateur> utiList = equipeBusiness.selectAllUserByEquipe(projet.getIdProj());
 			if (utiList.size() > 0) {
 				for (int i = 0; i < utiList.size(); i++) {
@@ -174,12 +173,15 @@ public class DetailsCtr {
 
 	}
 
+	public void notification(Projet projet, Utilisateur utilisateur) {
+	}
+
 	public void createFolder() {
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
 
-	public void createProjet() {
+	public void createProjetNotifier() {
 		projet.setDescEtat(112);
 		projet = projetBusiness.createProjet(projet);
 	}

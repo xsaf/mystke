@@ -14,14 +14,14 @@ import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 public class Notification {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int idNoti;
 	private String libelleNoti;
 	private Date dateNoti;
 	@ManyToOne
-	public Projet projet;
+	private Projet projet;
 	@ManyToOne
-	public Utilisateur utilisateur;
+	private Utilisateur utilisateur;
 
 	public Notification() {
 	}
