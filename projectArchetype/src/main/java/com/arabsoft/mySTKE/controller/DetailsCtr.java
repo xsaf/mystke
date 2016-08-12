@@ -150,7 +150,7 @@ public class DetailsCtr {
 			List<Utilisateur> utiList = equipeBusiness.selectAllUserByEquipe(projet.getIdProj());
 			if (utiList.size() > 0) {
 				for (int i = 0; i < utiList.size(); i++) {
-					if (utiList.get(i).getFonction().getIdFon() == 1)
+					if (utiList.get(i).getFonction().getIdFon() == 1) 
 						dir = utiList.get(i).getPrenomUti() + " " + utiList.get(i).getNomUti();
 					else if (utiList.get(i).getFonction().getIdFon() == 2)
 						ag = utiList.get(i).getPrenomUti() + " " + utiList.get(i).getNomUti();
