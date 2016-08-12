@@ -7,31 +7,29 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.arabsoft.mySTKE.business.PlanningGlobalBusiness;
-import com.arabsoft.mySTKE.dao.IDao;
+import com.arabsoft.mySTKE.dao.IPlanningGlobalDao;
 import com.arabsoft.mySTKE.entity.PlanningGlobal;
-import com.arabsoft.mySTKE.entity.Zone;
 
 @Service("planningGlobalBusiness")
 public class PlanningGlobalBusinessImpl implements PlanningGlobalBusiness {
 
 	@Autowired
-	@Qualifier("genericDao")
-	IDao genericDao;
+	@Qualifier("planningGlobalDao")
+	IPlanningGlobalDao planningGlobalDao;
 	
 	@Override
 	public void createPlanningGlobal(PlanningGlobal planningGlobal) {
-		genericDao.save(planningGlobal);
+		planningGlobalDao.save(planningGlobal);
 	}
 
 	@Override
 	public PlanningGlobal findplanningGlobalByIdProjet(int idProj) {
-		List<PlanningGlobal> l = genericDao.findByPropriety("PlanningGlobal","PROJET_IDPROJ",""+idProj);
-		return l.get(0);
+		return planningGlobalDao.findByIdProjet(idProj);
 	}
 
 	@Override
 	public void updatePlanningActivite(PlanningGlobal planningGlobal) {
-		genericDao.update(planningGlobal);
+		planningGlobalDao.update(planningGlobal);
 	}
 
 }

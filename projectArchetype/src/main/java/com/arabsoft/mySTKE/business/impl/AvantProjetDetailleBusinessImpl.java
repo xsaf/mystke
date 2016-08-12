@@ -7,31 +7,30 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.arabsoft.mySTKE.business.AvantProjetDetailleBusiness;
-import com.arabsoft.mySTKE.dao.IDao;
+import com.arabsoft.mySTKE.dao.IAvantProjetDetailleDao;
 import com.arabsoft.mySTKE.entity.AvantProjetDetaille;
-import com.arabsoft.mySTKE.entity.Zone;
 
 @Service("avantProjetDetailleBusiness")
 public class AvantProjetDetailleBusinessImpl implements AvantProjetDetailleBusiness{
 
 	@Autowired 
-	@Qualifier("genericDao")
-	IDao genericDao;
+	@Qualifier("avantProjetDetailleDao")
+	IAvantProjetDetailleDao avantProjetDetailleDao;
 
 	@Override
 	public void createAvantProjetDetaille(AvantProjetDetaille avantProjetDetaille) {
-		genericDao.save(avantProjetDetaille);
+		avantProjetDetailleDao.save(avantProjetDetaille);
 	}
 
 	@Override
 	public AvantProjetDetaille findAvantProjetDetailleByIdProjet(int idProj) {
-		List<AvantProjetDetaille> l = genericDao.findByPropriety("AvantProjetDetaille","PROJET_IDPROJ",""+idProj);
+		List<AvantProjetDetaille> l = avantProjetDetailleDao.findByIdProjet(idProj);
 		return l.get(0);
 	}
 
 	@Override
 	public void updateAvantProjetDetaille(AvantProjetDetaille avantProjetDetaille) {
-		genericDao.update(avantProjetDetaille);
+		avantProjetDetailleDao.update(avantProjetDetaille);
 	}
 	
 	

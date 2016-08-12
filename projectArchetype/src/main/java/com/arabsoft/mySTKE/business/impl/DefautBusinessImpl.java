@@ -7,31 +7,30 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.arabsoft.mySTKE.business.DefautBusiness;
-import com.arabsoft.mySTKE.dao.IDao;
+import com.arabsoft.mySTKE.dao.IDefautDao;
 import com.arabsoft.mySTKE.entity.Defaut;
 
 @Service("defautBusiness")
 public class DefautBusinessImpl implements DefautBusiness {
 
 	@Autowired
-	@Qualifier("genericDao")
-	IDao genericDao;
+	@Qualifier("defautDao")
+	IDefautDao defautDao;
 	
 	@Override
 	public void createDefaut(Defaut defaut) {
-		genericDao.save(defaut);
+		defautDao.save(defaut);
 	}
 
 	@Override
 	public List<Defaut> findDefautsByIdProjet(int idProj) {
-		List<Defaut> d = genericDao.findByPropriety("Defaut", "PROJET_IDPROJ",
-				"" + idProj);
+		List<Defaut> d = defautDao.findByIdProjet(idProj);
 		return d;
 	}
 
 	@Override
 	public void updateDefaut(Defaut defaut) {
-		genericDao.update(defaut);
+		defautDao.update(defaut);
 	}
 
 }

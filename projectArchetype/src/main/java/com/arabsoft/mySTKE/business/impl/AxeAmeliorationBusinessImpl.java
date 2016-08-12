@@ -7,24 +7,24 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.arabsoft.mySTKE.business.AxeAmeliorationBusiness;
-import com.arabsoft.mySTKE.dao.IDao;
+import com.arabsoft.mySTKE.dao.IAxeAmeliorationDao;
 import com.arabsoft.mySTKE.entity.AxeAmelioration;
 
 @Service("axeAmeliorationBusiness")
 public class AxeAmeliorationBusinessImpl implements AxeAmeliorationBusiness {
 
 	@Autowired
-	@Qualifier("genericDao")
-	IDao genericDao;
+	@Qualifier("axeAmeliorationDao")
+	IAxeAmeliorationDao axeAmeliorationDao;
 	
 	@Override
 	public void createAxeAmelioration(AxeAmelioration axeAmelioration) {
-		genericDao.save(axeAmelioration);
+		axeAmeliorationDao.save(axeAmelioration);
 	}
 
 	@Override
 	public List<AxeAmelioration> findAxeAmeliorationByIdProjet(int idProj) {
-		List<AxeAmelioration> l = genericDao.findByPropriety(AxeAmelioration.class.getName(), "PROJET_IDPROJ", ""+idProj);
+		List<AxeAmelioration> l = axeAmeliorationDao.findByIdProjet(idProj);
 		return l;
 	}
 

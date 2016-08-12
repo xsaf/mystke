@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.arabsoft.mySTKE.business.EquipeBusiness;
-import com.arabsoft.mySTKE.dao.IDao;
+import com.arabsoft.mySTKE.dao.IEquipeDao;
+import com.arabsoft.mySTKE.dao.IUserDao;
 import com.arabsoft.mySTKE.entity.Equipe;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
@@ -16,48 +17,50 @@ import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 public class EquipeBusinessImpl implements EquipeBusiness {
 
 	@Autowired
-	@Qualifier("genericDao")
-	IDao genericDao;
+	@Qualifier("equipeDao")
+	IEquipeDao equipeDao;
+	
+	@Autowired
+	@Qualifier("utilisateurDao")
+	IUserDao userDao;
 
 	@Override
 	public void createEquipe(Equipe equipe) {
-		genericDao.save(equipe);
+		equipeDao.save(equipe);
 	}
 
 	@Override
 	public void updateEquipe(Equipe equipe) {
-		genericDao.update(equipe);
+		equipeDao.update(equipe);
 	}
 
 	@Override
 	public List<Utilisateur> selectAllUserByFonction(String value) {
-		return genericDao.findByPropriety("Utilisateur", "FONCTION_IDFON", value);
+		return userDao.findByIdFonction(value);
 	}
 
 	@Override
 	public Equipe findEquipeByIdProjet(int idProj) {
-		return (Equipe) genericDao.findByPropriety("Equipe", "PROJET_IDPROJ", "" + idProj);
+		return (Equipe) equipeDao.findByIdProjet(idProj).get(0);
 	}
 
 	@Override
 	public List<Utilisateur> selectAllUserByEquipe(int idProj) {
-		List<Equipe> eqList = genericDao.findByPropriety("Equipe", "PROJET_IDPROJ", "" + idProj);
+		List<Equipe> eqList = equipeDao.findByIdProjet(idProj);
 		List<Utilisateur> utiList = new ArrayList<Utilisateur>();
 		for (int i = 0; i < eqList.size(); i++) {
-			utiList.add((Utilisateur) genericDao.findById(Utilisateur.class,
-					eqList.get(i).getUtilisateur().getNumMatrUser()));
+			utiList.add((Utilisateur) userDao.findById(eqList.get(i).getUtilisateur().getNumMatrUser()));
 		}
 		return utiList;
 	}
 
 	@Override
 	public Utilisateur selectArchitecteByEquipe(int idProj) {
-		List<Equipe> eqList = genericDao.findByPropriety("Equipe", "PROJET_IDPROJ", "" + idProj);
+		List<Equipe> eqList = equipeDao.findByIdProjet(idProj);
 		List<Utilisateur> utiList = new ArrayList<Utilisateur>();
 		for (int i = 0; i < eqList.size(); i++) {
 			if (eqList.get(i).getUtilisateur().getIdUti() == 5) {
-				utiList.add((Utilisateur) genericDao.findById(Utilisateur.class,
-						eqList.get(i).getUtilisateur().getNumMatrUser()));
+				utiList.add((Utilisateur) userDao.findById(eqList.get(i).getUtilisateur().getNumMatrUser()));
 			}
 		}
 		return utiList.get(0);

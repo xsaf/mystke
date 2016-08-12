@@ -7,24 +7,24 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.arabsoft.mySTKE.business.ZoneBusiness;
-import com.arabsoft.mySTKE.dao.IDao;
+import com.arabsoft.mySTKE.dao.IZoneDao;
 import com.arabsoft.mySTKE.entity.Zone;
 
 @Service("zoneBusiness")
 public class ZoneBusinessImpl implements ZoneBusiness {
 	
 	@Autowired
-	@Qualifier("genericDao")
-	IDao genericDao;
+	@Qualifier("zoneDao")
+	IZoneDao zoneDao;
 
 	@Override
 	public void createZone(Zone zone) {
-		genericDao.save(zone);
+		zoneDao.save(zone);
 	}
 
 	@Override
 	public Zone findZoneByIdProjet(int idProj) {
-		List<Zone> l = genericDao.findByPropriety("Zone","PROJET_IDPROJ",""+idProj);
+		List<Zone> l = zoneDao.findByIdProjet(idProj);
 		return l.get(0);
 	}
 	

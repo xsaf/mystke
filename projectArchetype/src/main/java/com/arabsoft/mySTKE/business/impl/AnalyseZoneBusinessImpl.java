@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.arabsoft.mySTKE.business.AnalyseZoneBusiness;
+import com.arabsoft.mySTKE.dao.IAnalyseDao;
 import com.arabsoft.mySTKE.dao.IDao;
 import com.arabsoft.mySTKE.entity.AnalyseZone;
 
@@ -14,18 +15,17 @@ import com.arabsoft.mySTKE.entity.AnalyseZone;
 public class AnalyseZoneBusinessImpl implements AnalyseZoneBusiness {
 	
 	@Autowired
-	@Qualifier("genericDao")
-	IDao genericDao;
-
+	@Qualifier("analyseDao")
+	IAnalyseDao analyseDao;
+	
 	@Override
 	public void createAnalyseZone(AnalyseZone analyseZone) {
-		genericDao.save(analyseZone);
+		analyseDao.save(analyseZone);
 	}
 	
 	@Override
 	public AnalyseZone findAnalyseZoneByIdEtude(int idEtude) {
-		List<AnalyseZone> l = genericDao.findByPropriety("Analyse", "ETUDERENTABILLITE_IDETUDE", "" + idEtude, "DTYPE",
-				"AnalyseZone");
+		List<AnalyseZone> l = analyseDao.findAnalyseZone(idEtude);
 		return l.get(0);
 	}
 	

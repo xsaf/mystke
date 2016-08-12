@@ -7,32 +7,30 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.arabsoft.mySTKE.business.AvisBusiness;
-import com.arabsoft.mySTKE.dao.IDao;
+import com.arabsoft.mySTKE.dao.IAvisDao;
 import com.arabsoft.mySTKE.entity.Avis;
 
 @Service("avisBusiness")
 public class AvisBusinessImpl implements AvisBusiness {
 
 	@Autowired
-	@Qualifier("genericDao")
-	IDao genericDao;
+	@Qualifier("avisDao")
+	IAvisDao avisDao;
 
 	@Override
 	public void createAvis(Avis avis) {
-		genericDao.save(avis);
+		avisDao.save(avis);
 	}
 
 	@Override
 	public List<Avis> findAvisByIdProjet(int idProj) {
-		List<Avis> l = genericDao.findByPropriety(Avis.class.getName(), "PROJET_IDPROJ", ""+idProj);
+		List<Avis> l = avisDao.findByIdProjet(idProj);
 		return l;
 	}
 
 	@Override
 	public void updateAvis(Avis selectedAvis) {
-		
-		genericDao.update(selectedAvis);
-		
+		avisDao.update(selectedAvis);
 	}
 	
 	

@@ -6,18 +6,19 @@ import org.springframework.stereotype.Service;
 
 import com.arabsoft.mySTKE.business.UserBusiness;
 import com.arabsoft.mySTKE.dao.IDao;
+import com.arabsoft.mySTKE.dao.IUserDao;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 @Service("userBusiness")
 public class UserBusinessImpl implements UserBusiness {
 	
 	@Autowired
-	@Qualifier("genericDao")
-	IDao genericDao;
+	@Qualifier("utilisateurDao")
+	IUserDao userDao;
 
 	@Override
 	public void createUser(Utilisateur utilisateur) {
-		genericDao.save(utilisateur);
+		userDao.save(utilisateur);
 	}
 
 }

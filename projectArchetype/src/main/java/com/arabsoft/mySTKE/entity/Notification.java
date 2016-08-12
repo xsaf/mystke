@@ -18,6 +18,7 @@ public class Notification {
 	private int idNoti;
 	private String libelleNoti;
 	private Date dateNoti;
+	private int avancement;
 	@ManyToOne
 	private Projet projet;
 	@ManyToOne
@@ -65,6 +66,15 @@ public class Notification {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+
+	public int getAvancement() {
+		return avancement;
+	}
+
+	public void setAvancement(int avancement) {
+		this.avancement = avancement;
+	}
+	
 
 	
 	
