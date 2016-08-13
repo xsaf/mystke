@@ -224,7 +224,7 @@
 										<td><h:form>
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="Valider" title="Valider"
-													action="#{receptionCtr.createVisite()}"
+													action="#{receptionCtr.createVisiteNotifier()}"
 													oncomplete="PF('gedDialog').show();" />
 											</h:form></td>
 									</table>
@@ -393,7 +393,7 @@
 										<td><h:form>
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{receptionCtr.createReceptionProvisoire()}"
+													action="#{receptionCtr.createReceptionProvisoireNotifier()}"
 													ajax="false" />
 											</h:form></td>
 									</table>
@@ -425,7 +425,7 @@
 										<td><h:form><p:commandButton
 												styleClass="btn btn-info btn-rounded" value="ok"
 												title="Valider"
-												action="#{receptionCtr.createReceptionFinale()}"
+												action="#{receptionCtr.createReceptionFinaleNotifier()}"
 												ajax="false" /></h:form></td>
 									</table>
 								</sec:authorize>
@@ -461,7 +461,7 @@
 											<td><h:form>
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="Ajouter" title="Valider"
-														action="#{receptionCtr.createPlanRecollement()}"
+														action="#{receptionCtr.createPlanRecollementNotifier()}"
 														oncomplete="PF('gedDialog').show();" />
 												</h:form></td>
 										</table>
@@ -492,7 +492,7 @@
 												<td><p:commandButton
 														styleClass="btn btn-info btn-rounded" value="Valider"
 														title="Valider" style="margin-left: 50px"
-														action="#{receptionCtr.validerCorrespondanceTravauxPlans()}"
+														action="#{receptionCtr.validerCorrespondanceTravauxPlansNotifier()}"
 														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
@@ -531,7 +531,7 @@
 												<td><p:commandButton
 														styleClass="btn btn-info btn-rounded" value="Ajouter"
 														title="Valider"
-														action="#{receptionCtr.createDemandeOccupation()}"
+														action="#{receptionCtr.createDemandeOccupationNotifier()}"
 														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
@@ -564,7 +564,7 @@
 												<td><p:commandButton
 														styleClass="btn btn-info btn-rounded" value="Ajouter"
 														title="Valider"
-														action="#{receptionCtr.createPermisOccupation()}"
+														action="#{receptionCtr.createPermisOccupationNotifier()}"
 														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
@@ -601,7 +601,7 @@
 												<td><p:commandButton
 														styleClass="btn btn-info btn-rounded" value="Ajouter"
 														title="Valider"
-														action="#{receptionCtr.createDemandeImmatriculation()}"
+														action="#{receptionCtr.createDemandeImmatriculationNotifier()}"
 														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
@@ -632,7 +632,7 @@
 												<td><p:commandButton
 														styleClass="btn btn-info btn-rounded" value="Ajouter"
 														title="Valider"
-														action="#{receptionCtr.createPermisImmatriculation()}"
+														action="#{receptionCtr.createPermisImmatriculationNotifier()}"
 														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
@@ -770,14 +770,14 @@
 														<h:outputText value="Valider ce défaut :" />
 														<p:commandButton styleClass="btn btn-info btn-rounded"
 															value="ok" title="Valider"
-															action="#{receptionCtr.updateDefautClientValidation()}"
+															action="#{receptionCtr.updateDefautClientValidationNotifier()}"
 															ajax="false" />
 													</p:panelGrid>
 												</p:panelGrid>
 												<div align="center">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="Envoyer les réserves" title="ok"
-														action="#{receptionCtr.validerDefauts()}" ajax="false" />
+														action="#{receptionCtr.validerDefautsNotifier()}" ajax="false" />
 												</div>
 											</p:outputPanel>
 										</p:dialog>
@@ -829,7 +829,7 @@
 											<div align="center">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{receptionCtr.createDefautClient()}" ajax="false" />
+													action="#{receptionCtr.createDefautClientNotifier()}" ajax="false" />
 											</div>
 										</p:dialog>
 
@@ -849,7 +849,7 @@
 											<td><h:form>
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="Valider" title="Valider"
-														action="#{receptionCtr.validerLeveeReserves()}"
+														action="#{receptionCtr.validerLeveeReservesNotifier()}"
 														ajax="false" />
 												</h:form></td>
 										</table>
@@ -869,7 +869,7 @@
 											<td><h:form>
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="ok" title="Valider"
-														action="#{receptionCtr.createReceptionDefinitive()}"
+														action="#{receptionCtr.createReceptionDefinitiveNotifier()}"
 														ajax="false" />
 												</h:form></td>
 										</table>
@@ -1075,7 +1075,7 @@
 											<div align="center">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="Envoyer les réserves" title="ok"
-													action="#{receptionCtr.validerDefautsFinale()}"
+													action="#{receptionCtr.validerDefautsFinaleNotifier()}"
 													ajax="false" />
 											</div>
 										</p:outputPanel>
@@ -1128,7 +1128,7 @@
 										<div align="center">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider"
-												action="#{receptionCtr.createDefautClientFinale()}"
+												action="#{receptionCtr.createDefautClientFinaleNotifier()}"
 												ajax="false" />
 										</div>
 									</p:dialog>
@@ -1149,7 +1149,7 @@
 										<td><h:form>
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="Valider" title="Valider"
-													action="#{receptionCtr.validerLeveeReservesFinale()}"
+													action="#{receptionCtr.validerLeveeReservesFinaleNotifier()}"
 													onclick="createFolder('Analyse du projet');" ajax="false" />
 											</h:form></td>
 									</table>

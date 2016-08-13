@@ -13,7 +13,7 @@
 	<title>Etude De Rentabilité</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" /> 
 	<meta name="google-site-verification"
 		content="2z0sk1EKEHf6N3PSdtoBYHTPSfBqcPUuH4d1pBuT1_g" />
 
@@ -250,7 +250,7 @@
 										</h:panelGrid>
 										<div align="center" style="margin-top: 0.2cm">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
-												value="ok" title="Valider" action="#{etudeCtr.createZone()}"
+												value="ok" title="Valider" action="#{etudeCtr.createZoneNotifier()}"
 												style="margin-bottom: 0.5cm"
 												oncomplete="PF('gedDialog').show();">
 											</p:commandButton>
@@ -328,7 +328,7 @@
 											<div align="center" style="margin-top: 0.2cm">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{etudeCtr.createTerrain()}"
+													action="#{etudeCtr.createTerrainNotifier()}"
 													style="margin-bottom: 0.5cm" ajax="false" />
 											</div>
 										</h:form>
@@ -380,7 +380,7 @@
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="ok" title="Valider"
 														oncomplete="PF('gedDialog').show();"
-														action="#{etudeCtr.updateVisiteTerrain()}" />
+														action="#{etudeCtr.updateVisiteTerrainNotifier()}" />
 												</div>
 											</td>
 										</table>
@@ -422,7 +422,7 @@
 											<td><div align="center">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="ok" title="Valider"
-														action="#{etudeCtr.updateEquipe()}" ajax="false" />
+														action="#{etudeCtr.updateEquipeNotifier()}" ajax="false" />
 												</div></td>
 										</table>
 									</h:form>
@@ -481,7 +481,7 @@
 											<div style="margin-left: 15cm; margin-top: 0.2cm">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{etudeCtr.createEtudeRentabilite()}"
+													action="#{etudeCtr.createEtudeRentabiliteNotifier()}"
 													oncomplete="PF('gedDialog').show();" />
 											</div>
 										</h:form>
@@ -578,7 +578,7 @@
 											<div style="margin-left: 15cm; margin-top: 0.2cm">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{etudeCtr.createAnalyseCout()}" ajax="false" />
+													action="#{etudeCtr.createAnalyseCoutNotifier()}" ajax="false" />
 											</div>
 										</h:form>
 									</div>
@@ -677,7 +677,7 @@
 											style="margin-left: 13.5cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider"
-												action="#{etudeCtr.createAnalyseZone()}"
+												action="#{etudeCtr.createAnalyseZoneNotifier()}"
 												oncomplete="PF('gedDialog').show();" />
 										</div>
 									</h:form>
@@ -768,7 +768,7 @@
 											style="margin-left: 14cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider"
-												action="#{etudeCtr.createAnalyseFinanciere()}"
+												action="#{etudeCtr.createAnalyseFinanciereNotifier()}"
 												oncomplete="PF('gedDialog').show();" />
 										</div>
 									</h:form>
@@ -854,7 +854,7 @@
 													style="margin-left: 1cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="ok" title="Valider"
-														action="#{etudeCtr.createProjetValid()}" ajax="false" />
+														action="#{etudeCtr.createProjetValidNotifier()}" ajax="false" />
 												</div>
 											</td>
 										</table>
@@ -890,7 +890,7 @@
 													style="margin-left: 2cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="Ajouter" title="Valider"
-														action="#{etudeCtr.addPVReunion()}"
+														action="#{etudeCtr.addPVReunionNotifier()}"
 														oncomplete="PF('gedDialog').show();" />
 												</div>
 											</td>
@@ -925,7 +925,7 @@
 													style="margin-left: 2cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="Valider" title="Valider"
-														action="#{etudeCtr.updateProjetValid()}" ajax="false" />
+														action="#{etudeCtr.updateProjetValidNotifier()}" ajax="false" />
 												</div>
 											</td>
 										</table>
@@ -962,7 +962,7 @@
 													style="margin-left: 1cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="ok" title="Valider"
-														action="#{etudeCtr.updateAchatTerrain()}"
+														action="#{etudeCtr.updateAchatTerrainNotifier()}"
 														onclick="createFolder('Planification du projet');"
 														oncomplete="PF('gedDialog').show();" />
 												</div>

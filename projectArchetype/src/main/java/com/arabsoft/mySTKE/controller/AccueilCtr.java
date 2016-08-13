@@ -22,7 +22,7 @@ public class AccueilCtr {
 	private List<Projet> projets;
 	private Projet selectedProjet = new Projet();
 	private Utilisateur user = new Utilisateur();
-
+	
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
 
@@ -32,18 +32,20 @@ public class AccueilCtr {
 	@PostConstruct
 	public void initialisation() {
 		// test
-		FacesUtil.setSessionMapValue("idprojet", 18260);
+		FacesUtil.setSessionMapValue("idprojet", 18610);
 
 		gedCtr.setFolder("0B_KzijCYeJPvalRhMFVpYjl2bTA");
 		
 		user = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		projetBusiness.findAllProjetByUser(user.getNumMatrUser());
-		
+
+
 	}
 
 	public void createProjet(String nomProj) {
 		projet.setNomProj(nomProj);
 		projet.setDescEtat(111);
+		projet.setEtapeProj("Détails");
 		projet = projetBusiness.createProjet(projet);
 	}
 

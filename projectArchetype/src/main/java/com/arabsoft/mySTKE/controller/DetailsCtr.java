@@ -104,8 +104,7 @@ public class DetailsCtr {
 		gedCtr.setProjetFolder(absDoc.getNumAbsDoc());
 		gedCtr.setFolder(absDoc.getNumAbsDoc());
 
-		
-		notification(projet,user);
+		notification(projet);
 
 		if (projet.getDescEtat() == 111) {
 			List<Utilisateur> agentConseil = equipeBusiness.selectAllUserByFonction("2");
@@ -173,7 +172,7 @@ public class DetailsCtr {
 
 	}
 
-	public void notification(Projet projet, Utilisateur utilisateur) {
+	public void notification(Projet projet) {
 	}
 
 	public void createFolder() {
@@ -183,6 +182,7 @@ public class DetailsCtr {
 
 	public void createProjetNotifier() {
 		projet.setDescEtat(112);
+		projet.setEtapeProj("Etude de rentabilité");
 		projet = projetBusiness.createProjet(projet);
 	}
 

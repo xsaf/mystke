@@ -97,12 +97,12 @@ public class EtudeCtr {
 
 	@PostConstruct
 	public void initialisation() {
-		// test
+
 		int idprojet = (int) FacesUtil.getSessionMapValue("idprojet");
 		projet.setIdProj(idprojet);
 
-		// Projet
 		projet = projetBusiness.findProjetById(projet.getIdProj());
+		
 
 		if (projet.getDescEtat() >= 112) {
 			absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
@@ -148,20 +148,23 @@ public class EtudeCtr {
 		}
 
 	}
+	
+	public void notification(Projet projet) {
+	}
 
 	public void createFolder() {
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
 
-	public void createZone() {
+	public void createZoneNotifier() {
 		projet.setDescEtat(212);
 		projet = projetBusiness.updateProjet(projet);
 		zone.setProjet(projet);
 		zoneBusiness.createZone(zone);
 	}
 
-	public void createTerrain() {
+	public void createTerrainNotifier() {
 		projet.setDescEtat(213);
 		projet = projetBusiness.updateProjet(projet);
 		terrain.setProjet(projet);
@@ -169,14 +172,14 @@ public class EtudeCtr {
 		terrainBusiness.createTerrain(terrain);
 	}
 
-	public void updateVisiteTerrain() {
+	public void updateVisiteTerrainNotifier() {
 		projet.setDescEtat(214);
 		projet = projetBusiness.updateProjet(projet);
 		terrain.setVisite("Yes");
 		terrainBusiness.updateTerrain(terrain);
 	}
 
-	public void updateEquipe() {
+	public void updateEquipeNotifier() {
 		projet.setDescEtat(215);
 		projet = projetBusiness.updateProjet(projet);
 		equipe.setProjet(projet);
@@ -185,35 +188,35 @@ public class EtudeCtr {
 		equipeBusiness.createEquipe(equipe);
 	}
 
-	public void createEtudeRentabilite() {
+	public void createEtudeRentabiliteNotifier() {
 		projet.setDescEtat(216);
 		projet = projetBusiness.updateProjet(projet);
 		etude.setProjet(projet);
 		etudeBusiness.createEtudeRentabilite(etude);
 	}
 
-	public void createAnalyseCout() {
+	public void createAnalyseCoutNotifier() {
 		projet.setDescEtat(217);
 		projet = projetBusiness.updateProjet(projet);
 		analyseCout.setEtudeRentabillite(etude);
 		analyseCoutBusiness.createAnalyseCout(analyseCout);
 	}
 
-	public void createAnalyseZone() {
+	public void createAnalyseZoneNotifier() {
 		projet.setDescEtat(218);
 		projet = projetBusiness.updateProjet(projet);
 		analyseZone.setEtudeRentabillite(etude);
 		analyseZoneBusiness.createAnalyseZone(analyseZone);
 	}
 
-	public void createAnalyseFinanciere() {
+	public void createAnalyseFinanciereNotifier() {
 		projet.setDescEtat(219);
 		projet = projetBusiness.updateProjet(projet);
 		analyseFinanciere.setEtudeRentabillite(etude);
 		analyseFinanciereBusiness.createAnalyseFinanciere(analyseFinanciere);
 	}
 
-	public void createProjetValid() {
+	public void createProjetValidNotifier() {
 		projet.setDescEtat(220);
 		projet = projetBusiness.updateProjet(projet);
 		projetValidation.setEtatValid(220);
@@ -221,12 +224,12 @@ public class EtudeCtr {
 		projetValidationBusiness.createProjetValid(projetValidation);
 	}
 
-	public void addPVReunion() {
+	public void addPVReunionNotifier() {
 		projet.setDescEtat(221);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void updateProjetValid() {
+	public void updateProjetValidNotifier() {
 		projet.setDescEtat(222);
 		projet = projetBusiness.updateProjet(projet);
 		projetValidation.setProjet(projet);
@@ -234,8 +237,9 @@ public class EtudeCtr {
 		projetValidationBusiness.updateProjetValid(projetValidation);
 	}
 
-	public void updateAchatTerrain() {
+	public void updateAchatTerrainNotifier() {
 		projet.setDescEtat(223);
+		projet.setEtapeProj("Planification du projet");
 		projet = projetBusiness.updateProjet(projet);
 		terrainBusiness.updateTerrain(terrain);
 	}

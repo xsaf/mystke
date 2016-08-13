@@ -149,13 +149,16 @@ public class PlanCtr {
 		
 
 	}
+	
+	public void notification(Projet projet) {
+	}
 
 	public void createFolder(){
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
 
-	public void updateEquipe() {
+	public void updateEquipeNotifier() {
 		projet.setDescEtat(312);
 		projet = projetBusiness.updateProjet(projet);
 		equipe.setProjet(projet);
@@ -164,32 +167,32 @@ public class PlanCtr {
 		equipeBusiness.createEquipe(equipe);
 	}
 
-	public void createCahierCharge() {
+	public void createCahierChargeNotifier() {
 		projet.setDescEtat(313);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createProgramme() {
+	public void createProgrammeNotifier() {
 		projet.setDescEtat(314);
 		projet = projetBusiness.updateProjet(projet);
 		programme.setProjet(projet);
 		programmeBusiness.createProgramme(programme);
 	}
 
-	public void updateProgramme() {
+	public void updateProgrammeNotifier() {
 		projet.setDescEtat(315);
 		projet = projetBusiness.updateProjet(projet);
 		programmeBusiness.updateProgramme(programme);
 	}
 
-	public void updateProgrammeValider() {
+	public void updateProgrammeValiderNotifier() {
 		projet.setDescEtat(316);
 		projet = projetBusiness.updateProjet(projet);
 		programme.setValide(true);
 		programmeBusiness.updateProgramme(programme);
 	}
 
-	public void createAvantProjetSommaire() {
+	public void createAvantProjetSommaireNotifier() {
 		projet.setDescEtat(317);
 		projet = projetBusiness.updateProjet(projet);
 		avantProjetSommaire.setProjet(projet);
@@ -232,14 +235,14 @@ public class PlanCtr {
 		avantProjetSommaireBusiness.updateAvantProjetSommaire(avantProjetSommaire);
 	}
 
-	public void createAvantProjetDetaille() {
+	public void createAvantProjetDetailleNotifier() {
 		projet.setDescEtat(325);
 		projet = projetBusiness.updateProjet(projet);
 		avantProjetDetaille.setProjet(projet);
 		avantProjetDetailleBusiness.createAvantProjetDetaille(avantProjetDetaille);
 	}
 
-	public void updateAvantProjetDetaille() {
+	public void updateAvantProjetDetailleNotifier() {
 		switch (projet.getDescEtat()) {
 		case 325: {
 			projet.setDescEtat(326);
@@ -255,49 +258,49 @@ public class PlanCtr {
 		avantProjetDetailleBusiness.updateAvantProjetDetaille(avantProjetDetaille);
 	}
 
-	public void createDemandeBatir() {
+	public void createDemandeBatirNotifier() {
 		projet.setDescEtat(328);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createAutorisationBatir() {
+	public void createAutorisationBatirNotifier() {
 		projet.setDescEtat(329);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void updateBudgetFinal() {
+	public void updateBudgetFinalNotifier() {
 		projet.setDescEtat(330);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createPlanningGlobal() {
+	public void createPlanningGlobalNotifier() {
 		projet.setDescEtat(331);
 		projet = projetBusiness.updateProjet(projet);
 		planningGlobal.setProjet(projet);
 		planningGlobalBusiness.createPlanningGlobal(planningGlobal);
 	}
 
-	public void createPlanningActivite() {
+	public void createPlanningActiviteNotifier() {
 		projet.setDescEtat(333);
 		projet = projetBusiness.updateProjet(projet);
 		planningActivite.setPlanningGlobal(planningGlobal);
 		planningActiviteBusiness.createPlanningActivite(planningActivite);
 	}
 	
-	public void updatePlanningActivite() {
+	public void updatePlanningActiviteNotifier() {
 		//modification.setLibelleMod();
         selectedActivite.setPlanningGlobal(planningGlobal);
 		planningActiviteBusiness.updatePlanningActivite(selectedActivite);
 	}
 
-	public void updatePlanningGlobalValider() {
+	public void updatePlanningGlobalValiderNotifier() {
 		projet.setDescEtat(333);
 		projet = projetBusiness.updateProjet(projet);
 		planningGlobal.setValider(true);
 		planningGlobalBusiness.updatePlanningActivite(planningGlobal);
 	}
 	
-	public void createProjetValid(){
+	public void createProjetValidNotifier(){
 		projet.setDescEtat(334);
 		projet = projetBusiness.updateProjet(projet);
 		projetValidation.setEtatValid(334);
@@ -305,32 +308,33 @@ public class PlanCtr {
 		projetValidationBusiness.createProjetValid(projetValidation);
 	}
 	
-	public void createPVReunion(){
+	public void createPVReunionNotifier(){
 		projet.setDescEtat(335);
 		projet = projetBusiness.updateProjet(projet);
 	}
 	
-	public void updatePlanningGlobalValiderConseil() {
+	public void updatePlanningGlobalValiderConseilNotifier() {
 		projet.setDescEtat(336);
 		projet = projetBusiness.updateProjet(projet);
 		planningGlobal.setValideConseil(true);
 		planningGlobalBusiness.updatePlanningActivite(planningGlobal);
 	}
 	
-	public void createFicheProjet(){
+	public void createFicheProjetNotifier(){
 		projet.setDescEtat(337);
 		projet = projetBusiness.updateProjet(projet);
 	}
 	
-	public void updatePlanningGlobalValiderRST() {
+	public void updatePlanningGlobalValiderRSTNotifier() {
 		projet.setDescEtat(338);
 		projet = projetBusiness.updateProjet(projet);
 		planningGlobal.setValideRST(true);
 		planningGlobalBusiness.updatePlanningActivite(planningGlobal);
 	}
 	
-	public void updateProjet() {
+	public void updateProjetNotifier() {
 		projet.setDescEtat(339);
+		projet.setEtapeProj("Suivi réunion du projet");
 		projet = projetBusiness.updateProjet(projet);
 	}
 

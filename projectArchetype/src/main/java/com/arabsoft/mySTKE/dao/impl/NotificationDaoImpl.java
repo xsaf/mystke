@@ -21,9 +21,15 @@ public class NotificationDaoImpl implements INotificationDao {
 	public void save(Notification notification) {
 		List<Notification> listNotif = genericDao
 				.findByPropriety(Notification.class.getName(), "PROJET_IDPROJ", "" + notification.getProjet().getIdProj());
-		if(listNotif!= null && listNotif.size() > 0)
+		if(listNotif!= null && listNotif.size() > 0){
 			notification.setIdNoti(listNotif.get(0).getIdNoti());
-		genericDao.saveOrUpdate(notification);
+			notification.setAvancement(listNotif.get(0).getAvancement() + 1);
+			genericDao.update(notification);
+		}
+		else{
+			notification.setAvancement(1);
+			genericDao.save(notification);
+		}
 	}
 
 	@Override

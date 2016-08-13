@@ -294,7 +294,7 @@
 											<div align="center">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{reunionCtr.createReunionChantier()}"
+													action="#{reunionCtr.createReunionChantierNotifier()}"
 													oncomplete="PF('gedDialog').show();" />
 											</div>
 										</p:dialog>
@@ -421,7 +421,7 @@
 										<td><h:form>
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="Travaux Terminés" title="Valider"
-													action="#{reunionCtr.updateProjetValid()}" 
+													action="#{reunionCtr.updateProjetValidNotifier()}" 
 													onclick="createFolder('Cloture du projet');" ajax="false" />
 											</h:form></td>
 									</table>

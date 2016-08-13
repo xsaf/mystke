@@ -1,5 +1,7 @@
 package com.arabsoft.mySTKE.aspect;
 
+import java.util.Date;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -7,6 +9,7 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.arabsoft.mySTKE.business.NotificationBusiness;
 import com.arabsoft.mySTKE.entity.Notification;
@@ -33,7 +36,7 @@ public class NotificationAspect {
 	public void notifier(JoinPoint jp){
 		Object[] ob = jp.getArgs();
 		projet = (Projet) ob[0];
-		utilisateur = (Utilisateur) ob[1];
+		utilisateur = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 	
 	@Pointcut("execution(* com.arabsoft.mySTKE.controller.*.*Notifier(..))")
@@ -41,6 +44,7 @@ public class NotificationAspect {
 
 	@AfterReturning("pc1()")
 	public void notifier(){
+		notification.setDateNoti(new Date());
 		notification.setProjet(projet);
 		notification.setUtilisateur(utilisateur);
 		notificationBusiness.createNotification(notification);

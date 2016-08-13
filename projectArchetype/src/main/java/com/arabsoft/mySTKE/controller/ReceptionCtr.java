@@ -81,13 +81,16 @@ public class ReceptionCtr {
 		}
 
 	}
+	
+	public void notification(Projet projet) {
+	}
 
 	public void createFolder() {
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
 
-	public void createVisite() {
+	public void createVisiteNotifier() {
 		projet.setDescEtat(511);
 		projet = projetBusiness.updateProjet(projet);
 	}
@@ -124,47 +127,47 @@ public class ReceptionCtr {
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
 
-	public void createReceptionProvisoire() {
+	public void createReceptionProvisoireNotifier() {
 		projet.setDescEtat(512);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createReceptionFinale() {
+	public void createReceptionFinaleNotifier() {
 		projet.setDescEtat(513);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createPlanRecollement() {
+	public void createPlanRecollementNotifier() {
 		projet.setDescEtat(514);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void validerCorrespondanceTravauxPlans() {
+	public void validerCorrespondanceTravauxPlansNotifier() {
 		projet.setDescEtat(515);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createDemandeOccupation() {
+	public void createDemandeOccupationNotifier() {
 		projet.setDescEtat(516);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createPermisOccupation() {
+	public void createPermisOccupationNotifier() {
 		projet.setDescEtat(517);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createDemandeImmatriculation() {
+	public void createDemandeImmatriculationNotifier() {
 		projet.setDescEtat(518);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createPermisImmatriculation() {
+	public void createPermisImmatriculationNotifier() {
 		projet.setDescEtat(519);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createDefautClient() {
+	public void createDefautClientNotifier() {
 		switch (immAppBur) {
 		case "Immeuble":
 			Immeuble immeuble = new Immeuble();
@@ -188,12 +191,12 @@ public class ReceptionCtr {
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void updateDefautClientValidation() {
+	public void updateDefautClientValidationNotifier() {
 		selectedDefaut.setValidationDefaut("validé");
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
 
-	public void validerDefauts() {
+	public void validerDefautsNotifier() {
 		projet.setDescEtat(521);
 		projet = projetBusiness.updateProjet(projet);
 	}
@@ -208,12 +211,12 @@ public class ReceptionCtr {
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
 
-	public void validerLeveeReserves() {
+	public void validerLeveeReservesNotifier() {
 		projet.setDescEtat(522);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createReceptionDefinitive() {
+	public void createReceptionDefinitiveNotifier() {
 		projet.setDescEtat(523);
 		projet = projetBusiness.updateProjet(projet);
 	}
@@ -222,7 +225,7 @@ public class ReceptionCtr {
 		clientBusiness.updateClient(client);
 	}
 
-	public void createDefautClientFinale() {
+	public void createDefautClientFinaleNotifier() {
 		switch (immAppBur) {
 		case "Immeuble":
 			Immeuble immeuble = new Immeuble();
@@ -251,7 +254,7 @@ public class ReceptionCtr {
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
 
-	public void validerDefautsFinale() {
+	public void validerDefautsFinaleNotifier() {
 		projet.setDescEtat(525);
 		projet = projetBusiness.updateProjet(projet);
 	}
@@ -266,8 +269,9 @@ public class ReceptionCtr {
 		defautBusiness.updateDefaut(selectedDefaut);
 	}
 
-	public void validerLeveeReservesFinale() {
+	public void validerLeveeReservesFinaleNotifier() {
 		projet.setDescEtat(526);
+		projet.setEtapeProj("Analyse du cloture projet");
 		projet = projetBusiness.updateProjet(projet);
 	}
 

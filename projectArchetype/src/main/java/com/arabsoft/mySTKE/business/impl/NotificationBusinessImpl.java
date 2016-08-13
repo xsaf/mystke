@@ -26,7 +26,6 @@ public class NotificationBusinessImpl implements NotificationBusiness {
 
 	@Override
 	public void createNotification(Notification notification) {
-		notification.setAvancement(notification.getAvancement() + 1);
 		notificationDao.save(notification);
 	}
 

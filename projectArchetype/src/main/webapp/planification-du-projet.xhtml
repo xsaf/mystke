@@ -236,7 +236,7 @@
 											<td><div style="margin-left: 0.2cm;">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="ok" title="Valider"
-														action="#{planCtr.updateEquipe()}" ajax="false" />
+														action="#{planCtr.updateEquipeNotifier()}" ajax="false" />
 												</div></td>
 										</table>
 									</h:form>
@@ -271,7 +271,7 @@
 												<h:form>
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="Ajouter" title="Valider"
-														action="#{planCtr.createCahierCharge()}"
+														action="#{planCtr.createCahierChargeNotifier()}"
 														oncomplete="PF('gedDialog').show();" />
 												</h:form>
 											</div></td>
@@ -323,7 +323,7 @@
 											<div align="center" width="50px">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{planCtr.createProgramme()}"
+													action="#{planCtr.createProgrammeNotifier()}"
 													oncomplete="PF('gedDialog').show();" />
 											</div>
 										</h:form>
@@ -387,7 +387,7 @@
 											<div align="center" width="50px">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{planCtr.updateProgramme()}" ajax="false" />
+													action="#{planCtr.updateProgrammeNotifier()}" ajax="false" />
 											</div>
 										</h:form>
 									</sec:authorize>
@@ -413,7 +413,7 @@
 											<h:form>
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="Valider le programme" title="Valider"
-													action="#{planCtr.updateProgrammeValider()}" ajax="false" />
+													action="#{planCtr.updateProgrammeValiderNotifier()}" ajax="false" />
 											</h:form>
 										</div>
 									</sec:authorize>
@@ -443,7 +443,7 @@
 													value="#{planCtr.avantProjetSommaire.budgetEstime}" />
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													style="margin-left: 0.5cm" value="ok" title="Valider"
-													action="#{planCtr.createAvantProjetSommaire()}"
+													action="#{planCtr.createAvantProjetSommaireNotifier()}"
 													oncomplete="PF('gedDialog').show();" />
 											</h:panelGrid>
 										</h:form>
@@ -745,7 +745,7 @@
 												style="margin-right: 0.7cm;" />
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider"
-												action="#{planCtr.createAvantProjetDetaille()}"
+												action="#{planCtr.createAvantProjetDetailleNotifier()}"
 												oncomplete="PF('gedDialog').show();" />
 										</h:panelGrid>
 									</h:form>
@@ -784,7 +784,7 @@
 										<div align="center" width="50px">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider"
-												action="#{planCtr.updateAvantProjetDetaille()}" ajax="false" />
+												action="#{planCtr.updateAvantProjetDetailleNotifier()}" ajax="false" />
 										</div>
 									</h:form>
 								</sec:authorize>
@@ -807,7 +807,7 @@
 										<h:form>
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="Valider l'avant-projet détaillé" title="Valider"
-												action="#{planCtr.updateAvantProjetDetaille()}" ajax="false" />
+												action="#{planCtr.updateAvantProjetDetailleNotifier()}" ajax="false" />
 										</h:form>
 									</div>
 								</sec:authorize>
@@ -838,7 +838,7 @@
 														</td>
 														<td><p:commandButton
 																styleClass="btn btn-info btn-rounded" value="Ajouter"
-																title="Valider" action="#{planCtr.createDemandeBatir()}"
+																title="Valider" action="#{planCtr.createDemandeBatirNotifier()}"
 																oncomplete="PF('gedDialog').show();" /></td>
 													</table>
 												</h:form>
@@ -874,7 +874,7 @@
 													<td><p:commandButton
 															styleClass="btn btn-info btn-rounded" value="Ajouter"
 															title="Valider"
-															action="#{planCtr.createAutorisationBatir()}"
+															action="#{planCtr.createAutorisationBatirNotifier()}"
 															oncomplete="PF('gedDialog').show();" /></td>
 												</table>
 											</h:form>
@@ -908,7 +908,7 @@
 												style="margin-right: 0.7cm;" />
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider"
-												action="#{planCtr.updateBudgetFinal()}" ajax="false" />
+												action="#{planCtr.updateBudgetFinalNotifier()}" ajax="false" />
 										</h:panelGrid>
 									</h:form>
 								</sec:authorize>
@@ -966,7 +966,7 @@
 											<div align="center">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{planCtr.createPlanningGlobal()}" ajax="false" />
+													action="#{planCtr.createPlanningGlobalNotifier()}" ajax="false" />
 											</div>
 										</h:form>
 									</sec:authorize>
@@ -1079,7 +1079,7 @@
 												<div align="center">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="ok" title="Valider"
-														action="#{planCtr.updatePlanningActivite()}" ajax="false" />
+														action="#{planCtr.updatePlanningActiviteNotifier()}" ajax="false" />
 												</div>
 											</p:dialog>
 
@@ -1110,7 +1110,7 @@
 												<div align="center">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="ok" title="Valider"
-														action="#{planCtr.createPlanningActivite()}" ajax="false" />
+														action="#{planCtr.createPlanningActiviteNotifier()}" ajax="false" />
 												</div>
 											</p:dialog>
 
@@ -1144,7 +1144,7 @@
 														style="margin-left: 1cm; margin-top: 0.2cm; margin-bottom: 0.3cm">
 														<p:commandButton styleClass="btn btn-info btn-rounded"
 															value="ok" title="Valider"
-															action="#{planCtr.createProjetValid()}" ajax="false" />
+															action="#{planCtr.createProjetValidNotifier()}" ajax="false" />
 													</div>
 												</td>
 											</table>
@@ -1175,7 +1175,7 @@
 												</td>
 												<td><p:commandButton
 														styleClass="btn btn-info btn-rounded" value="Ajouter"
-														title="Valider" action="#{planCtr.createPVReunion()}"
+														title="Valider" action="#{planCtr.createPVReunionNotifier()}"
 														oncomplete="PF('gedDialog').show();" /></td>
 											</table>
 										</h:form>
@@ -1198,7 +1198,7 @@
 											<h:form>
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="Valider le planning" title="Valider"
-													action="#{planCtr.updatePlanningGlobalValiderConseil()}"
+													action="#{planCtr.updatePlanningGlobalValiderConseilNotifier()}"
 													ajax="false" />
 											</h:form>
 										</div>
@@ -1217,7 +1217,7 @@
 												</ul></td>
 											<td><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Ajouter"
-													title="Valider" action="#{planCtr.createFicheProjet()}"
+													title="Valider" action="#{planCtr.createFicheProjetNotifier()}"
 													oncomplete="PF('gedDialog').show();" /></td>
 										</table>
 									</h:form>
@@ -1251,7 +1251,7 @@
 											<td><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Valider"
 													title="Valider"
-													action="#{planCtr.updatePlanningGlobalValiderRST()}"
+													action="#{planCtr.updatePlanningGlobalValiderRSTNotifier()}"
 													ajax="false" /></td>
 										</table>
 									</h:form>
@@ -1283,7 +1283,7 @@
 											</td>
 											<td><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="ok"
-													title="Valider" action="#{planCtr.updateProjet()}"
+													title="Valider" action="#{planCtr.updateProjetNotifier()}"
 													onclick="createFolder('Suivi des réunions');" ajax="false" /></td>
 										</table>
 									</h:form>

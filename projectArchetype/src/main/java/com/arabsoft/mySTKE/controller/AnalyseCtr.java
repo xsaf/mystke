@@ -18,6 +18,7 @@ import com.arabsoft.mySTKE.entity.AxeAmelioration;
 import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
+import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 import com.arabsoft.utils.FacesUtil;
 
 @ManagedBean(name = "analyseCtr")
@@ -80,30 +81,33 @@ public class AnalyseCtr {
 		}
 
 	}
+	
+	public void notification(Projet projet) {
+	}
 
 	public void createFolder() {
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
 
-	public void createClotureProjet() {
+	public void createClotureProjetNotifier() {
 		projet.setDescEtat(611);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createRapportClotureProjet() {
+	public void createRapportClotureProjetNotifier() {
 		projet.setDescEtat(612);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createAxeAmelioration() {
+	public void createAxeAmeliorationNotifier() {
 		axeAmelioration.setProjet(projet);
 		axeAmeliorationBusiness.createAxeAmelioration(axeAmelioration);
 		projet.setDescEtat(613);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createProjetValid() {
+	public void createProjetValidNotifier() {
 		projet.setDescEtat(614);
 		projet = projetBusiness.updateProjet(projet);
 		projetValidation.setEtatValid(614);
@@ -111,12 +115,12 @@ public class AnalyseCtr {
 		projetValidationBusiness.createProjetValid(projetValidation);
 	}
 
-	public void createPVReunion() {
+	public void createPVReunionNotifier() {
 		projet.setDescEtat(615);
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createValiderRapport() {
+	public void createValiderRapportNotifier() {
 		if (projet.getDescEtat() == 615)
 			projet.setDescEtat(616);
 		else
@@ -124,7 +128,7 @@ public class AnalyseCtr {
 		projet = projetBusiness.updateProjet(projet);
 	}
 
-	public void createRecommandation() {
+	public void createRecommandationNotifier() {
 		projet.setDescEtat(618);
 		projet = projetBusiness.updateProjet(projet);
 		avis.setProjet(projet);
@@ -141,8 +145,9 @@ public class AnalyseCtr {
 		avisBusiness.updateAvis(selectedAvis);
 	}
 
-	public void cloturerProjet() {
+	public void cloturerProjetNotifier() {
 		projet.setDescEtat(619);
+		projet.setEtapeProj("Cloturé");
 		projet = projetBusiness.updateProjet(projet);
 	}
 

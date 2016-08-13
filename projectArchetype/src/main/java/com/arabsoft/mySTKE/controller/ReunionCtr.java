@@ -93,12 +93,15 @@ public class ReunionCtr {
 
 	}
 	
+	public void notification(Projet projet, Utilisateur utilisateur) {
+	}
+	
 	public void createFolder(){
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
 
-	public void createReunionChantier() {
+	public void createReunionChantierNotifier() {
 		projet.setDescEtat(411);
 		projet = projetBusiness.updateProjet(projet);
 		planningActivite.setIdPlanAct(activité);
@@ -112,8 +115,9 @@ public class ReunionCtr {
 		planningActiviteBusiness.updatePlanningActivite(selectedActivite);
 	}
 	
-	public void updateProjetValid(){
+	public void updateProjetValidNotifier(){
 		projet.setDescEtat(412);
+		projet.setEtapeProj("Réception	finale");
 		projet = projetBusiness.updateProjet(projet);
 		projetValidation.setEtatValid(412);
 		projetValidation.setProjet(projet);

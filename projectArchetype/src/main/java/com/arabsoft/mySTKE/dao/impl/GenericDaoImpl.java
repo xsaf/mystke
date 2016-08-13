@@ -107,6 +107,7 @@ public class GenericDaoImpl implements IDao {
 	@Override
 	public Object update(Object entity) {
 
+		sessionFactory.getCurrentSession().clear();
 		sessionFactory.getCurrentSession().update(entity);
 		if (log.isDebugEnabled()) {
 			log.debug("Entity updated");
@@ -118,7 +119,7 @@ public class GenericDaoImpl implements IDao {
 	public Object saveOrUpdate(Object entity) throws DataAccessException {
 
 		sessionFactory.getCurrentSession().saveOrUpdate(entity);
-		// sessionFactory.getCurrentSession().flush();
+		//sessionFactory.getCurrentSession().flush();
 
 		return entity;
 	}
