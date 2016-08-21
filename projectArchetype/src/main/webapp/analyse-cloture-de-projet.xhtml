@@ -121,8 +121,9 @@
 			</div>
 
 			<p:dialog header="GED" widgetVar="gedDialog" modal="true"
-				showEffect="fade" hideEffect="fade" resizable="false">
-				<p:outputPanel id="Detail" style="text-align:center;">
+				resizable="false" styleClass="ui-page-theme-a ui-bar-inherit"
+				style="background: white !important;">
+				<p:outputPanel id="Detail" style="text-align:center; height: 600px">
 					<p:panelGrid columns="2">
 
 						<div style="width: 1100px;">
@@ -182,13 +183,13 @@
 						</div>
 
 					</p:panelGrid>
+					<div align="center">
+						<h:form>
+							<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
+								title="Valider" ajax="false" />
+						</h:form>
+					</div>
 				</p:outputPanel>
-				<div align="center">
-					<h:form>
-						<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
-							title="Valider" ajax="false" />
-					</h:form>
-				</div>
 
 			</p:dialog>
 
@@ -222,7 +223,8 @@
 											<td><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Valider"
 													title="Valider"
-													action="#{analyseCtr.createClotureProjetNotifier()}" ajax="false" /></td>
+													action="#{analyseCtr.createClotureProjetNotifier()}"
+													ajax="false" /></td>
 										</table>
 									</h:form>
 								</sec:authorize>
@@ -313,8 +315,9 @@
 									</div>
 
 									<p:dialog header="Axe d'amélioration" widgetVar="axeDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="Axe" style="text-align:center;">
 											<p:panelGrid columns="2">
 												<h:outputText value="Axe d'amélioration :" />
@@ -330,7 +333,8 @@
 										<div align="center">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider"
-												action="#{analyseCtr.createAxeAmeliorationNotifier()}" ajax="false" />
+												action="#{analyseCtr.createAxeAmeliorationNotifier()}"
+												ajax="false" />
 										</div>
 									</p:dialog>
 
@@ -357,7 +361,8 @@
 													<div align="center">
 														<p:commandButton styleClass="btn btn-info btn-rounded"
 															value="ok" title="Valider"
-															action="#{analyseCtr.createProjetValidNotifier()}" ajax="false" />
+															action="#{analyseCtr.createProjetValidNotifier()}"
+															ajax="false" />
 													</div>
 												</td>
 											</table>
@@ -391,7 +396,8 @@
 												</h4></td>
 											<td width="50px"><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Ajouter"
-													title="Valider" action="#{analyseCtr.createPVReunionNotifier()}"
+													title="Valider"
+													action="#{analyseCtr.createPVReunionNotifier()}"
 													oncomplete="PF('gedDialog').show();" /></td>
 										</table>
 									</h:form>
@@ -422,8 +428,8 @@
 											<td width="50px"><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Valider"
 													title="Valider"
-													action="#{analyseCtr.createValiderRapportNotifier()}" ajax="false" />
-											</td>
+													action="#{analyseCtr.createValiderRapportNotifier()}"
+													ajax="false" /></td>
 										</table>
 									</h:form>
 								</sec:authorize>
@@ -453,8 +459,8 @@
 											<td width="50px"><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Valider"
 													title="Valider"
-													action="#{analyseCtr.createValiderRapportNotifier()}" ajax="false" />
-											</td>
+													action="#{analyseCtr.createValiderRapportNotifier()}"
+													ajax="false" /></td>
 										</table>
 									</h:form>
 								</sec:authorize>
@@ -528,8 +534,9 @@
 									</div>
 
 									<p:dialog header="Recommandation" widgetVar="avisDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="Avis" style="text-align:center;">
 											<p:panelGrid columns="2">
 												<h:outputText value="Description Recommandation :" />
@@ -541,13 +548,15 @@
 										<div align="center">
 											<p:commandButton styleClass="btn btn-info btn-rounded"
 												value="ok" title="Valider"
-												action="#{analyseCtr.createRecommandationNotifier()}" ajax="false" />
+												action="#{analyseCtr.createRecommandationNotifier()}"
+												ajax="false" />
 										</div>
 									</p:dialog>
 
 									<p:dialog header="Validation" widgetVar="validerDGDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="ValiderDG" style="text-align:center;">
 											<p:panelGrid columns="2"
 												rendered="#{not empty analyseCtr.selectedAvis}">
@@ -566,8 +575,9 @@
 									</p:dialog>
 
 									<p:dialog header="Validation" widgetVar="validerRSTDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="ValiderRST" style="text-align:center;">
 											<p:panelGrid columns="2"
 												rendered="#{not empty analyseCtr.selectedAvis}">
@@ -601,7 +611,8 @@
 											</td>
 											<td><p:commandButton
 													styleClass="btn btn-info btn-rounded" value="Valider"
-													title="Valider" action="#{analyseCtr.cloturerProjetNotifier()}"
+													title="Valider"
+													action="#{analyseCtr.cloturerProjetNotifier()}"
 													ajax="false" /></td>
 										</table>
 									</h:form>

@@ -145,9 +145,12 @@ public class GenericDaoImpl implements IDao {
 	}
 
 	@Override
-	public Object remove(Object entity) throws DataAccessException {
+	public Object remove(Object entity, String x, String value) throws DataAccessException {
 		Session session = sessionFactory.getCurrentSession();
-		session.delete(entity);
+		//session.delete(entity);
+		
+		Query q = session.createQuery("delete "+entity.getClass().getName()+" where "+x+"='"+value+"'");
+		q.executeUpdate();
 		return entity;
 	}
 

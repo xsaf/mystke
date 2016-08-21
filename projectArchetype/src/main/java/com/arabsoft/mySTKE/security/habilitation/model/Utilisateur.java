@@ -1,13 +1,15 @@
 package com.arabsoft.mySTKE.security.habilitation.model;
 
+import java.util.ArrayList;
+
 // Generated 25 janv. 2013 15:44:07 by Hibernate Tools 3.4.0.CR1
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -47,7 +49,8 @@ public class Utilisateur implements java.io.Serializable, UserDetails {
 	@Column(name = "COD_STAT_USER", nullable = false, precision = 1, scale = 0)
 	private boolean codStatUser;
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "utilisateur")
-	private Set<UserRole> userRoles = new HashSet<UserRole>(0);
+	private Set<UserRole> userRoles;
+	// = new HashSet<UserRole>(0)
 	private String password;
 	private String nomUti;
 	private String prenomUti;
@@ -108,12 +111,18 @@ public class Utilisateur implements java.io.Serializable, UserDetails {
 		this.codStatUser = codStatUser;
 	}
 
-	public Set<UserRole> getUserRoles() {
-		return this.userRoles;
-	}
+//	public Set<UserRole> getUserRoles() {
+//		return this.userRoles;
+//	}
 
 	public void setUserRoles(Set<UserRole> userRoles) {
 		this.userRoles = userRoles;
+	}
+	
+	public List<UserRole> getUserRoles() {
+		List<UserRole> u = new ArrayList<UserRole>();
+		u.addAll(this.userRoles);
+		return u;
 	}
 
 	@Transient

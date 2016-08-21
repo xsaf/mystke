@@ -1,7 +1,9 @@
 package com.arabsoft.mySTKE.dao;
 
 import java.util.List;
+import java.util.Set;
 
+import com.arabsoft.mySTKE.security.habilitation.model.UserRole;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 public interface IUserDao {
@@ -10,6 +12,16 @@ public interface IUserDao {
 
 	Utilisateur findById(String numMatrUser);
 
-	void save(Utilisateur utilisateur);
+	Utilisateur save(Utilisateur utilisateur);
+
+	List<Utilisateur> findAll();
+
+	void save(UserRole userRole);
+
+	void remove(UserRole userRole);
+
+	void remove(Utilisateur utilisateur);
+
+	Utilisateur update(Utilisateur utilisateur);
 
 }

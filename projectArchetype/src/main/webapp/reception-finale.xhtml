@@ -119,8 +119,9 @@
 			</div>
 
 			<p:dialog header="GED" widgetVar="gedDialog" modal="true"
-				showEffect="fade" hideEffect="fade" resizable="false">
-				<p:outputPanel id="Detail" style="text-align:center;">
+				resizable="false" styleClass="ui-page-theme-a ui-bar-inherit"
+				style="background: white !important;">
+				<p:outputPanel id="Detail" style="text-align:center; height: 600px">
 					<p:panelGrid columns="2">
 
 						<div style="width: 1100px;">
@@ -180,13 +181,13 @@
 						</div>
 
 					</p:panelGrid>
+					<div align="center">
+						<h:form>
+							<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
+								title="Valider" ajax="false" />
+						</h:form>
+					</div>
 				</p:outputPanel>
-				<div align="center">
-					<h:form>
-						<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
-							title="Valider" ajax="false" />
-					</h:form>
-				</div>
 
 			</p:dialog>
 
@@ -308,8 +309,9 @@
 									</div>
 
 									<p:dialog header="Travaux" widgetVar="travauxDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="Detail111" style="text-align:center;">
 											<p:panelGrid columns="2"
 												rendered="#{not empty receptionCtr.selectedDefaut}">
@@ -327,8 +329,9 @@
 									</p:dialog>
 
 									<p:dialog header="Réserve" widgetVar="reserveDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="Detail2" style="text-align:center;">
 											<p:panelGrid columns="2"
 												rendered="#{not empty receptionCtr.selectedDefaut}">
@@ -348,8 +351,9 @@
 									</p:dialog>
 
 									<p:dialog header="Défauts" widgetVar="defautsDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="Detail" style="text-align:center;">
 											<p:panelGrid columns="2">
 												<h:outputText value="Défaut à :" />
@@ -422,11 +426,12 @@
 												</h3>
 											</ul>
 										</td>
-										<td><h:form><p:commandButton
-												styleClass="btn btn-info btn-rounded" value="ok"
-												title="Valider"
-												action="#{receptionCtr.createReceptionFinaleNotifier()}"
-												ajax="false" /></h:form></td>
+										<td><h:form>
+												<p:commandButton styleClass="btn btn-info btn-rounded"
+													value="ok" title="Valider"
+													action="#{receptionCtr.createReceptionFinaleNotifier()}"
+													ajax="false" />
+											</h:form></td>
 									</table>
 								</sec:authorize>
 							</p:outputPanel>
@@ -741,8 +746,9 @@
 										</div>
 
 										<p:dialog header="Travaux" widgetVar="travauxDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
+											modal="true" resizable="false"
+											styleClass="ui-page-theme-a ui-bar-inherit"
+											style="background: white !important;">
 											<p:outputPanel id="Detail111" style="text-align:center;">
 												<p:panelGrid columns="2"
 													rendered="#{not empty receptionCtr.selectedDefaut}">
@@ -761,7 +767,8 @@
 
 										<p:dialog header="Validation Défaut"
 											widgetVar="validationDefautDialog" modal="true"
-											showEffect="fade" hideEffect="fade" resizable="false">
+											resizable="false" styleClass="ui-page-theme-a ui-bar-inherit"
+											style="background: white !important;">
 											<p:outputPanel id="Detail222" style="text-align:center;">
 												<p:panelGrid
 													rendered="#{not empty receptionCtr.selectedDefaut}">
@@ -777,14 +784,16 @@
 												<div align="center">
 													<p:commandButton styleClass="btn btn-info btn-rounded"
 														value="Envoyer les réserves" title="ok"
-														action="#{receptionCtr.validerDefautsNotifier()}" ajax="false" />
+														action="#{receptionCtr.validerDefautsNotifier()}"
+														ajax="false" />
 												</div>
 											</p:outputPanel>
 										</p:dialog>
 
 										<p:dialog header="Réserve" widgetVar="reserveDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
+											modal="true" resizable="false"
+											styleClass="ui-page-theme-a ui-bar-inherit"
+											style="background: white !important;">
 											<p:outputPanel id="Detail5" style="text-align:center;">
 												<p:panelGrid columns="2"
 													rendered="#{not empty receptionCtr.selectedDefaut}">
@@ -804,8 +813,9 @@
 										</p:dialog>
 
 										<p:dialog header="Défauts" widgetVar="defautsDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
+											modal="true" resizable="false"
+											styleClass="ui-page-theme-a ui-bar-inherit"
+											style="background: white !important;">
 											<p:outputPanel id="Detail" style="text-align:center;">
 												<p:panelGrid columns="2">
 													<h:outputText value="Défaut à :" />
@@ -829,7 +839,8 @@
 											<div align="center">
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="ok" title="Valider"
-													action="#{receptionCtr.createDefautClientNotifier()}" ajax="false" />
+													action="#{receptionCtr.createDefautClientNotifier()}"
+													ajax="false" />
 											</div>
 										</p:dialog>
 
@@ -933,8 +944,9 @@
 										</div>
 
 										<p:dialog header="Syndicat" widgetVar="syndicatDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
+											modal="true" resizable="false"
+											styleClass="ui-page-theme-a ui-bar-inherit"
+											style="background: white !important;">
 											<p:outputPanel id="syndicat" style="text-align:center;">
 												<p:panelGrid columns="2">
 													<h:outputText value="Id Client :" />
@@ -1038,8 +1050,9 @@
 									</div>
 
 									<p:dialog header="Travaux" widgetVar="travauxDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="Detail8" style="text-align:center;">
 											<p:panelGrid columns="2"
 												rendered="#{not empty receptionCtr.selectedDefaut}">
@@ -1059,7 +1072,8 @@
 
 									<p:dialog header="Validation Défaut"
 										widgetVar="validationDefautDialog" modal="true"
-										showEffect="fade" hideEffect="fade" resizable="false">
+										resizable="false" styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="Detail7" style="text-align:center;">
 											<p:panelGrid
 												rendered="#{not empty receptionCtr.selectedDefaut}">
@@ -1082,8 +1096,9 @@
 									</p:dialog>
 
 									<p:dialog header="Réserve" widgetVar="reserveDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="Detail9" style="text-align:center;">
 											<p:panelGrid columns="2"
 												rendered="#{not empty receptionCtr.selectedDefaut}">
@@ -1103,8 +1118,9 @@
 									</p:dialog>
 
 									<p:dialog header="Défauts" widgetVar="defautsDialog"
-										modal="true" showEffect="fade" hideEffect="fade"
-										resizable="false">
+										modal="true" resizable="false"
+										styleClass="ui-page-theme-a ui-bar-inherit"
+										style="background: white !important;">
 										<p:outputPanel id="Detail6" style="text-align:center;">
 											<p:panelGrid columns="2">
 												<h:outputText value="Défaut à :" />

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.hibernate.criterion.Criterion;
+import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface IDao {
@@ -26,12 +27,15 @@ public interface IDao {
 
 	public Object save(Object paramObject);
 
-	@Transactional(readOnly = true)
-	public Object remove(Object paramObject);
+//	@Transactional(readOnly = true)
+//	public Object remove(Object paramObject);
 
 	public Object update(Object entity);
 
 	public Object saveOrUpdate(Object entity);
+	
+	@Transactional(readOnly = true)
+	Object remove(Object entity, String x, String value) throws DataAccessException;
 	
 	
 	

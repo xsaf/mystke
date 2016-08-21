@@ -1,5 +1,6 @@
 package com.arabsoft.mySTKE.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,7 +10,9 @@ import javax.faces.bean.ViewScoped;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.arabsoft.mySTKE.business.EquipeBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
+import com.arabsoft.mySTKE.entity.Equipe;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 import com.arabsoft.utils.FacesUtil;
@@ -22,51 +25,58 @@ public class AccueilCtr {
 	private List<Projet> projets;
 	private Projet selectedProjet = new Projet();
 	private Utilisateur user = new Utilisateur();
-	
+	private Equipe equipe = new Equipe();
+
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
+	
+	@ManagedProperty(value = "#{equipeBusiness}")
+	private EquipeBusiness equipeBusiness;
 
 	@ManagedProperty(value = "#{gedCtr}")
 	private GedCtr gedCtr;
 
 	@PostConstruct
 	public void initialisation() {
-		// test
-		FacesUtil.setSessionMapValue("idprojet", 18610);
 
 		gedCtr.setFolder("0B_KzijCYeJPvalRhMFVpYjl2bTA");
-		
-		user = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		projetBusiness.findAllProjetByUser(user.getNumMatrUser());
 
+		user = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		projets = projetBusiness.findAllProjetByUser(user.getNumMatrUser());
 
 	}
+	
+	public void notification(Projet projet) {
+	}
 
-	public void createProjet(String nomProj) {
+	public void createProjetNotifier(String nomProj) {
 		projet.setNomProj(nomProj);
 		projet.setDescEtat(111);
+		projet.setDateProj(new Date());
 		projet.setEtapeProj("Détails");
 		projet = projetBusiness.createProjet(projet);
+		
+		equipe.setProjet(projet);
+		equipe.setUtilisateur(user);
+		equipeBusiness.createEquipe(equipe);
+		
+		notification(projet);
 	}
 
 	public void createFolder() {
 		gedCtr.setProjet(projet);
 		gedCtr.createFolder();
 	}
-
-	public String toProjetImmobiliere() {
-
-		// try {
-		// Thread.sleep(3000);
-		// } catch (InterruptedException e) {
-		// e.printStackTrace();
-		// }
-
-		FacesUtil.setSessionMapValue("AccueilCtr.idprojet", selectedProjet.getIdProj());
-
-		return "details";
-	}
 	
+	public String toIndex() {
+		return "index?faces-redirect=true";
+	}
+
+	public String selectProjet() {
+		FacesUtil.setSessionMapValue("idprojet", selectedProjet.getIdProj());
+		return "details?faces-redirect=true";
+	}
+
 	public Projet getProjet() {
 		return projet;
 	}
@@ -115,6 +125,13 @@ public class AccueilCtr {
 		this.user = user;
 	}
 
+	public EquipeBusiness getEquipeBusiness() {
+		return equipeBusiness;
+	}
 
+	public void setEquipeBusiness(EquipeBusiness equipeBusiness) {
+		this.equipeBusiness = equipeBusiness;
+	}
 
+	
 }

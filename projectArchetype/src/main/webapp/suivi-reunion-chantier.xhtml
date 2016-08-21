@@ -118,8 +118,9 @@
 			</div>
 
 			<p:dialog header="GED" widgetVar="gedDialog" modal="true"
-				showEffect="fade" hideEffect="fade" resizable="false">
-				<p:outputPanel id="Detail" style="text-align:center;">
+				resizable="false" styleClass="ui-page-theme-a ui-bar-inherit"
+				style="background: white !important;">
+				<p:outputPanel id="Detail" style="text-align:center; height: 600px">
 					<p:panelGrid columns="2">
 
 						<div style="width: 1100px;">
@@ -179,13 +180,13 @@
 						</div>
 
 					</p:panelGrid>
+					<div align="center">
+						<h:form>
+							<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
+								title="Valider" ajax="false" />
+						</h:form>
+					</div>
 				</p:outputPanel>
-				<div align="center">
-					<h:form>
-						<p:commandButton styleClass="btn btn-info btn-rounded" value="ok"
-							title="Valider" ajax="false" />
-					</h:form>
-				</div>
 
 			</p:dialog>
 
@@ -254,8 +255,9 @@
 											</p:dataTable>
 										</div>
 										<p:dialog header="Travaux" widgetVar="travauxDialog"
-											modal="true" showEffect="fade" hideEffect="fade"
-											resizable="false">
+											modal="true" resizable="false"
+											styleClass="ui-page-theme-a ui-bar-inherit"
+											style="background: white !important;">
 											<p:outputPanel id="Detail" style="text-align:center;">
 												<p:panelGrid columns="2">
 													<h:outputText value="Id Activité :" />
@@ -357,7 +359,8 @@
 
 										<p:dialog header="Planning d'activité"
 											widgetVar="modification2Dialog" modal="true"
-											showEffect="fade" hideEffect="fade" resizable="false">
+											resizable="false" styleClass="ui-page-theme-a ui-bar-inherit"
+											style="background: white !important;">
 											<p:outputPanel id="Detail2" style="text-align:center;">
 												<p:panelGrid columns="2"
 													rendered="#{not empty reunionCtr.selectedActivite}">
@@ -421,7 +424,7 @@
 										<td><h:form>
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="Travaux Terminés" title="Valider"
-													action="#{reunionCtr.updateProjetValidNotifier()}" 
+													action="#{reunionCtr.updateProjetValidNotifier()}"
 													onclick="createFolder('Cloture du projet');" ajax="false" />
 											</h:form></td>
 									</table>

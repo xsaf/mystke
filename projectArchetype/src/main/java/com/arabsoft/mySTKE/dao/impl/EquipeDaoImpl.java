@@ -34,7 +34,7 @@ public class EquipeDaoImpl implements IEquipeDao {
 	
 	@Override
 	public List<Equipe> findByIdUser(String s) {
-		return genericDao.findByPropriety(Equipe.class.getName(), "UTILISATEUR_NUMMATRUSER", s);
+		return genericDao.findByPropriety(Equipe.class.getName(), "UTILISATEUR_NUMMATRUSER", "'"+s+"'");
 	}
 
 }

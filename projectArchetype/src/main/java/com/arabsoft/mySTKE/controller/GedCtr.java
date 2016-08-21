@@ -43,10 +43,9 @@ public class GedCtr {
 	private String dateFolder;
 	private String levelFolder;
 	private String projetFolder;
-	
+
 	private String folder;
 
-	
 	public void createFolder() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		Map<String, String> map = context.getExternalContext().getRequestParameterMap();
@@ -142,5 +141,4 @@ public class GedCtr {
 		this.projetFolder = projetFolder;
 	}
 
-	
 }

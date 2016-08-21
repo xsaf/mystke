@@ -321,7 +321,7 @@ function buildFiles(){
 
             fText += "<div class='" + DRIVE_FILES[i].fileType + "-box'>";
 			if (DRIVE_FILES[i].fileType != "file") {
-				fText += "<div class='folder-icon' data-level='" + DRIVE_FILES[i].level + "' data-parent='" + DRIVE_FILES[i].parentID + "' data-size='" + DRIVE_FILES[i].fileSize + "' data-id='" + DRIVE_FILES[i].id + "' title='" + textTitle + "' data-name='" + DRIVE_FILES[i].title + "' data-has-permission='" +DRIVE_FILES[i].hasPermission + "'><div class='image-preview'><img src='https://www.pngwebicons.com/upload/small/folders_PNG8760.png'/></div></div>";
+				fText += "<div class='folder-icon' data-level='" + DRIVE_FILES[i].level + "' data-parent='" + DRIVE_FILES[i].parentID + "' data-size='" + DRIVE_FILES[i].fileSize + "' data-id='" + DRIVE_FILES[i].id + "' title='" + textTitle + "' data-name='" + DRIVE_FILES[i].title + "' data-has-permission='" +DRIVE_FILES[i].hasPermission + "'><div class='image-preview'><img src='http://www.graphicsfuel.com/wp-content/uploads/2012/03/folder-icon-512x512.png'/></div></div>";
 			} else {
 				if (DRIVE_FILES[i].thumbnailLink) {
 					fText += "<div class='image-icon'><div class='image-preview'><a href='" + DRIVE_FILES[i].thumbnailLink.replace("s220", "s800") + "' data-lightbox='image-" + i + "'><img src='" + DRIVE_FILES[i].thumbnailLink + "'/></a></div></div>";

@@ -38,19 +38,19 @@ public class TemplateCtr {
 				notifications.get(i).setAvancement(notifications.get(i).getAvancement() * 100 / 2);
 				break;
 			case "Etude de rentabilité":
-				notifications.get(i).setAvancement(notifications.get(i).getAvancement() * 100 / 12);
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 2) * 100 / 12);
 				break;
 			case "Planification du projet":
-				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 12) * 100 / 28);
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 14) * 100 / 28);
 				break;
 			case "Suivi réunion du projet":
-				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 40) * 100 / 2);
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 42) * 100 / 2);
 				break;
 			case "Réception	finale":
-				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 42) * 100 / 16);
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 44) * 100 / 16);
 				break;
 			case "Analyse du cloture projet":
-				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 58) * 100 / 9);
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 60) * 100 / 9);
 				break;
 			default:
 				break;

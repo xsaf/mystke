@@ -27,7 +27,10 @@ public class AbsDocBusinessImpl implements AbsDocBusiness {
 	@Override
 	public Dossier findFolderByNum(String parentFolder) {
 		List<Dossier> l = absDocDao.findDossierByNumeroAbsDoc(parentFolder);
-		return l.get(0);
+		if(l.size()!=0)
+			return l.get(0);
+		else 
+			return null;
 	}
 
 	@Override
