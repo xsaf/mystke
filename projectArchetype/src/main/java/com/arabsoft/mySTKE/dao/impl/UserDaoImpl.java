@@ -58,7 +58,6 @@ public class UserDaoImpl implements IUserDao {
 
 	@Override
 	public Utilisateur update(Utilisateur utilisateur) {
-		System.out.println("lol + "+utilisateur.getNumMatrUser());
 		return (Utilisateur) genericDao.saveOrUpdate(utilisateur);
 	}
 

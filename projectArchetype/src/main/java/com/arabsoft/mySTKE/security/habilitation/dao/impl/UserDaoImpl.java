@@ -2,6 +2,7 @@ package com.arabsoft.mySTKE.security.habilitation.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,13 @@ public class UserDaoImpl implements UserDao, UserDetailsService {
 
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
+	}
+
+	@Override
+	public Utilisateur getUser(String username, String password) {
+			Query q = sessionFactory.getCurrentSession().createQuery("FROM "+ Utilisateur.class.getName() +" WHERE NUMMATRUSER = '"
+					+ username + "' and PASSWORD = '" + password + "' ");
+			return (Utilisateur) q.list().get(0);
 	}
 
 }

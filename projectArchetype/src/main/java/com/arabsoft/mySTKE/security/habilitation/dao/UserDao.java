@@ -25,4 +25,6 @@ public abstract interface UserDao {
 
 	public abstract void removeUser(String paramString);
 
+	public abstract Utilisateur getUser(String username, String password);
+
 }

@@ -45,4 +45,9 @@ public class LoginBusinessImpl implements LoginBusiness {
 		return jdbcTemplate;
 	}
 
+	@Override
+	public Utilisateur findUser(String username, String password) {
+		return userDao.getUser(username,password);
+	}
+
 }

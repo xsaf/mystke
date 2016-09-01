@@ -7,4 +7,7 @@ import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 public interface LoginBusiness {
 	@Transactional
 	public Utilisateur findUser(String matriculeUser);
+
+	@Transactional
+	public Utilisateur findUser(String username, String password);
 }
