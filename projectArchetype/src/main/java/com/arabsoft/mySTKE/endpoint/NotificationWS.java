@@ -12,6 +12,7 @@ public class NotificationWS {
 	private String libelleNoti;
 	private Date dateNoti;
 	private int avancement;
+	private String etapeProj;
 
 	public int getIdNoti() {
 		return idNoti;
@@ -49,6 +50,16 @@ public class NotificationWS {
 		this.avancement = avancement;
 	}
 
+	public String getEtapeProj() {
+		return etapeProj;
+	}
+
+    @XmlElement(name = "etapeProj")
+	public void setEtapeProj(String etapeProj) {
+		this.etapeProj = etapeProj;
+	}
+
+    
 	
 	
 }

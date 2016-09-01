@@ -128,6 +128,7 @@ public class UtilisateurWS {
 		return mailUti;
 	}
 
+    @XmlElement(name = "mailUti")
 	public void setMailUti(String mailUti) {
 		this.mailUti = mailUti;
 	}

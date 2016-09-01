@@ -25,7 +25,7 @@ import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 @WebService(targetNamespace = "http://loginws/")
 @SOAPBinding(style = Style.RPC)
-public class LoginWS extends SpringBeanAutowiringSupport {
+public class UtilisateurNotificationWS extends SpringBeanAutowiringSupport {
 
 	private Utilisateur utilisateur = new Utilisateur();
 	private UtilisateurWS utilisateurWS = new UtilisateurWS();
@@ -46,7 +46,7 @@ public class LoginWS extends SpringBeanAutowiringSupport {
 	@Qualifier(value = "notificationBusiness")
 	private NotificationBusiness notificationBusiness;
 
-	public LoginWS() {
+	public UtilisateurNotificationWS() {
 		super();
 	}
 
@@ -59,7 +59,8 @@ public class LoginWS extends SpringBeanAutowiringSupport {
 		utilisateurWS.setNumMatrUser(utilisateur.getNumMatrUser());
 		utilisateurWS.setNomUti(utilisateur.getNomUti());
 		utilisateurWS.setPrenomUti(utilisateur.getPrenomUti());
-
+		utilisateurWS.setMailUti(utilisateur.getMailUti());
+		
 		String xmlString = null;
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(UtilisateurWS.class);
@@ -89,24 +90,48 @@ public class LoginWS extends SpringBeanAutowiringSupport {
 		
 		notifications = notificationBusiness.findNotificationByUser(numMatrUser);
 
+		for (int i = 0; i < notifications.size(); i++) {
+			switch (notifications.get(i).getProjet().getEtapeProj()) {
+			case "Détails":
+				notifications.get(i).setAvancement(notifications.get(i).getAvancement() * 100 / 2);
+				break;
+			case "Etude de rentabilité":
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 2) * 100 / 12);
+				break;
+			case "Planification du projet":
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 14) * 100 / 28);
+				break;
+			case "Suivi réunion du projet":
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 42) * 100 / 2);
+				break;
+			case "Réception	finale":
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 44) * 100 / 16);
+				break;
+			case "Analyse du cloture projet":
+				notifications.get(i).setAvancement((notifications.get(i).getAvancement() - 60) * 100 / 9);
+				break;
+			default:
+				break;
+			}
+		}
+		
+		
 		notificationWSs.setNotifications(new ArrayList<NotificationWS>());
 
 		for(int i=0; i<notifications.size();i++)
 		{
 			notificationWS = new NotificationWS();
 			notificationWS.setIdNoti(notifications.get(i).getIdNoti());
-			notificationWS.setLibelleNoti(notifications.get(i).getLibelleNoti());
+			notificationWS.setLibelleNoti(notifications.get(i).getProjet().getNomProj());
 			notificationWS.setAvancement(notifications.get(i).getAvancement());
 			notificationWS.setDateNoti(notifications.get(i).getDateNoti());
+			notificationWS.setEtapeProj(notifications.get(i).getProjet().getEtapeProj());
 			notificationWSList.add(notificationWS);
 			notificationWSs.getNotifications().add(notificationWS);
-
 		}
 		
 		JAXB.marshal(notificationWSs, sw);
 		xmlString = sw.toString();
-
-		System.out.println(xmlString);
 
 		return xmlString;
 	}

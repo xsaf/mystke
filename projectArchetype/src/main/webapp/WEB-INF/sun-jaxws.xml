@@ -4,6 +4,6 @@
   version="2.0">
   <endpoint
       name="Login"
-      implementation="com.arabsoft.mySTKE.endpoint.LoginWS"
+      implementation="com.arabsoft.mySTKE.endpoint.UtilisateurNotificationWS"
       url-pattern="/login"/>
 </endpoints>
