@@ -1,6 +1,8 @@
 package com.arabsoft.mySTKE.endpoint;
 
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -17,6 +19,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.arabsoft.mySTKE.business.LoginBusiness;
+import com.arabsoft.mySTKE.business.NotificationBusiness;
+import com.arabsoft.mySTKE.entity.Notification;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
 
 @WebService(targetNamespace = "http://loginws/")
@@ -25,13 +29,22 @@ public class LoginWS extends SpringBeanAutowiringSupport {
 
 	private Utilisateur utilisateur = new Utilisateur();
 	private UtilisateurWS utilisateurWS = new UtilisateurWS();
+	private List<Notification> notifications;
+	private NotificationWS notificationWS;
+	private NotificationWSs notificationWSs = new NotificationWSs();
+	private List<NotificationWS> notificationWSList = new ArrayList<>();
 
+	
 	private String username;
 	private String password;
 
 	@Autowired
 	@Qualifier(value = "loginBusiness")
 	LoginBusiness loginBusiness;
+	
+	@Autowired
+	@Qualifier(value = "notificationBusiness")
+	private NotificationBusiness notificationBusiness;
 
 	public LoginWS() {
 		super();
@@ -46,15 +59,6 @@ public class LoginWS extends SpringBeanAutowiringSupport {
 		utilisateurWS.setNumMatrUser(utilisateur.getNumMatrUser());
 		utilisateurWS.setNomUti(utilisateur.getNomUti());
 		utilisateurWS.setPrenomUti(utilisateur.getPrenomUti());
-		
-		// String[] s = new String[3];
-		// s[0] = utilisateur.getNumMatrUser();
-		// s[1] = utilisateur.getNomUti();
-		// s[2] = utilisateur.getPrenomUti();
-		//
-		// StringWriter sw = new StringWriter();
-		// JAXB.marshal(s, sw);
-		// String xmlString = sw.toString();
 
 		String xmlString = null;
 		try {
@@ -65,9 +69,44 @@ public class LoginWS extends SpringBeanAutowiringSupport {
 			xmlString = sw.toString();
 
 		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		return xmlString;
+	}
+	
+	@WebMethod(operationName = "getNotification")
+	public String getNotification(@WebParam(name = "numMatrUser") String numMatrUser){
+		String xmlString = null;
+		StringWriter sw = null;
+		try {
+			JAXBContext jaxbContext = JAXBContext.newInstance(NotificationWS.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+			sw = new StringWriter();
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+		
+		notifications = notificationBusiness.findNotificationByUser(numMatrUser);
+
+		notificationWSs.setNotifications(new ArrayList<NotificationWS>());
+
+		for(int i=0; i<notifications.size();i++)
+		{
+			notificationWS = new NotificationWS();
+			notificationWS.setIdNoti(notifications.get(i).getIdNoti());
+			notificationWS.setLibelleNoti(notifications.get(i).getLibelleNoti());
+			notificationWS.setAvancement(notifications.get(i).getAvancement());
+			notificationWS.setDateNoti(notifications.get(i).getDateNoti());
+			notificationWSList.add(notificationWS);
+			notificationWSs.getNotifications().add(notificationWS);
+
+		}
+		
+		JAXB.marshal(notificationWSs, sw);
+		xmlString = sw.toString();
+
+		System.out.println(xmlString);
 
 		return xmlString;
 	}
@@ -103,4 +142,30 @@ public class LoginWS extends SpringBeanAutowiringSupport {
 	public void setLoginBusiness(LoginBusiness loginBusiness) {
 		this.loginBusiness = loginBusiness;
 	}
+
+	public UtilisateurWS getUtilisateurWS() {
+		return utilisateurWS;
+	}
+
+	public void setUtilisateurWS(UtilisateurWS utilisateurWS) {
+		this.utilisateurWS = utilisateurWS;
+	}
+
+	public List<Notification> getNotifications() {
+		return notifications;
+	}
+
+	public void setNotifications(List<Notification> notifications) {
+		this.notifications = notifications;
+	}
+
+	public NotificationBusiness getNotificationBusiness() {
+		return notificationBusiness;
+	}
+
+	public void setNotificationBusiness(NotificationBusiness notificationBusiness) {
+		this.notificationBusiness = notificationBusiness;
+	}
+	
+	
 }
