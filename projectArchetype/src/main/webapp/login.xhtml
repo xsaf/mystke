@@ -13,7 +13,7 @@
 
 <h:head>
 	<!-- META SECTION -->
-	<title>MySTKE - Login</title>
+	<title>STKE-App - Login</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -32,16 +32,15 @@
 	<div class="login-container">
 
 		<div class="login-box animated fadeInDown">
-			<div class="login-logo"></div>
 			<div class="login-body">
 				<div class="login-title">
-					<strong>Welcome</strong>, Please login
+					<strong>Bienvenue</strong>,
 				</div>
 				<h:form id="loginFormId" prependId="false" role="login"
 					action="index.html" styleClass="form-horizontal" method="post">
 					<div class="form-group">
 						<div class="col-md-12">
-							<p:inputText id="j_username" name="j_username" placeholder="Entrer votre login"
+							<p:inputText id="j_username" name="j_username" placeholder="Entrer votre matricule"
 								value="#{loginCtr.username}" styleClass="form-control"
 								required="true" />
 						</div>
@@ -56,7 +55,7 @@
 					<div style="margin-left: 3cm" class="form-group">
 						<div align="center" class="col-md-6">
 							<h:commandButton styleClass="btn btn-info btn-block"
-								action="#{loginCtr.doLogin()}" value="Login" />
+								action="#{loginCtr.doLogin()}" value="Connexion" />
 
 						</div>
 					</div>
