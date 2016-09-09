@@ -1,5 +1,7 @@
 package com.arabsoft.mySTKE.entity;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,8 @@ public class Planning {
 	private int reunionSemaineReel;
 	private int clotureSemaineReel;
 	private int analyseSemaineReel;
+	private Date dateDebut;
+	private Date dateFin;
 	@ManyToOne
 	private Projet projet;
 
@@ -122,6 +126,22 @@ public class Planning {
 
 	public void setAnalyseSemaineReel(int analyseSemaineReel) {
 		this.analyseSemaineReel = analyseSemaineReel;
+	}
+
+	public Date getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public Date getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
 	}
 	
 	

@@ -27,5 +27,10 @@ public class PlanningDaoImpl implements IPlanningDao{
 		List<Planning> p1 = genericDao.findByPropriety(Planning.class.getName(), "PROJET_IDPROJ", ""+idProj);
 		return p1.get(0);
 	}
+
+	@Override
+	public void update(Planning planning) {
+		genericDao.update(planning);
+	}
 	
 }

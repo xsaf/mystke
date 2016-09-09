@@ -8,4 +8,6 @@ public interface IPlanningDao {
 
 	Planning findPlanningByProjet(int idProj);
 
+	void update(Planning planning);
+
 }

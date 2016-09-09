@@ -1,5 +1,7 @@
 package com.arabsoft.mySTKE.controller;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
@@ -20,6 +24,7 @@ import com.arabsoft.mySTKE.business.AnalyseFinanciereBusiness;
 import com.arabsoft.mySTKE.business.AnalyseZoneBusiness;
 import com.arabsoft.mySTKE.business.EquipeBusiness;
 import com.arabsoft.mySTKE.business.EtudeRentabiliteBusiness;
+import com.arabsoft.mySTKE.business.PlanningBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
 import com.arabsoft.mySTKE.business.ProjetValidationBusiness;
 import com.arabsoft.mySTKE.business.TerrainBusiness;
@@ -32,6 +37,7 @@ import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Equipe;
 import com.arabsoft.mySTKE.entity.EtudeRentabillite;
 import com.arabsoft.mySTKE.entity.Fonction;
+import com.arabsoft.mySTKE.entity.Planning;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
 import com.arabsoft.mySTKE.entity.Terrain;
@@ -56,6 +62,10 @@ public class EtudeCtr {
 	private AnalyseFinanciere analyseFinanciere = new AnalyseFinanciere();
 	private ProjetValidation projetValidation = new ProjetValidation();
 	private AbsDoc absDoc = new Dossier();
+	private Planning planning = new Planning();
+
+	@ManagedProperty(value = "#{planningBusiness}")
+	private PlanningBusiness planningBusiness;
 
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -102,7 +112,6 @@ public class EtudeCtr {
 		projet.setIdProj(idprojet);
 
 		projet = projetBusiness.findProjetById(projet.getIdProj());
-		
 
 		if (projet.getDescEtat() >= 112) {
 			absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
@@ -148,7 +157,7 @@ public class EtudeCtr {
 		}
 
 	}
-	
+
 	public void notification(Projet projet) {
 	}
 
@@ -242,6 +251,14 @@ public class EtudeCtr {
 		projet.setEtapeProj("Planification du projet");
 		projet = projetBusiness.updateProjet(projet);
 		terrainBusiness.updateTerrain(terrain);
+
+		Date dateDebut = new Date();
+		planning = planningBusiness.SelectPlanningByProjet(projet.getIdProj());
+		int d = Days.daysBetween(new LocalDate(planning.getDateDebut()), new LocalDate(dateDebut)).getDays();
+		planning.setEtudeSemaineReel(d/7);		
+		planning.setDateDebut(dateDebut);
+		planning.setProjet(projet);
+		planningBusiness.updatePlanning(planning);
 	}
 
 	public Fonction getFonction() {
@@ -458,6 +475,22 @@ public class EtudeCtr {
 
 	public void setGedCtr(GedCtr gedCtr) {
 		this.gedCtr = gedCtr;
+	}
+
+	public Planning getPlanning() {
+		return planning;
+	}
+
+	public void setPlanning(Planning planning) {
+		this.planning = planning;
+	}
+
+	public PlanningBusiness getPlanningBusiness() {
+		return planningBusiness;
+	}
+
+	public void setPlanningBusiness(PlanningBusiness planningBusiness) {
+		this.planningBusiness = planningBusiness;
 	}
 
 }

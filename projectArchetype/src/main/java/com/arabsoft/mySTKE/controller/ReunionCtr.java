@@ -1,5 +1,6 @@
 package com.arabsoft.mySTKE.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +10,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
+
 import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.PlanningActiviteBusiness;
+import com.arabsoft.mySTKE.business.PlanningBusiness;
 import com.arabsoft.mySTKE.business.PlanningGlobalBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
 import com.arabsoft.mySTKE.business.ProjetValidationBusiness;
@@ -18,6 +23,7 @@ import com.arabsoft.mySTKE.business.ReunionChantierBusiness;
 import com.arabsoft.mySTKE.entity.AbsDoc;
 import com.arabsoft.mySTKE.entity.Dossier;
 import com.arabsoft.mySTKE.entity.Fonction;
+import com.arabsoft.mySTKE.entity.Planning;
 import com.arabsoft.mySTKE.entity.PlanningActivite;
 import com.arabsoft.mySTKE.entity.PlanningGlobal;
 import com.arabsoft.mySTKE.entity.Projet;
@@ -39,7 +45,10 @@ public class ReunionCtr {
 	private ProjetValidation projetValidation = new ProjetValidation();
 	private PlanningActivite selectedActivite = new PlanningActivite();
 	private AbsDoc absDoc = new Dossier();
+	private Planning planning = new Planning();
 
+	@ManagedProperty(value = "#{planningBusiness}")
+	private PlanningBusiness planningBusiness;
 
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -122,6 +131,14 @@ public class ReunionCtr {
 		projetValidation.setEtatValid(412);
 		projetValidation.setProjet(projet);
 		projetValidationBusiness.createProjetValid(projetValidation);
+		
+		Date dateDebut = new Date();
+		planning = planningBusiness.SelectPlanningByProjet(projet.getIdProj());
+		int d = Days.daysBetween(new LocalDate(planning.getDateDebut()), new LocalDate(dateDebut)).getDays();
+		planning.setEtudeSemaineReel(d/7);		
+		planning.setDateDebut(dateDebut);
+		planning.setProjet(projet);
+		planningBusiness.updatePlanning(planning);
 	}
 	
 
@@ -283,6 +300,22 @@ public class ReunionCtr {
 
 	public void setGedCtr(GedCtr gedCtr) {
 		this.gedCtr = gedCtr;
+	}
+
+	public Planning getPlanning() {
+		return planning;
+	}
+
+	public void setPlanning(Planning planning) {
+		this.planning = planning;
+	}
+
+	public PlanningBusiness getPlanningBusiness() {
+		return planningBusiness;
+	}
+
+	public void setPlanningBusiness(PlanningBusiness planningBusiness) {
+		this.planningBusiness = planningBusiness;
 	}
 	
 

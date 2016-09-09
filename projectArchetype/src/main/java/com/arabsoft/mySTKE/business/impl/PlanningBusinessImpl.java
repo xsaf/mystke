@@ -25,4 +25,9 @@ public class PlanningBusinessImpl implements PlanningBusiness{
 		return planningDao.findPlanningByProjet(idProj);
 	}
 
+	@Override
+	public void updatePlanning(Planning planning) {
+		planningDao.update(planning);
+	}
+
 }

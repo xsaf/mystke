@@ -1,5 +1,6 @@
 package com.arabsoft.mySTKE.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -7,15 +8,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.joda.time.Days;
+import org.joda.time.LocalDate;
+
 import com.arabsoft.mySTKE.business.AbsDocBusiness;
 import com.arabsoft.mySTKE.business.AvisBusiness;
 import com.arabsoft.mySTKE.business.AxeAmeliorationBusiness;
+import com.arabsoft.mySTKE.business.PlanningBusiness;
 import com.arabsoft.mySTKE.business.ProjetBusiness;
 import com.arabsoft.mySTKE.business.ProjetValidationBusiness;
 import com.arabsoft.mySTKE.entity.AbsDoc;
 import com.arabsoft.mySTKE.entity.Avis;
 import com.arabsoft.mySTKE.entity.AxeAmelioration;
 import com.arabsoft.mySTKE.entity.Dossier;
+import com.arabsoft.mySTKE.entity.Planning;
 import com.arabsoft.mySTKE.entity.Projet;
 import com.arabsoft.mySTKE.entity.ProjetValidation;
 import com.arabsoft.mySTKE.security.habilitation.model.Utilisateur;
@@ -37,6 +43,10 @@ public class AnalyseCtr {
 	private Avis selectedAvis2 = new Avis();
 	private String selectedValid;
 	private String selectedValid2;
+	private Planning planning = new Planning();
+
+	@ManagedProperty(value = "#{planningBusiness}")
+	private PlanningBusiness planningBusiness;
 
 	@ManagedProperty(value = "#{projetBusiness}")
 	private ProjetBusiness projetBusiness;
@@ -149,6 +159,14 @@ public class AnalyseCtr {
 		projet.setDescEtat(619);
 		projet.setEtapeProj("Cloturé");
 		projet = projetBusiness.updateProjet(projet);
+		
+		Date dateDebut = new Date();
+		planning = planningBusiness.SelectPlanningByProjet(projet.getIdProj());
+		int d = Days.daysBetween(new LocalDate(planning.getDateDebut()), new LocalDate(dateDebut)).getDays();
+		planning.setEtudeSemaineReel(d/7);		
+		planning.setDateDebut(dateDebut);
+		planning.setProjet(projet);
+		planningBusiness.updatePlanning(planning);
 	}
 
 	public Projet getProjet() {
@@ -286,5 +304,22 @@ public class AnalyseCtr {
 	public void setGedCtr(GedCtr gedCtr) {
 		this.gedCtr = gedCtr;
 	}
+
+	public Planning getPlanning() {
+		return planning;
+	}
+
+	public void setPlanning(Planning planning) {
+		this.planning = planning;
+	}
+
+	public PlanningBusiness getPlanningBusiness() {
+		return planningBusiness;
+	}
+
+	public void setPlanningBusiness(PlanningBusiness planningBusiness) {
+		this.planningBusiness = planningBusiness;
+	}
+	
 
 }

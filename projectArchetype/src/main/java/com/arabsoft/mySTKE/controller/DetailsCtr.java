@@ -1,5 +1,6 @@
 package com.arabsoft.mySTKE.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -187,6 +188,8 @@ public class DetailsCtr {
 	}
 
 	public void createPlanning() {
+		Date dateDebut = new Date();
+		planning.setDateDebut(dateDebut);
 		planning.setProjet(projet);
 		planningBusiness.createPlanning(planning);
 	}
@@ -194,8 +197,8 @@ public class DetailsCtr {
 	public void createEquipe() {
 		equipe.setProjet(projet);
 
-		equipe.setUtilisateur(user);
-		equipeBusiness.createEquipe(equipe);
+//		equipe.setUtilisateur(user);
+//		equipeBusiness.createEquipe(equipe);
 
 		utilisateur = new Utilisateur();
 		utilisateur.setNumMatrUser(agent);

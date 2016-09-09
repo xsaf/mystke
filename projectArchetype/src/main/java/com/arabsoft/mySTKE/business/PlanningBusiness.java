@@ -9,6 +9,7 @@ public interface PlanningBusiness {
 
 	void createPlanning(Planning planning);
 	Planning SelectPlanningByProjet(int idProj);
+	void updatePlanning(Planning planning);
 	
 	
 
