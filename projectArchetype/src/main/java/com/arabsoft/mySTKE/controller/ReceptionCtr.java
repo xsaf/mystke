@@ -80,7 +80,7 @@ public class ReceptionCtr {
 		if (projet.getDescEtat() >= 412) {
 			absDoc = absDocBusiness.findAbsDocByIdProjet(projet.getIdProj());
 			gedCtr.setProjetFolder(absDoc.getNumAbsDoc());
-			absDoc = absDocBusiness.findAbsDocByEtapeProjet(projet.getIdProj(), "Cloture du projet");
+			absDoc = absDocBusiness.findAbsDocByEtapeProjet(projet.getIdProj(), "Réception finale");
 			gedCtr.setFolder(absDoc.getNumAbsDoc());
 		}
 		if (projet.getDescEtat() >= 511) {

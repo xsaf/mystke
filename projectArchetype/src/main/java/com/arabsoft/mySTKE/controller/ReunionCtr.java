@@ -126,7 +126,7 @@ public class ReunionCtr {
 	
 	public void updateProjetValidNotifier(){
 		projet.setDescEtat(412);
-		projet.setEtapeProj("Réception	finale");
+		projet.setEtapeProj("Réception finale");
 		projet = projetBusiness.updateProjet(projet);
 		projetValidation.setEtatValid(412);
 		projetValidation.setProjet(projet);

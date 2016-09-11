@@ -425,13 +425,12 @@
 												<p:commandButton styleClass="btn btn-info btn-rounded"
 													value="Travaux Terminés" title="Valider"
 													action="#{reunionCtr.updateProjetValidNotifier()}"
-													onclick="createFolder('Cloture du projet');" ajax="false" />
+													onclick="createFolder('Réception finale');" ajax="false" />
 											</h:form></td>
 									</table>
 								</sec:authorize>
 							</p:outputPanel>
 							<p:outputPanel rendered="#{reunionCtr.projet.descEtat>='412'}">
-								<sec:authorize access="hasRole('PRRST')">
 									<table style="margin-bottom: 0.4cm; margin-top: 0.5cm;">
 										<td width="340px">
 											<ul>
@@ -442,7 +441,6 @@
 										</td>
 										<td><h4>Travaux terminés et Projet validée</h4></td>
 									</table>
-								</sec:authorize>
 							</p:outputPanel>
 						</div>
 					</div>
