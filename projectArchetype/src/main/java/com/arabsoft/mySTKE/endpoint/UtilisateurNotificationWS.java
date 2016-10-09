@@ -34,14 +34,13 @@ public class UtilisateurNotificationWS extends SpringBeanAutowiringSupport {
 	private NotificationWSs notificationWSs = new NotificationWSs();
 	private List<NotificationWS> notificationWSList = new ArrayList<>();
 
-	
 	private String username;
 	private String password;
 
 	@Autowired
 	@Qualifier(value = "loginBusiness")
 	LoginBusiness loginBusiness;
-	
+
 	@Autowired
 	@Qualifier(value = "notificationBusiness")
 	private NotificationBusiness notificationBusiness;
@@ -60,7 +59,7 @@ public class UtilisateurNotificationWS extends SpringBeanAutowiringSupport {
 		utilisateurWS.setNomUti(utilisateur.getNomUti());
 		utilisateurWS.setPrenomUti(utilisateur.getPrenomUti());
 		utilisateurWS.setMailUti(utilisateur.getMailUti());
-		
+
 		String xmlString = null;
 		try {
 			JAXBContext jaxbContext = JAXBContext.newInstance(UtilisateurWS.class);
@@ -75,9 +74,9 @@ public class UtilisateurNotificationWS extends SpringBeanAutowiringSupport {
 
 		return xmlString;
 	}
-	
+
 	@WebMethod(operationName = "getNotification")
-	public String getNotification(@WebParam(name = "numMatrUser") String numMatrUser){
+	public String getNotification(@WebParam(name = "numMatrUser") String numMatrUser) {
 		String xmlString = null;
 		StringWriter sw = null;
 		try {
@@ -87,7 +86,7 @@ public class UtilisateurNotificationWS extends SpringBeanAutowiringSupport {
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
-		
+
 		notifications = notificationBusiness.findNotificationByUser(numMatrUser);
 
 		for (int i = 0; i < notifications.size(); i++) {
@@ -114,22 +113,21 @@ public class UtilisateurNotificationWS extends SpringBeanAutowiringSupport {
 				break;
 			}
 		}
-		
-		
+
 		notificationWSs.setNotifications(new ArrayList<NotificationWS>());
 
-		for(int i=0; i<notifications.size();i++)
-		{
+		for (int i = 0; i < notifications.size(); i++) {
 			notificationWS = new NotificationWS();
 			notificationWS.setIdNoti(notifications.get(i).getIdNoti());
-			notificationWS.setLibelleNoti(notifications.get(i).getProjet().getNomProj());
+			notificationWS.setLibelleNoti(notifications.get(i).getProjet().getNomProj() + "   /   "
+					+ notifications.get(i).getProjet().getEtapeProj());
 			notificationWS.setAvancement(notifications.get(i).getAvancement());
 			notificationWS.setDateNoti(notifications.get(i).getDateNoti());
 			notificationWS.setEtapeProj(notifications.get(i).getProjet().getEtapeProj());
 			notificationWSList.add(notificationWS);
 			notificationWSs.getNotifications().add(notificationWS);
 		}
-		
+
 		JAXB.marshal(notificationWSs, sw);
 		xmlString = sw.toString();
 
@@ -191,6 +189,5 @@ public class UtilisateurNotificationWS extends SpringBeanAutowiringSupport {
 	public void setNotificationBusiness(NotificationBusiness notificationBusiness) {
 		this.notificationBusiness = notificationBusiness;
 	}
-	
-	
+
 }

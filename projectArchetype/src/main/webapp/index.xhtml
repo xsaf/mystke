@@ -58,7 +58,7 @@
 								<div class="profile-data-title">#{templateCtr.user.fonction.libelleFonction}</div>
 							</div>
 						</div></li>
-					<li><sec:authorize access="hasRole('PRDG')">
+					<li><sec:authorize access="hasRole('PRAD')">
 							<a href="users.xhtml"><span class="fa fa-desktop"></span> <span
 								class="xn-text">Ajouter/Modifier utilisateur</span></a>
 						</sec:authorize></li>
@@ -74,44 +74,49 @@
 
 			<div>
 
-				<div class="panel panel-default" style="width: 26.5cm; margin-left: 0.4cm">
-					<div class="panel-heading">
-						<h3 class="panel-title">Projets Immobilières</h3>
-					</div>
-					<div class="panel-body">
-						<div class="list-group border-bottom">
+				<sec:authorize access="hasRole('PRDG')">
 
-							<h:form id="hformid" style="text-align: center">
+					<div class="panel panel-default"
+						style="width: 26.5cm; margin-left: 0.4cm">
+						<div class="panel-heading">
+							<h3 class="panel-title">Projets Immobilières</h3>
+						</div>
+						<div class="panel-body">
+							<div class="list-group border-bottom">
 
-								<p:remoteCommand name="foldering"
-									actionListener="#{accueilCtr.createFolder()}" />
+								<h:form id="hformid" style="text-align: center">
 
-								<p:inputText id="idProjet" binding="#{idProj}"
-									value="#{accueilCtr.gedCtr.folder}" style="display:none" />
+									<p:remoteCommand name="foldering"
+										actionListener="#{accueilCtr.createFolder()}" />
 
-								<table style="text-align: center">
-									<td><p:inputText id="nomProjet" binding="#{nomProj}"
-											styleClass="form-control"
-											placeholder="Nouveau Projet Immobilière"
-											value="#{gedCtr.projet.nomProj}"
-											style="margin-right: 14px; width: 5.5cm" /></td>
-									<td><p:commandButton styleClass="btn btn-info btn-rounded"
-											value="ok" title="Valider" onclick="createProjet();"
-											action="#{accueilCtr.toIndex()}" validateClient="true">
-											<f:actionListener
-												binding="#{accueilCtr.createProjetNotifier(nomProj.value)}" />
-											<f:actionListener binding="#{accueilCtr.createFolder()}" />
-										</p:commandButton></td>
-								</table>
+									<p:inputText id="idProjet" binding="#{idProj}"
+										value="#{accueilCtr.gedCtr.folder}" style="display:none" />
 
-							</h:form>
+									<table style="text-align: center">
+										<td><p:inputText id="nomProjet" binding="#{nomProj}"
+												styleClass="form-control"
+												placeholder="Nouveau Projet Immobilière"
+												value="#{gedCtr.projet.nomProj}"
+												style="margin-right: 14px; width: 5.5cm" /></td>
+										<td><p:commandButton
+												styleClass="btn btn-info btn-rounded" value="ok"
+												title="Valider" onclick="createProjet();"
+												action="#{accueilCtr.toIndex()}" validateClient="true">
+												<f:actionListener
+													binding="#{accueilCtr.createProjetNotifier(nomProj.value)}" />
+												<f:actionListener binding="#{accueilCtr.createFolder()}" />
+											</p:commandButton></td>
+									</table>
 
+								</h:form>
+
+							</div>
 						</div>
 					</div>
-				</div>
 
+				</sec:authorize>
 
-				<div  class="col-md-4">
+				<div class="col-md-4">
 					<h:form id="form">
 						<p:growl id="msgs" showDetail="true" />
 						<div align="center">
